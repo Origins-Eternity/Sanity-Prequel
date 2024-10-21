@@ -1,0 +1,16 @@
+[
+{
+  "modid": "sanity",
+  "name": "Sanity",
+  "description": "A mod which adds sanity to minecraft",
+  "version": "1.0.0",
+  "mcversion": "1.12.2",
+  "url": "",
+  "updateUrl": "https://github.com/Origins-Eternity/Sanity",
+  "authorList": ["Origins_Eternity"],
+  "credits": "",
+  "logoFile": "assets/sanity/textures/logo.png",
+  "screenshots": [],
+  "dependencies": []
+}
+]
