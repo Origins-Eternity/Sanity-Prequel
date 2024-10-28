@@ -9,9 +9,11 @@ public class SanityStorage implements Capability.IStorage<ISanity> {
         @Override
         public NBTBase writeNBT(Capability<ISanity> capability, ISanity instance, EnumFacing side) {
             NBTTagCompound compound = new NBTTagCompound();
-            compound.setFloat("Sanity", instance.getSanity());
-            compound.setBoolean("Exhausted", instance.isExhausted());
-            compound.setBoolean("Tired", instance.isTired());
+            compound.setInteger("Sanity", instance.getSanity());
+            compound.setInteger("Down", instance.getDown());
+            compound.setInteger("Up", instance.getUp());
+            compound.setBoolean("Lost", instance.isLost());
+            compound.setBoolean("Dizzy", instance.isDizzy());
             return compound;
         }
 
@@ -19,9 +21,11 @@ public class SanityStorage implements Capability.IStorage<ISanity> {
         public void readNBT(Capability<ISanity> capability, ISanity instance, EnumFacing side, NBTBase nbt) {
             if (nbt instanceof NBTTagCompound) {
                 NBTTagCompound compound = (NBTTagCompound) nbt;
-                instance.setSanity(compound.getFloat("Sanity"));
-                instance.setExhausted(compound.getBoolean("Exhausted"));
-                instance.setTired(compound.getBoolean("Tired"));
+                instance.setSanity(compound.getInteger("Sanity"));
+                instance.setDown(compound.getInteger("Down"));
+                instance.setUp(compound.getInteger("Up"));
+                instance.setLost(compound.getBoolean("Lost"));
+                instance.setDizzy(compound.getBoolean("Dizzy"));
             }
         }
     }

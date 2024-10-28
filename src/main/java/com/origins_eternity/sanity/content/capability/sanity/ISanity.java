@@ -1,17 +1,25 @@
 package com.origins_eternity.sanity.content.capability.sanity;
 
 public interface ISanity {
-    void setSanity(float sanity);
+    void setSanity(int sanity);
 
-    float getSanity();
+    int getSanity();
 
-    boolean isExhausted();
+    void setDown(int down);
 
-    void setExhausted(boolean exhausted);
+    int getDown();
 
-    boolean isTired();
+    void setUp(int up);
 
-    void setTired(boolean tired);
+    int getUp();
+
+    boolean isLost();
+
+    void setLost(boolean lost);
+
+    boolean isDizzy();
+
+    void setDizzy(boolean dizzy);
 
     void consumeSanity(int value);
 

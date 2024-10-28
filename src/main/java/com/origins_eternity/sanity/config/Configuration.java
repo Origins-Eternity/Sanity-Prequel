@@ -10,11 +10,22 @@ import static com.origins_eternity.sanity.Sanity.MOD_ID;
 
 @Config(modid = MOD_ID)
 public class Configuration {
-        @Config.Name("Languages")
-        @Config.RequiresMcRestart()
-        @Config.LangKey("config.ercore.languages")
-        @Config.Comment("A list of languages which will be automatically changed.")
-        public static String[] languages = new String[]{"zh_cn"};
+    @Config.Name("Kill Max")
+    @Config.LangKey("config.ercore.kill")
+    @Config.Comment("The max sanity to reduce when player kill mobs.")
+    @Config.RangeInt(min = 5, max = 100)
+    public static int kill = 5;
+
+    @Config.Name("Eat Max")
+    @Config.LangKey("config.ercore.eat")
+    @Config.Comment("The max sanity to reduce when player eat rotten food.")
+    @Config.RangeInt(min = 2, max = 100)
+    public static int eat = 2;
+
+    @Config.Name("Rotten Food")
+    @Config.LangKey("config.ercore.food")
+    @Config.Comment("The oredict name of rotten food.")
+    public static String food = "foodRotten";
 
     @Mod.EventBusSubscriber(modid = MOD_ID)
     public static class ConfigSyncHandler {

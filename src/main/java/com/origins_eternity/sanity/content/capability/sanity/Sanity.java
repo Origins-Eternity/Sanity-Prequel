@@ -1,53 +1,83 @@
 package com.origins_eternity.sanity.content.capability.sanity;
 
 public class Sanity implements ISanity {
-    private float sanity = 20;
+    private int sanity = 100;
 
-    private boolean exhausted = false;
+    private int down = 0;
 
-    private boolean tired = false;
+    private int up = 0;
+
+    private boolean lost = false;
+
+    private boolean dizzy = false;
 
     @Override
-    public void setSanity(float sanity) {
+    public void setSanity(int sanity) {
         this.sanity = sanity;
     }
 
     @Override
-    public float getSanity() {
+    public int getSanity() {
         return sanity;
     }
 
     @Override
-    public boolean isExhausted() {
-        return exhausted;
+    public void setDown(int down) {
+        this.down = down;
     }
 
     @Override
-    public void setExhausted(boolean exhausted) {
-        this.exhausted = exhausted;
+    public int getDown() {
+        return down;
     }
 
     @Override
-    public boolean isTired() {
-        return tired;
+    public void setUp(int up) {
+        this.up = up;
     }
 
     @Override
-    public void setTired(boolean tired) {
-        this.tired = tired;
+    public int getUp() {
+        return up;
+    }
+
+    @Override
+    public boolean isLost() {
+        return lost;
+    }
+
+    @Override
+    public void setLost(boolean lost) {
+        this.lost = lost;
+    }
+
+    @Override
+    public boolean isDizzy() {
+        return dizzy;
+    }
+
+    @Override
+    public void setDizzy(boolean dizzy) {
+        this.dizzy = dizzy;
     }
 
     @Override
     public void consumeSanity(int value) {
         sanity -= value;
-        if (sanity <= 5) {
-            if (!tired) {
-                setTired(true);
+        if (up > 0) {
+            up = 0;
+        }
+        down += 30;
+        if (sanity < 50) {
+            if (!dizzy) {
+                setDizzy(true);
             }
-            if (sanity <= 0) {
-                sanity = 0;
-                if (!exhausted) {
-                    setExhausted(true);
+            if (sanity < 10) {
+                if (!lost) {
+                    setLost(true);
+                }
+                if (sanity < 0) {
+                    sanity = 0;
                 }
             }
         }
@@ -56,13 +86,20 @@ public class Sanity implements ISanity {
     @Override
     public void recoverSanity(int value) {
             sanity += value;
-            if (sanity > 0) {
-                if (exhausted) {
-                    exhausted = false;
+            if (down > 0) {
+                down = 0;
+            }
+            up += 30;
+            if (sanity >= 10) {
+                if (lost) {
+                    setLost(false);
                 }
-                if (sanity >= 5) {
-                    if (tired) {
-                        setTired(false);
+                if (sanity >= 50) {
+                    if (dizzy) {
+                        setDizzy(false);
+                    }
+                    if (sanity > 100) {
+                        sanity = 100;
                     }
                 }
             }

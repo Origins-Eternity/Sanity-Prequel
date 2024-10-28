@@ -1,24 +1,33 @@
 package com.origins_eternity.sanity.event;
 
+import com.origins_eternity.sanity.config.Configuration;
 import com.origins_eternity.sanity.content.capability.Capabilities;
 import com.origins_eternity.sanity.content.capability.sanity.ISanity;
 import com.origins_eternity.sanity.content.capability.sanity.SanityProvider;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemFood;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
-import net.minecraftforge.event.entity.player.AttackEntityEvent;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.entity.player.PlayerWakeUpEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
+import net.minecraftforge.oredict.OreDictionary;
+
+import java.util.concurrent.ThreadLocalRandom;
 
 import static com.origins_eternity.sanity.Sanity.MOD_ID;
-import static com.origins_eternity.sanity.utils.Utils.checkStatus;
-import static com.origins_eternity.sanity.utils.Utils.tickUpdate;
+import static com.origins_eternity.sanity.content.capability.Capabilities.SANITY;
+import static com.origins_eternity.sanity.utils.Utils.*;
 
 @Mod.EventBusSubscriber(modid = MOD_ID)
 public class CommonEvent {
@@ -27,14 +36,6 @@ public class CommonEvent {
         Entity entity = event.getObject();
         if (entity instanceof EntityPlayer) {
             event.addCapability(new ResourceLocation(MOD_ID, "sanity"), new SanityProvider(Capabilities.SANITY));
-        }
-    }
-
-    @SubscribeEvent
-    public static void onAttackEntity(AttackEntityEvent event) {
-        EntityPlayer player = event.getEntityPlayer();
-        if (!player.isCreative()) {
-            ISanity sanity = player.getCapability(Capabilities.SANITY, null);
         }
     }
 
@@ -52,6 +53,50 @@ public class CommonEvent {
         }
     }
 
+    @SubscribeEvent
+    public static void onLivingDeath(LivingDeathEvent event) {
+        if (event.getEntity().world.isRemote || event.getSource() == null) return;
+        Entity killer = event.getSource().getTrueSource();
+        if ((killer != null) && (killer instanceof EntityPlayer)) {
+            EntityPlayer player = (EntityPlayer) killer;
+            if (!player.isCreative()) {
+                ISanity sanity = player.getCapability(SANITY, null);
+                sanity.consumeSanity(ThreadLocalRandom.current().nextInt(1, Configuration.kill + 1));
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void LivingEntityUseItem(LivingEntityUseItemEvent.Finish event){
+        if (event.getEntityLiving() instanceof EntityPlayerMP) {
+            EntityPlayerMP player = (EntityPlayerMP) event.getEntityLiving();
+            if ((!player.isCreative()) && (event.getItem().getItem() instanceof ItemFood)) {
+                ISanity sanity = player.getCapability(SANITY, null);
+                if (itemMatched(event.getItem())) {
+                    sanity.consumeSanity(ThreadLocalRandom.current().nextInt(1, Configuration.eat + 1));
+                } else {
+                    sanity.recoverSanity(ThreadLocalRandom.current().nextInt(1, 6));
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onPlayerWakeUp(PlayerWakeUpEvent event){
+        if(!event.getEntityPlayer().world.isRemote) {
+            EntityPlayer player = event.getEntityPlayer();
+            if (!player.isCreative()) {
+                ISanity sanity = player.getCapability(SANITY, null);
+                sanity.recoverSanity(100 - sanity.getSanity());
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void registerItems(RegistryEvent.Register<Item> event) {
+        OreDictionary.registerOre(Configuration.food, Items.ROTTEN_FLESH);
+    }
+
     static int counter;
 
     @SubscribeEvent
@@ -60,10 +105,8 @@ public class CommonEvent {
         if ((!player.isSpectator()) && (!player.isCreative())) {
             counter++;
             if (counter > 10) {
-                World world = player.world;
-                checkStatus(player);
-                if (!world.isRemote) {
-                    tickUpdate(player);
+                if (!player.world.isRemote) {
+                    tickPlayer(player);
                 }
                 counter = 0;
             }
