@@ -24,7 +24,7 @@ public class Overlay extends Gui {
             GlStateManager.enableBlend();
             GlStateManager.pushMatrix();
             int posX = event.getResolution().getScaledWidth() / 2 - 130;
-            int posY = event.getResolution().getScaledHeight() - GuiIngameForge.right_height + 20;
+            int posY = event.getResolution().getScaledHeight() - GuiIngameForge.right_height + 30;
             mc.getTextureManager().bindTexture(gui);
             drawTexture(player, posX, posY);
             GlStateManager.popMatrix();
