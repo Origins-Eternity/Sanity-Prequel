@@ -1,6 +1,8 @@
-﻿config.ercore.eat=吞咽最大值
-config.ercore.eat.tooltip=玩家食用腐烂食物理智下降的最大值。
-config.ercore.kill=杀生最大值
-config.ercore.kill.tooltip=玩家杀死生物后理智下降的最大值。
-config.ercore.food=腐烂食物
-config.ercore.food.tooltip=为腐烂食物添加的矿辞名称。
+﻿config.sanity.eat=吞咽最大值
+config.sanity.eat.tooltip=玩家食用腐烂食物理智下降的最大值。
+config.sanity.kill=杀生最大值
+config.sanity.kill.tooltip=玩家杀死生物后理智下降的最大值。
+config.sanity.lightning=闪电最大值
+config.sanity.lightning.tooltip=玩家被闪电击中后理智下降的最大值。
+config.sanity.food=坏的食物
+config.sanity.food.tooltip=为坏的食物添加的矿辞名称。

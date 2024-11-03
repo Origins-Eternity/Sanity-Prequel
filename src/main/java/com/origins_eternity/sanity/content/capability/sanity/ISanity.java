@@ -1,9 +1,9 @@
 package com.origins_eternity.sanity.content.capability.sanity;
 
 public interface ISanity {
-    void setSanity(int sanity);
+    void setSanity(float sanity);
 
-    int getSanity();
+    float getSanity();
 
     void setDown(int down);
 
@@ -21,7 +21,7 @@ public interface ISanity {
 
     void setDizzy(boolean dizzy);
 
-    void consumeSanity(int value);
+    void consumeSanity(float value);
 
-    void recoverSanity(int value);
+    void recoverSanity(float value);
 }

@@ -41,23 +41,23 @@ public class Overlay extends Gui {
         int heath = posY + consume;
         if (sanity.getDown() > 0) {
             if (sanity.getDown() % 2 == 0) {
-                drawTexturedModalRect(posX + 13, posY, 105, 0, 6, consume);
+                drawTexturedModalRect(posX + 13, posY, 72, 0, 6, consume);
                 drawTexturedModalRect(posX, heath, 33, consume, 33, 24 - consume);
-                drawTexturedModalRect(posX + 13, heath, 99, consume, 6, 24 - consume);
+                drawTexturedModalRect(posX + 13, heath, 66, consume, 6, 24 - consume);
             } else {
-                drawTexturedModalRect(posX + 13, posY + 1, 105, 0, 6, consume - 1);
+                drawTexturedModalRect(posX + 13, posY + 1, 72, 0, 6, consume - 1);
                 drawTexturedModalRect(posX, heath, 33, consume, 33, 24 - consume);
-                drawTexturedModalRect(posX + 13, heath, 99, consume - 1, 6, 25 - consume);
+                drawTexturedModalRect(posX + 13, heath, 66, consume - 1, 6, 25 - consume);
             }
         } else if (sanity.getUp() > 0) {
             if (sanity.getUp() % 2 == 0) {
-                drawTexturedModalRect(posX + 13, posY, 117, 0, 6, consume);
+                drawTexturedModalRect(posX + 13, posY, 84, 0, 6, consume);
                 drawTexturedModalRect(posX, heath, 33, consume, 33, 24 - consume);
-                drawTexturedModalRect(posX + 13, heath, 101, consume, 6, 24 - consume);
+                drawTexturedModalRect(posX + 13, heath, 78, consume, 6, 24 - consume);
             } else {
-                drawTexturedModalRect(posX + 13, posY - 1, 117, 0, 6, consume + 1);
+                drawTexturedModalRect(posX + 13, posY - 1, 84, 0, 6, consume + 1);
                 drawTexturedModalRect(posX, heath, 33, consume, 33, 24 - consume);
-                drawTexturedModalRect(posX + 13, heath, 101, consume + 1, 6, 23 - consume);
+                drawTexturedModalRect(posX + 13, heath, 78, consume + 1, 6, 23 - consume);
             }
         } else {
             drawTexturedModalRect(posX, heath, 33, consume, 33, 24 - consume);

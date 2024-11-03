@@ -9,7 +9,7 @@ public class SanityStorage implements Capability.IStorage<ISanity> {
         @Override
         public NBTBase writeNBT(Capability<ISanity> capability, ISanity instance, EnumFacing side) {
             NBTTagCompound compound = new NBTTagCompound();
-            compound.setInteger("Sanity", instance.getSanity());
+            compound.setFloat("Sanity", instance.getSanity());
             compound.setInteger("Down", instance.getDown());
             compound.setInteger("Up", instance.getUp());
             compound.setBoolean("Lost", instance.isLost());
@@ -21,7 +21,7 @@ public class SanityStorage implements Capability.IStorage<ISanity> {
         public void readNBT(Capability<ISanity> capability, ISanity instance, EnumFacing side, NBTBase nbt) {
             if (nbt instanceof NBTTagCompound) {
                 NBTTagCompound compound = (NBTTagCompound) nbt;
-                instance.setSanity(compound.getInteger("Sanity"));
+                instance.setSanity(compound.getFloat("Sanity"));
                 instance.setDown(compound.getInteger("Down"));
                 instance.setUp(compound.getInteger("Up"));
                 instance.setLost(compound.getBoolean("Lost"));

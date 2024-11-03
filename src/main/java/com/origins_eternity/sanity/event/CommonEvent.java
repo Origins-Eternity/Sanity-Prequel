@@ -14,8 +14,10 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerWakeUpEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -87,14 +89,39 @@ public class CommonEvent {
             EntityPlayer player = event.getEntityPlayer();
             if (!player.isCreative()) {
                 ISanity sanity = player.getCapability(SANITY, null);
-                sanity.recoverSanity(100 - sanity.getSanity());
+                sanity.recoverSanity(100f - sanity.getSanity());
             }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onEntityStruckByLightning(EntityStruckByLightningEvent event) {
+        if (event.getEntity() instanceof EntityPlayer) {
+            EntityPlayer player = (EntityPlayer) event.getEntity();
+            ISanity sanity = player.getCapability(SANITY, null);
+            sanity.consumeSanity(ThreadLocalRandom.current().nextInt(10, Configuration.lightning + 1));
+        }
+    }
+
+    @SubscribeEvent
+    public static void onLivingHurt(LivingHurtEvent event) {
+        if (event.getEntity() instanceof EntityPlayer) {
+            EntityPlayer player = (EntityPlayer) event.getEntityLiving();
+            ISanity sanity = player.getCapability(SANITY, null);
+            sanity.consumeSanity(1f);
         }
     }
 
     @SubscribeEvent
     public static void registerItems(RegistryEvent.Register<Item> event) {
         OreDictionary.registerOre(Configuration.food, Items.ROTTEN_FLESH);
+        OreDictionary.registerOre(Configuration.food, Items.CHICKEN);
+        OreDictionary.registerOre(Configuration.food, Items.PORKCHOP);
+        OreDictionary.registerOre(Configuration.food, Items.MUTTON);
+        OreDictionary.registerOre(Configuration.food, Items.BEEF);
+        OreDictionary.registerOre(Configuration.food, Items.RABBIT);
+        OreDictionary.registerOre(Configuration.food, Items.POISONOUS_POTATO);
+
     }
 
     static int counter;
@@ -105,6 +132,7 @@ public class CommonEvent {
         if ((!player.isSpectator()) && (!player.isCreative())) {
             counter++;
             if (counter > 10) {
+                checkStatus(player);
                 if (!player.world.isRemote) {
                     tickPlayer(player);
                 }

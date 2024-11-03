@@ -11,21 +11,27 @@ import static com.origins_eternity.sanity.Sanity.MOD_ID;
 @Config(modid = MOD_ID)
 public class Configuration {
     @Config.Name("Kill Max")
-    @Config.LangKey("config.ercore.kill")
+    @Config.LangKey("config.sanity.kill")
     @Config.Comment("The max sanity to reduce when player kill mobs.")
     @Config.RangeInt(min = 5, max = 100)
     public static int kill = 5;
 
     @Config.Name("Eat Max")
-    @Config.LangKey("config.ercore.eat")
+    @Config.LangKey("config.sanity.eat")
     @Config.Comment("The max sanity to reduce when player eat rotten food.")
     @Config.RangeInt(min = 2, max = 100)
     public static int eat = 2;
 
-    @Config.Name("Rotten Food")
-    @Config.LangKey("config.ercore.food")
-    @Config.Comment("The oredict name of rotten food.")
-    public static String food = "foodRotten";
+    @Config.Name("Lightning Max")
+    @Config.LangKey("config.sanity.lightning")
+    @Config.Comment("The max sanity to reduce when player was struck by lightning.")
+    @Config.RangeInt(min = 20, max = 100)
+    public static int lightning = 20;
+
+    @Config.Name("Bad Food")
+    @Config.LangKey("config.sanity.food")
+    @Config.Comment("The oredict name of bad food.")
+    public static String food = "foodBad";
 
     @Mod.EventBusSubscriber(modid = MOD_ID)
     public static class ConfigSyncHandler {

@@ -1,7 +1,7 @@
 package com.origins_eternity.sanity.content.capability.sanity;
 
 public class Sanity implements ISanity {
-    private int sanity = 100;
+    private float sanity = 100;
 
     private int down = 0;
 
@@ -12,12 +12,12 @@ public class Sanity implements ISanity {
     private boolean dizzy = false;
 
     @Override
-    public void setSanity(int sanity) {
+    public void setSanity(float sanity) {
         this.sanity = sanity;
     }
 
     @Override
-    public int getSanity() {
+    public float getSanity() {
         return sanity;
     }
 
@@ -62,46 +62,54 @@ public class Sanity implements ISanity {
     }
 
     @Override
-    public void consumeSanity(int value) {
-        sanity -= value;
-        if (up > 0) {
-            up = 0;
-        }
-        down += 30;
-        if (sanity < 50) {
-            if (!dizzy) {
-                setDizzy(true);
+    public void consumeSanity(float value) {
+        if (sanity != 0f) {
+            sanity -= value;
+            if (up > 0) {
+                up = 0;
             }
-            if (sanity < 10) {
-                if (!lost) {
-                    setLost(true);
+            if (down == 0) {
+                down += 15;
+            }
+            if (sanity < 50f) {
+                if (!dizzy) {
+                    setDizzy(true);
                 }
-                if (sanity < 0) {
-                    sanity = 0;
+                if (sanity < 10f) {
+                    if (!lost) {
+                        setLost(true);
+                    }
+                    if (sanity < 0f) {
+                        sanity = 0f;
+                    }
                 }
             }
         }
     }
 
     @Override
-    public void recoverSanity(int value) {
+    public void recoverSanity(float value) {
+        if (sanity != 100f) {
             sanity += value;
             if (down > 0) {
                 down = 0;
             }
-            up += 30;
-            if (sanity >= 10) {
+            if (up == 0) {
+                up += 15;
+            }
+            if (sanity >= 10f) {
                 if (lost) {
                     setLost(false);
                 }
-                if (sanity >= 50) {
+                if (sanity >= 50f) {
                     if (dizzy) {
                         setDizzy(false);
                     }
-                    if (sanity > 100) {
-                        sanity = 100;
+                    if (sanity > 100f) {
+                        sanity = 100f;
                     }
                 }
             }
         }
     }
+}

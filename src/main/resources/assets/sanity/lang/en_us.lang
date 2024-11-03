@@ -1,6 +1,8 @@
-config.ercore.food=Rotten Food
-config.ercore.food.tooltip=The oredict name of rotten food.
-config.ercore.kill=Kill Max
-config.ercore.kill.tooltip=The max sanity to reduce when player kill mobs.
-config.ercore.eat=Eat Max
-config.ercore.eat.tooltip=The max sanity to reduce when player eat rotten food.
+config.sanity.eat=Eat Max
+config.sanity.eat.tooltip=The max sanity to reduce when player eat rotten food.
+config.sanity.kill=Kill Max
+config.sanity.kill.tooltip=The max sanity to reduce when player kill mobs.
+config.sanity.lightning=Lightning Max
+config.sanity.lightning.tooltip=The max sanity to reduce when player was struck by lightning.
+config.sanity.food=Bad Food
+config.sanity.food.tooltip=The oredict name of bad food.

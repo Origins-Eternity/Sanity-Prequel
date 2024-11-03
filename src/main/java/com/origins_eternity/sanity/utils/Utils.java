@@ -5,7 +5,10 @@ import com.origins_eternity.sanity.content.capability.sanity.ISanity;
 import com.origins_eternity.sanity.message.SyncSanity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -27,6 +30,12 @@ public class Utils {
         } else if (sanity.getUp() > 0) {
             sanity.setUp(sanity.getUp() - 1);
         }
+        if (player.isWet()) {
+            sanity.consumeSanity(0.1f);
+        }
+        if (player.isPotionActive(MobEffects.HUNGER)) {
+            sanity.consumeSanity(0.1f);
+        }
         syncSanity(player);
     }
 
@@ -39,5 +48,36 @@ public class Utils {
             }
         }
         return match;
+    }
+
+    private static void addPotions(EntityPlayer player, Potion potion) {
+        if (!player.isPotionActive(potion)) {
+            player.addPotionEffect(new PotionEffect(potion, 312, 1, false, false));
+        }
+    }
+
+    public static void addLostDebuff(EntityPlayer player) {
+        if (!player.world.isRemote) {
+            addPotions(player, MobEffects.NAUSEA);
+            addPotions(player, MobEffects.BLINDNESS);
+        }
+    }
+
+    public static void addDizzyDebuff(EntityPlayer player) {
+        if (!player.world.isRemote) {
+            addPotions(player, MobEffects.WEAKNESS);
+            addPotions(player, MobEffects.MINING_FATIGUE);
+        }
+    }
+
+    public static void checkStatus(EntityPlayer player) {
+        ISanity sanity = player.getCapability(SANITY, null);
+        if (sanity.isDizzy()) {
+            addDizzyDebuff(player);
+            if (sanity.isLost()) {
+                player.setSprinting(false);
+                addLostDebuff(player);
+            }
+        }
     }
 }
