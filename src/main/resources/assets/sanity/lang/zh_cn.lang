@@ -1,4 +1,10 @@
-﻿config.sanity.eat=吞咽最大值
+﻿# 理智：前传 简体中文
+
+itemGroup.sanity=理智：前传
+
+item.sanity.garland.name=花环
+
+config.sanity.eat=吞咽最大值
 config.sanity.eat.tooltip=玩家食用腐烂食物理智下降的最大值。
 config.sanity.kill=杀生最大值
 config.sanity.kill.tooltip=玩家杀死生物后理智下降的最大值。

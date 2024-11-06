@@ -3,9 +3,13 @@ package com.origins_eternity.sanity.content.capability.sanity;
 public class Sanity implements ISanity {
     private float sanity = 100;
 
+    private int wet = 0;
+
     private int down = 0;
 
     private int up = 0;
+
+    private boolean garland = false;
 
     private boolean lost = false;
 
@@ -19,6 +23,16 @@ public class Sanity implements ISanity {
     @Override
     public float getSanity() {
         return sanity;
+    }
+
+    @Override
+    public void setWet(int wet) {
+        this.wet = wet;
+    }
+
+    @Override
+    public int getWet() {
+        return wet;
     }
 
     @Override
@@ -39,6 +53,16 @@ public class Sanity implements ISanity {
     @Override
     public int getUp() {
         return up;
+    }
+
+    @Override
+    public boolean getGarland() {
+        return garland;
+    }
+
+    @Override
+    public void setGarland(boolean garland) {
+        this.garland = garland;
     }
 
     @Override
@@ -63,24 +87,26 @@ public class Sanity implements ISanity {
 
     @Override
     public void consumeSanity(float value) {
-        if (sanity != 0f) {
-            sanity -= value;
-            if (up > 0) {
-                up = 0;
-            }
-            if (down == 0) {
-                down += 15;
-            }
-            if (sanity < 50f) {
-                if (!dizzy) {
-                    setDizzy(true);
+        if (!getGarland()) {
+            if (sanity != 0f) {
+                sanity -= value;
+                if (up > 0) {
+                    up = 0;
                 }
-                if (sanity < 10f) {
-                    if (!lost) {
-                        setLost(true);
+                if (down == 0) {
+                    down += 15;
+                }
+                if (sanity < 50f) {
+                    if (!dizzy) {
+                        setDizzy(true);
                     }
-                    if (sanity < 0f) {
-                        sanity = 0f;
+                    if (sanity < 10f) {
+                        if (!lost) {
+                            setLost(true);
+                        }
+                        if (sanity < 0f) {
+                            sanity = 0f;
+                        }
                     }
                 }
             }

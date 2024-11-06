@@ -1,3 +1,9 @@
+# Sanity: Prequel English
+
+itemGroup.sanity=Sanity: Prequel
+
+item.sanity.garland.name=Garland
+
 config.sanity.eat=Eat Max
 config.sanity.eat.tooltip=The max sanity to reduce when player eat rotten food.
 config.sanity.kill=Kill Max

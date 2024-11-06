@@ -1,6 +1,7 @@
 package com.origins_eternity.sanity.utils;
 
 import com.origins_eternity.sanity.config.Configuration;
+import com.origins_eternity.sanity.content.armor.Armors;
 import com.origins_eternity.sanity.content.capability.sanity.ISanity;
 import com.origins_eternity.sanity.message.SyncSanity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -9,6 +10,7 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -36,6 +38,10 @@ public class Utils {
         if (player.isPotionActive(MobEffects.HUNGER)) {
             sanity.consumeSanity(0.1f);
         }
+        if (player.world.getLight(new BlockPos(player), true) < 4) {
+            sanity.consumeSanity(0.1f);
+        }
+        sanity.setGarland(player.inventory.armorItemInSlot(3).getItem().equals(Armors.FLOWER));
         syncSanity(player);
     }
 
@@ -56,14 +62,14 @@ public class Utils {
         }
     }
 
-    public static void addLostDebuff(EntityPlayer player) {
+    private static void addLostDebuff(EntityPlayer player) {
         if (!player.world.isRemote) {
             addPotions(player, MobEffects.NAUSEA);
             addPotions(player, MobEffects.BLINDNESS);
         }
     }
 
-    public static void addDizzyDebuff(EntityPlayer player) {
+    private static void addDizzyDebuff(EntityPlayer player) {
         if (!player.world.isRemote) {
             addPotions(player, MobEffects.WEAKNESS);
             addPotions(player, MobEffects.MINING_FATIGUE);

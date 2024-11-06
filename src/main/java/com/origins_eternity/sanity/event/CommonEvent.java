@@ -10,11 +10,14 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
+import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -137,6 +140,26 @@ public class CommonEvent {
                     tickPlayer(player);
                 }
                 counter = 0;
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onLivingDamage(LivingDamageEvent event) {
+        if (event.getEntity() instanceof EntityPlayer) {
+            EntityPlayer player = (EntityPlayer) event.getEntity();
+            if (!player.world.isRemote) {
+                ISanity sanity = player.getCapability(SANITY, null);
+                if (sanity.getGarland()) {
+                    ItemStack item = player.inventory.armorItemInSlot(3);
+                    if (event.getSource() == DamageSource.LIGHTNING_BOLT) {
+                        item.damageItem(30, player);
+                    } else if (event.getSource().isFireDamage()) {
+                        item.damageItem(20, player);
+                    } else if (event.getSource().isExplosion()) {
+                        item.damageItem(10, player);
+                    }
+                }
             }
         }
     }
