@@ -1,0 +1,8 @@
+config.sanity.eat=吞食最大值
+config.sanity.eat.tooltip=玩家食用腐爛食物後理智下降的最大值。
+config.sanity.kill=殺生最大值
+config.sanity.kill.tooltip=玩家殺死生物後理智下降的最大值。
+config.sanity.lightning=閃電最大值
+config.sanity.lightning.tooltip=玩家被閃電擊中後理智下降的最大值。
+config.sanity.food=壞的食物
+config.sanity.food.tooltip=為壞的食物添加的物品名稱。
