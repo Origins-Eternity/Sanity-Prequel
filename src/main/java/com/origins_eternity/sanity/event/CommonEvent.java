@@ -115,18 +115,6 @@ public class CommonEvent {
         }
     }
 
-    @SubscribeEvent
-    public static void registerItems(RegistryEvent.Register<Item> event) {
-        OreDictionary.registerOre(Configuration.food, Items.ROTTEN_FLESH);
-        OreDictionary.registerOre(Configuration.food, Items.CHICKEN);
-        OreDictionary.registerOre(Configuration.food, Items.PORKCHOP);
-        OreDictionary.registerOre(Configuration.food, Items.MUTTON);
-        OreDictionary.registerOre(Configuration.food, Items.BEEF);
-        OreDictionary.registerOre(Configuration.food, Items.RABBIT);
-        OreDictionary.registerOre(Configuration.food, Items.POISONOUS_POTATO);
-
-    }
-
     static int counter;
 
     @SubscribeEvent
