@@ -12,3 +12,5 @@ config.sanity.lightning=Lightning Max
 config.sanity.lightning.tooltip=The max sanity to reduce when player was struck by lightning.
 config.sanity.food=Bad Food
 config.sanity.food.tooltip=The oredict name of bad food.
+config.sanity.liquids=Dangerous Liquid
+config.sanity.liquids.tooltip=The list of safe liquids which will decrease sanity when player is in it.

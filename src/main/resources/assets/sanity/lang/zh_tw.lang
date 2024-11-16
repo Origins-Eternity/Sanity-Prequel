@@ -11,4 +11,6 @@ config.sanity.kill.tooltip=玩家殺死生物後理智下降的最大值。
 config.sanity.lightning=閃電最大值
 config.sanity.lightning.tooltip=玩家被閃電擊中後理智下降的最大值。
 config.sanity.food=壞的食物
-config.sanity.food.tooltip=為壞的食物添加的物品名稱。itemGroup.sanity
+config.sanity.food.tooltip=為壞的食物添加的物品名稱。
+config.sanity.liquids=危險流體
+config.sanity.liquids.tooltip=當玩家處於清單中的流體時，會降低理智。

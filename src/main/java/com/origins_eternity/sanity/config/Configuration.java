@@ -33,6 +33,11 @@ public class Configuration {
     @Config.Comment("The oredict name of bad food.")
     public static String food = "foodBad";
 
+    @Config.Name("Dangerous Liquids")
+    @Config.LangKey("config.sanity.liquids")
+    @Config.Comment("The list of safe liquids which will decrease sanity when player is in it.")
+    public static String[] liquids = new String[]{"water"};
+
     @Mod.EventBusSubscriber(modid = MOD_ID)
     public static class ConfigSyncHandler {
         @SubscribeEvent

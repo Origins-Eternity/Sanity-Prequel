@@ -32,7 +32,7 @@ public class Utils {
         } else if (sanity.getUp() > 0) {
             sanity.setUp(sanity.getUp() - 1);
         }
-        if (player.isWet()) {
+        if (isDangerous(player)) {
             sanity.consumeSanity(0.1f);
         }
         if (player.isPotionActive(MobEffects.HUNGER)) {
@@ -85,5 +85,25 @@ public class Utils {
                 addLostDebuff(player);
             }
         }
+    }
+
+    private static boolean isDangerous(EntityPlayer player) {
+        boolean dangerous = false;
+        BlockPos.PooledMutableBlockPos blockpos$pooledmutableblockpos = BlockPos.PooledMutableBlockPos.retain(player.posX, player.posY, player.posZ);
+        if (!player.world.isRainingAt(blockpos$pooledmutableblockpos) && !player.world.isRainingAt(blockpos$pooledmutableblockpos.setPos(player.posX, player.posY + (double)player.height, player.posZ))) {
+            blockpos$pooledmutableblockpos.release();
+            BlockPos pos = new BlockPos(player);
+            String liquids = player.world.getBlockState(pos).getBlock().getTranslationKey();
+            for (String liquid : Configuration.liquids) {
+                if (liquids.contains(liquid)) {
+                    dangerous = true;
+                    break;
+                }
+            }
+        } else {
+            blockpos$pooledmutableblockpos.release();
+            dangerous = true;
+        }
+        return dangerous;
     }
 }

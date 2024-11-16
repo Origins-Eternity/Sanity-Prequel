@@ -12,3 +12,5 @@ config.sanity.lightning=闪电最大值
 config.sanity.lightning.tooltip=玩家被闪电击中后理智下降的最大值。
 config.sanity.food=坏的食物
 config.sanity.food.tooltip=为坏的食物添加的矿辞名称。
+config.sanity.liquids=危险流体
+config.sanity.liquids.tooltip=当玩家处于列表中的流体时，会降低理智。
