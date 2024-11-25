@@ -7,7 +7,7 @@
 - **In hunger.**  
 - **Get hurt.**  
 - **Rain, water.**  
-- **In dark.**  
+- **In dark(doesn't work when player has night vision effect).**  
 ## Increase Sanity    
 - **Sleep.**  
 - **Eating healthy foods.**  
