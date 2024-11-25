@@ -39,7 +39,9 @@ public class Utils {
             sanity.consumeSanity(0.1f);
         }
         if (player.world.getLight(new BlockPos(player), true) < 4) {
-            sanity.consumeSanity(0.1f);
+            if (!player.isPotionActive(MobEffects.NIGHT_VISION)) {
+                sanity.consumeSanity(0.1f);
+            }
         }
         sanity.setGarland(player.inventory.armorItemInSlot(3).getItem().equals(Armors.FLOWER));
         syncSanity(player);
