@@ -5,6 +5,7 @@ import com.origins_eternity.sanity.content.capability.Capabilities;
 import com.origins_eternity.sanity.content.capability.sanity.ISanity;
 import com.origins_eternity.sanity.content.capability.sanity.SanityProvider;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.passive.IAnimals;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemFood;
@@ -15,16 +16,15 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
-import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.player.AdvancementEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerWakeUpEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerChangedDimensionEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
-
-import java.util.concurrent.ThreadLocalRandom;
 
 import static com.origins_eternity.sanity.Sanity.MOD_ID;
 import static com.origins_eternity.sanity.content.capability.Capabilities.SANITY;
@@ -55,28 +55,15 @@ public class CommonEvent {
     }
 
     @SubscribeEvent
-    public static void onLivingDeath(LivingDeathEvent event) {
-        if (event.getEntity().world.isRemote || event.getSource() == null) return;
-        Entity killer = event.getSource().getTrueSource();
-        if ((killer != null) && (killer instanceof EntityPlayer)) {
-            EntityPlayer player = (EntityPlayer) killer;
-            if (!player.isCreative()) {
-                ISanity sanity = player.getCapability(SANITY, null);
-                sanity.consumeSanity(ThreadLocalRandom.current().nextInt(1, Configuration.kill + 1));
-            }
-        }
-    }
-
-    @SubscribeEvent
     public static void LivingEntityUseItem(LivingEntityUseItemEvent.Finish event){
         if (event.getEntityLiving() instanceof EntityPlayerMP) {
             EntityPlayerMP player = (EntityPlayerMP) event.getEntityLiving();
             if ((!player.isCreative()) && (event.getItem().getItem() instanceof ItemFood)) {
                 ISanity sanity = player.getCapability(SANITY, null);
                 if (itemMatched(event.getItem())) {
-                    sanity.consumeSanity(ThreadLocalRandom.current().nextInt(1, Configuration.eat + 1));
+                    sanity.consumeSanity(Configuration.nausea);
                 } else {
-                    sanity.recoverSanity(ThreadLocalRandom.current().nextInt(1, 6));
+                    sanity.recoverSanity(Configuration.eat);
                 }
             }
         }
@@ -88,7 +75,7 @@ public class CommonEvent {
             EntityPlayer player = event.getEntityPlayer();
             if (!player.isCreative()) {
                 ISanity sanity = player.getCapability(SANITY, null);
-                sanity.recoverSanity(100f - sanity.getSanity());
+                sanity.recoverSanity(Configuration.sleep);
             }
         }
     }
@@ -98,7 +85,7 @@ public class CommonEvent {
         if (event.getEntity() instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) event.getEntity();
             ISanity sanity = player.getCapability(SANITY, null);
-            sanity.consumeSanity(ThreadLocalRandom.current().nextInt(10, Configuration.lightning + 1));
+            sanity.consumeSanity(Configuration.lightning);
         }
     }
 
@@ -107,7 +94,15 @@ public class CommonEvent {
         if (event.getEntity() instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) event.getEntityLiving();
             ISanity sanity = player.getCapability(SANITY, null);
-            sanity.consumeSanity(1f);
+            sanity.consumeSanity(Configuration.hurt * event.getAmount());
+        } else {
+            if (event.getEntity() instanceof IAnimals && event.getSource().getTrueSource() instanceof EntityPlayer) {
+                EntityPlayer player = (EntityPlayer) event.getSource().getTrueSource();
+                if (!player.isCreative()) {
+                    ISanity sanity = player.getCapability(SANITY, null);
+                    sanity.consumeSanity(Configuration.attack);
+                }
+            }
         }
     }
 
@@ -118,13 +113,31 @@ public class CommonEvent {
         EntityPlayer player = event.player;
         if ((!player.isSpectator()) && (!player.isCreative())) {
             counter++;
-            if (counter > 10) {
+            if (counter >= 10) {
                 checkStatus(player);
                 if (!player.world.isRemote) {
                     tickPlayer(player);
                 }
                 counter = 0;
             }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onAdvancement(AdvancementEvent event) {
+        EntityPlayer player = event.getEntityPlayer();
+        if (!player.isCreative() && !player.world.isRemote) {
+            ISanity sanity = player.getCapability(SANITY, null);
+            sanity.recoverSanity(Configuration.advancement);
+        }
+    }
+
+    @SubscribeEvent
+    public static void onPlayerChangedDimension(PlayerChangedDimensionEvent event) {
+        EntityPlayer player = event.player;
+        if (!player.isCreative() && !player.world.isRemote) {
+            ISanity sanity = player.getCapability(SANITY, null);
+            sanity.consumeSanity(Configuration.trip);
         }
     }
 
@@ -142,6 +155,8 @@ public class CommonEvent {
                         item.damageItem(20, player);
                     } else if (event.getSource().isExplosion()) {
                         item.damageItem(10, player);
+                    } else {
+                        item.damageItem(1, player);
                     }
                 }
             }

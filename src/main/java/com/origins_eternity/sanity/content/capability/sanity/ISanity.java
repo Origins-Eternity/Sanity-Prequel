@@ -29,7 +29,7 @@ public interface ISanity {
 
     void setDizzy(boolean dizzy);
 
-    void consumeSanity(float value);
+    void consumeSanity(double value);
 
-    void recoverSanity(float value);
+    void recoverSanity(double value);
 }

@@ -32,15 +32,24 @@ public class Utils {
         } else if (sanity.getUp() > 0) {
             sanity.setUp(sanity.getUp() - 1);
         }
-        if (isDangerous(player)) {
-            sanity.consumeSanity(0.1f);
+        if (isWet(player)) {
+            sanity.consumeSanity(Configuration.wet);
         }
-        if (player.isPotionActive(MobEffects.HUNGER)) {
-            sanity.consumeSanity(0.1f);
+        if (player.getFoodStats().getFoodLevel() < 8) {
+            sanity.consumeSanity(Configuration.hunger);
+        }
+        if (player.getAir() < 60) {
+            sanity.consumeSanity(Configuration.choking);
+        }
+        if (player.fallDistance > 4) {
+            sanity.consumeSanity((int) player.fallDistance);
+        }
+        if (isDangerous(player)) {
+            sanity.consumeSanity(Configuration.danger);
         }
         if (player.world.getLight(new BlockPos(player), true) < 4) {
             if (!player.isPotionActive(MobEffects.NIGHT_VISION)) {
-                sanity.consumeSanity(0.1f);
+                sanity.consumeSanity(Configuration.dark);
             }
         }
         sanity.setGarland(player.inventory.armorItemInSlot(3).getItem().equals(Armors.FLOWER));
@@ -89,23 +98,26 @@ public class Utils {
         }
     }
 
-    private static boolean isDangerous(EntityPlayer player) {
-        boolean dangerous = false;
+    public static boolean isWet(EntityPlayer player) {
+        boolean wet = false;
         BlockPos.PooledMutableBlockPos blockpos$pooledmutableblockpos = BlockPos.PooledMutableBlockPos.retain(player.posX, player.posY, player.posZ);
-        if (!player.world.isRainingAt(blockpos$pooledmutableblockpos) && !player.world.isRainingAt(blockpos$pooledmutableblockpos.setPos(player.posX, player.posY + (double)player.height, player.posZ))) {
+        if (player.world.isRainingAt(blockpos$pooledmutableblockpos) || player.world.isRainingAt(blockpos$pooledmutableblockpos.setPos(player.posX, player.posY + (double)player.height, player.posZ))) {
             blockpos$pooledmutableblockpos.release();
+            wet = true;
+        }
+        return wet;
+    }
+
+    public static boolean isDangerous(EntityPlayer player) {
+        boolean dangerous = false;
             BlockPos pos = new BlockPos(player);
-            String liquids = player.world.getBlockState(pos).getBlock().getTranslationKey();
-            for (String liquid : Configuration.liquids) {
-                if (liquids.contains(liquid)) {
+            String blocks = player.world.getBlockState(pos).getBlock().getTranslationKey() + player.world.getBlockState(pos.up()).getBlock().getTranslationKey();
+            for (String block : Configuration.blocks) {
+                if (blocks.contains(block)) {
                     dangerous = true;
                     break;
                 }
             }
-        } else {
-            blockpos$pooledmutableblockpos.release();
-            dangerous = true;
-        }
         return dangerous;
     }
 }

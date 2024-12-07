@@ -1,6 +1,7 @@
 package com.origins_eternity.sanity.content;
 
 import com.origins_eternity.sanity.Sanity;
+import com.origins_eternity.sanity.config.Configuration;
 import com.origins_eternity.sanity.content.armor.Armors;
 import com.origins_eternity.sanity.content.capability.Capabilities;
 import com.origins_eternity.sanity.content.capability.sanity.ISanity;
@@ -11,6 +12,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 import static com.origins_eternity.sanity.content.tab.CreativeTab.SANITY;
+import static com.origins_eternity.sanity.utils.Utils.isDangerous;
+import static com.origins_eternity.sanity.utils.Utils.isWet;
 
 public class ArmorCreator extends ItemArmor
 {
@@ -30,12 +33,11 @@ public class ArmorCreator extends ItemArmor
 
     @Override
     public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
-        counter++;
-        if (counter > 10) {
+        if (counter >= 10) {
             ISanity sanity = player.getCapability(Capabilities.SANITY, null);
             if (player.inventory.armorItemInSlot(3).getItem().equals(this)) {
-                sanity.recoverSanity(0.2f);
-                if (player.isWet()) {
+                sanity.recoverSanity(Configuration.garland);
+                if (isWet(player) || isDangerous(player)) {
                     sanity.setWet(sanity.getWet() + 10);
                 }
                 if (sanity.getWet() > 60) {

@@ -86,14 +86,16 @@ public class Sanity implements ISanity {
     }
 
     @Override
-    public void consumeSanity(float value) {
+    public void consumeSanity(double value) {
         if (!getGarland()) {
             if (sanity != 0f) {
-                sanity -= value;
+                sanity -= (float) value;
                 if (up > 0) {
                     up = 0;
                 }
-                if (down == 0) {
+                if (value >= 1f) {
+                    down = 21;
+                } else if (down == 0) {
                     down += 15;
                 }
                 if (sanity < 50f) {
@@ -114,9 +116,9 @@ public class Sanity implements ISanity {
     }
 
     @Override
-    public void recoverSanity(float value) {
+    public void recoverSanity(double value) {
         if (sanity != 100f) {
-            sanity += value;
+            sanity += (float) value;
             if (down > 0) {
                 down = 0;
             }

@@ -11,5 +11,5 @@ import java.util.List;
 
 public class Armors {
     public static final List<Item> ARMORS = new ArrayList<>();
-    public static final ItemArmor FLOWER = new ArmorCreator(Flower.FLOWER, 1, EntityEquipmentSlot.HEAD, "Garland", 80);
+    public static final ItemArmor FLOWER = new ArmorCreator(Flower.FLOWER, 1, EntityEquipmentSlot.HEAD, "Garland", 60);
 }

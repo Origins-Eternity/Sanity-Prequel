@@ -1,7 +1,6 @@
 package com.origins_eternity.sanity.content.gui;
 
 import com.origins_eternity.sanity.content.capability.sanity.ISanity;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.GlStateManager;
@@ -12,35 +11,54 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import static com.origins_eternity.sanity.Sanity.MOD_ID;
 import static com.origins_eternity.sanity.content.capability.Capabilities.SANITY;
+import static com.origins_eternity.sanity.utils.proxy.ClientProxy.mc;
 
 public class Overlay extends Gui {
-    private final ResourceLocation gui = new ResourceLocation(MOD_ID, "textures/gui/sanity.png");
+    private final ResourceLocation hud = new ResourceLocation(MOD_ID, "textures/gui/sanity.png");
+    private static final ResourceLocation blood = new ResourceLocation(MOD_ID, "textures/gui/blood.png");
 
     @SubscribeEvent
     public void onRenderGameOverlay(RenderGameOverlayEvent.Pre event) {
-        Minecraft mc = Minecraft.getMinecraft();
-        EntityPlayerSP player = mc.player;
+        EntityPlayerSP player = mc().player;
         if (event.getType() == RenderGameOverlayEvent.ElementType.AIR) {
             GlStateManager.enableBlend();
             GlStateManager.pushMatrix();
-            int posX = event.getResolution().getScaledWidth() / 2 - 130;
-            int posY = event.getResolution().getScaledHeight() - GuiIngameForge.left_height + 20;
-            mc.getTextureManager().bindTexture(gui);
-            drawTexture(player, posX, posY);
+            int posX = event.getResolution().getScaledWidth();
+            int posY = event.getResolution().getScaledHeight();
+            drawHud(player, posX / 2 - 130, posY - GuiIngameForge.left_height + 20);
+            drawBlood(player, posX, posY);
             GlStateManager.popMatrix();
-            mc.getTextureManager().bindTexture(Gui.ICONS);
+            mc().getTextureManager().bindTexture(Gui.ICONS);
             GlStateManager.disableBlend();
         }
     }
 
-    private void drawTexture(EntityPlayerSP player, int posX, int posY) {
+    private void drawBlood(EntityPlayerSP player, int posX, int posY) {
+        mc().getTextureManager().bindTexture(blood);
         ISanity sanity = player.getCapability(SANITY, null);
+        if (sanity.getDown() > 0) {
+            if (player.ticksExisted % 20 < 10) {
+                GlStateManager.color(1.0f, 1.0f, 1.0f, player.ticksExisted % 20 / 10f + 0.2f);
+            } else {
+                GlStateManager.color(1.0f, 1.0f, 1.0f, (20 - player.ticksExisted % 20) / 10f + 0.2f);
+            }
+            drawScaledCustomSizeModalRect(0, 0, 0, 0, 100, 58, posX, posY, 100, 58);
+            GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
+        }
+    }
+
+    private void drawHud(EntityPlayerSP player, int posX, int posY) {
+        mc().getTextureManager().bindTexture(hud);
+        ISanity sanity = player.getCapability(SANITY, null);
+        if (sanity.isDizzy()) {
+            posY += player.ticksExisted % 2;
+        }
         float percent = sanity.getSanity() / 100f;
         int consume = 24 - (int) (percent * 24);
         drawTexturedModalRect(posX, posY, 0, 0, 33, 24);
         int heath = posY + consume;
         if (sanity.getDown() > 0) {
-            if (sanity.getDown() % 2 == 0) {
+            if (player.ticksExisted % 20 < 10) {
                 drawTexturedModalRect(posX + 13, posY, 72, 0, 6, consume);
                 drawTexturedModalRect(posX, heath, 33, consume, 33, 24 - consume);
                 drawTexturedModalRect(posX + 13, heath, 66, consume, 6, 24 - consume);
@@ -49,8 +67,11 @@ public class Overlay extends Gui {
                 drawTexturedModalRect(posX, heath, 33, consume, 33, 24 - consume);
                 drawTexturedModalRect(posX + 13, heath, 66, consume - 1, 6, 25 - consume);
             }
+            if (sanity.getDown() > 15 && player.ticksExisted % 10 < 5) {
+                drawTexturedModalRect(posX, posY, 0, 24, 33, 24);
+            }
         } else if (sanity.getUp() > 0) {
-            if (sanity.getUp() % 2 == 0) {
+            if (player.ticksExisted % 20 < 10) {
                 drawTexturedModalRect(posX + 13, posY, 84, 0, 6, consume);
                 drawTexturedModalRect(posX, heath, 33, consume, 33, 24 - consume);
                 drawTexturedModalRect(posX + 13, heath, 78, consume, 6, 24 - consume);
