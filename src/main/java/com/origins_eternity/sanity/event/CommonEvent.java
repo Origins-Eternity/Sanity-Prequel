@@ -125,6 +125,7 @@ public class CommonEvent {
 
     @SubscribeEvent
     public static void onAdvancement(AdvancementEvent event) {
+        if (event.getAdvancement().getDisplay() == null || !event.getAdvancement().getDisplay().shouldAnnounceToChat()) return;
         EntityPlayer player = event.getEntityPlayer();
         if (!player.isCreative() && !player.world.isRemote) {
             ISanity sanity = player.getCapability(SANITY, null);
