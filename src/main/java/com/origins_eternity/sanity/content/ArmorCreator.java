@@ -34,6 +34,7 @@ public class ArmorCreator extends ItemArmor
     @Override
     public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
         if (counter >= 10) {
+            counter++;
             ISanity sanity = player.getCapability(Capabilities.SANITY, null);
             if (player.inventory.armorItemInSlot(3).getItem().equals(this)) {
                 sanity.recoverSanity(Configuration.garland);

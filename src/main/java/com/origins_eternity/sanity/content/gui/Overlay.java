@@ -37,10 +37,10 @@ public class Overlay extends Gui {
         mc().getTextureManager().bindTexture(blood);
         ISanity sanity = player.getCapability(SANITY, null);
         if (sanity.getDown() > 0) {
-            if (player.ticksExisted % 20 < 10) {
-                GlStateManager.color(1.0f, 1.0f, 1.0f, player.ticksExisted % 20 / 10f + 0.2f);
+            if (player.ticksExisted % 24 < 12) {
+                GlStateManager.color(1.0f, 1.0f, 1.0f, player.ticksExisted % 24 / 30f + 0.2f);
             } else {
-                GlStateManager.color(1.0f, 1.0f, 1.0f, (20 - player.ticksExisted % 20) / 10f + 0.2f);
+                GlStateManager.color(1.0f, 1.0f, 1.0f, (24 - player.ticksExisted % 24) / 30f + 0.2f);
             }
             drawScaledCustomSizeModalRect(0, 0, 0, 0, 100, 58, posX, posY, 100, 58);
             GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
@@ -50,7 +50,7 @@ public class Overlay extends Gui {
     private void drawHud(EntityPlayerSP player, int posX, int posY) {
         mc().getTextureManager().bindTexture(hud);
         ISanity sanity = player.getCapability(SANITY, null);
-        if (sanity.isDizzy()) {
+        if (sanity.getSanity() < 40f) {
             posY += player.ticksExisted % 2;
         }
         float percent = sanity.getSanity() / 100f;

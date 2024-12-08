@@ -1,0 +1,23 @@
+{
+	"insanity": {
+		"category": "ambient",
+		"sounds": [
+			"sanity:insanity"
+		]
+	},
+	"swish": {
+		"category": "ambient",
+		"sounds": [
+			"sanity:swish0",
+			"sanity:swish1",
+			"sanity:swish2",
+			"sanity:swish3",
+			"sanity:swish4"
+		]
+	},
+	"flowers_equip": {
+		"sounds": [
+			"sanity:leaves_rustle"
+		]
+	}
+}

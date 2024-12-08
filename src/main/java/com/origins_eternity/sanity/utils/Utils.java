@@ -89,9 +89,9 @@ public class Utils {
 
     public static void checkStatus(EntityPlayer player) {
         ISanity sanity = player.getCapability(SANITY, null);
-        if (sanity.isDizzy()) {
+        if (sanity.getSanity() < 50f) {
             addDizzyDebuff(player);
-            if (sanity.isLost()) {
+            if (sanity.getSanity() < 10f) {
                 player.setSprinting(false);
                 addLostDebuff(player);
             }

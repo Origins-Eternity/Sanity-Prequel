@@ -14,8 +14,6 @@ public class SanityStorage implements Capability.IStorage<ISanity> {
             compound.setInteger("Down", instance.getDown());
             compound.setInteger("Up", instance.getUp());
             compound.setBoolean("Garland", instance.getGarland());
-            compound.setBoolean("Lost", instance.isLost());
-            compound.setBoolean("Dizzy", instance.isDizzy());
             return compound;
         }
 
@@ -28,8 +26,6 @@ public class SanityStorage implements Capability.IStorage<ISanity> {
                 instance.setDown(compound.getInteger("Down"));
                 instance.setUp(compound.getInteger("Up"));
                 instance.setGarland(compound.getBoolean("Garland"));
-                instance.setLost(compound.getBoolean("Lost"));
-                instance.setDizzy(compound.getBoolean("Dizzy"));
             }
         }
     }

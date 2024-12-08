@@ -21,14 +21,6 @@ public interface ISanity {
 
     void setGarland(boolean garland);
 
-    boolean isLost();
-
-    void setLost(boolean lost);
-
-    boolean isDizzy();
-
-    void setDizzy(boolean dizzy);
-
     void consumeSanity(double value);
 
     void recoverSanity(double value);
