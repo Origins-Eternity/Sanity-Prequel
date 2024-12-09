@@ -7,12 +7,13 @@ import com.origins_eternity.sanity.message.SyncSanity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.MobEffects;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.oredict.OreDictionary;
 
 import static com.origins_eternity.sanity.Sanity.packetHandler;
 import static com.origins_eternity.sanity.content.capability.Capabilities.SANITY;
@@ -33,7 +34,7 @@ public class Utils {
             sanity.setUp(sanity.getUp() - 1);
         }
         if (isWet(player)) {
-            sanity.consumeSanity(Configuration.wet);
+            sanity.consumeSanity(Configuration.cold);
         }
         if (player.getFoodStats().getFoodLevel() < 8) {
             sanity.consumeSanity(Configuration.hunger);
@@ -56,12 +57,26 @@ public class Utils {
         syncSanity(player);
     }
 
-    public static boolean itemMatched(ItemStack item) {
-        boolean match = false;
-        for (ItemStack food : OreDictionary.getOres(Configuration.food)) {
-            if (food.getItem().equals(item.getItem())) {
-                match = true;
-                break;
+    public static int itemMatched(ItemStack item) {
+        int match = -1;
+        for (int i = 0; i < Configuration.food.length; i++) {
+            String[] parts = Configuration.food[i].split(";");
+            String[] name = parts[0].split(":");
+            if (name.length == 2) {
+                if (item.getItem().equals(Item.REGISTRY.getObject(new ResourceLocation(parts[0])))) {
+                    if (item.getMetadata() == 0) {
+                        match = i;
+                        break;
+                    }
+                }
+            } else if (name.length == 3) {
+                ResourceLocation location = new ResourceLocation(name[0], name[1]);
+                if (item.getItem().equals(Item.REGISTRY.getObject(location))) {
+                    if (item.getMetadata() == Integer.parseInt(name[2])) {
+                        match = i;
+                        break;
+                    }
+                }
             }
         }
         return match;

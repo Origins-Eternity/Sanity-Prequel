@@ -5,7 +5,9 @@ import com.origins_eternity.sanity.content.capability.Capabilities;
 import com.origins_eternity.sanity.content.capability.sanity.ISanity;
 import com.origins_eternity.sanity.content.capability.sanity.SanityProvider;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.passive.IAnimals;
+import net.minecraft.entity.monster.EntityMob;
+import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemFood;
@@ -20,7 +22,7 @@ import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.AdvancementEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.event.entity.player.PlayerWakeUpEvent;
+import net.minecraftforge.event.entity.player.SleepingTimeCheckEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerChangedDimensionEvent;
@@ -60,8 +62,9 @@ public class CommonEvent {
             EntityPlayerMP player = (EntityPlayerMP) event.getEntityLiving();
             if ((!player.isCreative()) && (event.getItem().getItem() instanceof ItemFood)) {
                 ISanity sanity = player.getCapability(SANITY, null);
-                if (itemMatched(event.getItem())) {
-                    sanity.consumeSanity(Configuration.nausea);
+                if (itemMatched(event.getItem()) != -1) {
+                    double value = Double.parseDouble(Configuration.food[itemMatched(event.getItem())].split(";")[1]);
+                    sanity.consumeSanity(value);
                 } else {
                     sanity.recoverSanity(Configuration.eat);
                 }
@@ -70,10 +73,10 @@ public class CommonEvent {
     }
 
     @SubscribeEvent
-    public static void onPlayerWakeUp(PlayerWakeUpEvent event){
+    public static void onPlayerSleepInBed(SleepingTimeCheckEvent event){
         if(!event.getEntityPlayer().world.isRemote) {
             EntityPlayer player = event.getEntityPlayer();
-            if (!player.isCreative()) {
+            if (!player.isCreative() && player.isPlayerFullyAsleep()) {
                 ISanity sanity = player.getCapability(SANITY, null);
                 sanity.recoverSanity(Configuration.sleep);
             }
@@ -96,11 +99,19 @@ public class CommonEvent {
             ISanity sanity = player.getCapability(SANITY, null);
             sanity.consumeSanity(Configuration.hurt * event.getAmount());
         } else {
-            if (event.getEntity() instanceof IAnimals && event.getSource().getTrueSource() instanceof EntityPlayer) {
+            if (event.getSource().getTrueSource() instanceof EntityPlayer) {
                 EntityPlayer player = (EntityPlayer) event.getSource().getTrueSource();
                 if (!player.isCreative()) {
                     ISanity sanity = player.getCapability(SANITY, null);
-                    sanity.consumeSanity(Configuration.attack);
+                    if (event.getEntity() instanceof EntityAnimal) {
+                        sanity.consumeSanity(Configuration.attackAnimal);
+                    } else if (event.getEntity() instanceof EntityMob) {
+                        sanity.consumeSanity(Configuration.attackMob);
+                    } else if (event.getEntity() instanceof EntityVillager) {
+                        sanity.consumeSanity(Configuration.attackVillager);
+                    } else if (event.getEntity() instanceof  EntityPlayer) {
+                        sanity.consumeSanity(Configuration.attackPlayer);
+                    }
                 }
             }
         }

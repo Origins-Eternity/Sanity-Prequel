@@ -4,18 +4,22 @@ itemGroup.sanity=理智：前傳
 
 item.sanity.garland.name=花環
 
-config.sanity.nausea=噁心
-config.sanity.nausea.tooltip=當玩家吃了腐爛的食物時，理智降低的值。
 config.sanity.lightning=閃電
 config.sanity.lightning.tooltip=當玩家被閃電擊中時，理智降低的值。
-config.sanity.attack=攻擊
-config.sanity.attack.tooltip=當玩家攻擊動物時，理智降低的數值。
+config.sanity.animal=攻擊動物
+config.sanity.animal.tooltip=當玩家攻擊動物時，理智降低的值。
+config.sanity.mob=攻擊怪物
+config.sanity.mob.tooltip=當玩家攻擊怪物時，理智降低的值。
+config.sanity.villager=攻擊村民
+config.sanity.villager.tooltip=當玩家攻擊村民時，理智降低的值。
+config.sanity.player=攻擊玩家
+config.sanity.player.tooltip=當玩家攻擊另一名玩家時，理智降低的值。
 config.sanity.hurt=受傷
 config.sanity.hurt.tooltip=當玩家收到傷害時，理智降低的值為傷害值乘以此倍數。
 config.sanity.trip=旅行
 config.sanity.trip.tooltip=當玩家切換維度時，理智降低的值。
-config.sanity.wet=潮濕
-config.sanity.wet.tooltip=當玩家處於潮濕狀態時，理智降低的值。(每0.5秒)
+config.sanity.cold=寒冷
+config.sanity.cold.tooltip=當玩家被雨水打濕時，理智降低的值。(每0.5秒)
 config.sanity.hunger=飢餓
 config.sanity.hunger.tooltip=當玩家的飽食度較低時，理智會降低的數值。(每0.5秒)
 config.sanity.choking=窒息
@@ -34,6 +38,6 @@ config.sanity.garland=花環
 config.sanity.garland.tooltip=當玩家戴上花環時，理智升高的數值。（每0.5秒）
 
 config.sanity.food=不健康的食物
-config.sanity.food.tooltip=為不健康的食物所添加的礦辭名稱。
+config.sanity.food.tooltip=不健康的食物和食用它們理智降低的值。（"食物;數值"）
 config.sanity.blocks=危險源
 config.sanity.blocks.tooltip=當玩家處於清單中的方塊或流體時，會降低理智。

@@ -4,18 +4,22 @@ itemGroup.sanity=Sanity: Prequel
 
 item.sanity.garland.name=Garland
 
-config.sanity.nausea=Nausea
-config.sanity.nausea.tooltip=The sanity to reduce when player eat rotten food.
 config.sanity.lightning=Lightning
 config.sanity.lightning.tooltip=The sanity to reduce when player is struck by lightning.
-config.sanity.attack=Attack
-config.sanity.attack.tooltip=The sanity to reduce when player attack an animal.
+config.sanity.animal=Attack Animal
+config.sanity.animal.tooltip=The sanity to reduce when player attack an animal.
+config.sanity.mob=Attack Mob
+config.sanity.mob.tooltip=The sanity to reduce when player attack a monster.
+config.sanity.villager=Attack Villager
+config.sanity.villager.tooltip=The sanity to reduce when player attack a villager.
+config.sanity.player=Attack Player
+config.sanity.player.tooltip=The sanity to reduce when player attack another player.
 config.sanity.hurt=Hurt
 config.sanity.hurt.tooltip=When the player receives damage, The sanity to reduce is equal to the damage multiplied by this factor.
 config.sanity.trip=Trip
 config.sanity.trip.tooltip=The sanity to reduce when player change dimension.
-config.sanity.wet=Wet
-config.sanity.wet.tooltip=The sanity to reduce when player is wet.(per 0.5s)
+config.sanity.cold=Cold
+config.sanity.cold.tooltip=The sanity to reduce when player get wet by rain.(per 0.5s)
 config.sanity.hunger=Hunger
 config.sanity.hunger.tooltip=The sanity to reduce when player's foodLevel is low.(per 0.5s)
 config.sanity.choking=Choking
@@ -34,6 +38,6 @@ config.sanity.garland=Garland
 config.sanity.garland.tooltip=The sanity to increase when player wear a garland.(per 0.5s)
 
 config.sanity.food=Unhealthy Food
-config.sanity.food.tooltip=The oredict name of unhealthy food.
+config.sanity.food.tooltip=The list of unhealthy food and the sanity to reduce when eat it.('food;value')
 config.sanity.blocks=Dangerous Source
 config.sanity.blocks.tooltip=The list of dangerous blocks or liquids which will decrease sanity when player is in it.
