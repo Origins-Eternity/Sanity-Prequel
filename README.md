@@ -1,7 +1,7 @@
 ## Introduction
 **Added sanity to Minecraft. Players will gain some bad effects when in low sanity.**  
 ## Decrease Sanity
-- **Attack animals, monsters, villagers and players.**  
+- **Attack animals, monsters, villagers and other players.**  
 - **Eating bad foods such as carrion, raw meat, etc. (support mod's foods)**  
 - **Struck by lightning.**  
 - **In hunger.**  
