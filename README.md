@@ -18,7 +18,7 @@
 - **Gain advancements.**
 ## Debuffs  
 - **Sanity < 50, gain Weakness and Fatigue debuffs. And player will experience auditory hallucinations.**  
-- **Sanity < 40, whispers can be heard .**  
+- **Sanity < 40, whispers can be heard.**  
 - **Sanity < 10, gain Blindness and Nausea debuffs.**  
 ## About  
 **This mod has been open source under the Apache License 2.0, you can use, modify, port and distribute this mod under the license. And there are currently no plans to make a mod like this for a new Minecraft version.**
