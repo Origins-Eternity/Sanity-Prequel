@@ -17,7 +17,7 @@
 - **Wearing garland.**  
 - **Gain advancements.**
 ## Debuffs  
-- **Sanity < 50, gain Weakness and Fatigue debuffs. And player will hear confusing sounds.**  
+- **Sanity < 50, gain Weakness and Fatigue debuffs. And player will experience auditory hallucinations.**  
 - **Sanity < 40, whispers can be heard .**  
 - **Sanity < 10, gain Blindness and Nausea debuffs.**  
 ## About  
