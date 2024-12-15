@@ -22,7 +22,8 @@ import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.AdvancementEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.event.entity.player.SleepingTimeCheckEvent;
+import net.minecraftforge.event.entity.player.PlayerSleepInBedEvent;
+import net.minecraftforge.event.entity.player.PlayerWakeUpEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerChangedDimensionEvent;
@@ -72,13 +73,26 @@ public class CommonEvent {
         }
     }
 
+    static long time;
+
     @SubscribeEvent
-    public static void onPlayerSleepInBed(SleepingTimeCheckEvent event){
+    public static void onPlayerSleepInBed(PlayerSleepInBedEvent event){
         if(!event.getEntityPlayer().world.isRemote) {
             EntityPlayer player = event.getEntityPlayer();
-            if (!player.isCreative() && player.isPlayerFullyAsleep()) {
+            if (!player.isCreative()) {
+                time = player.world.getWorldTime();
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onPlayerWakeUp(PlayerWakeUpEvent event) {
+        if(!event.getEntityPlayer().world.isRemote) {
+            EntityPlayer player = event.getEntityPlayer();
+            if (!player.isCreative()) {
+                double sleep = (player.world.getWorldTime() - time) / 12000.0;
                 ISanity sanity = player.getCapability(SANITY, null);
-                sanity.recoverSanity(Configuration.sleep);
+                sanity.recoverSanity(Configuration.sleep * sleep);
             }
         }
     }

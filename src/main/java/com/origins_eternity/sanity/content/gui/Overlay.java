@@ -1,5 +1,6 @@
 package com.origins_eternity.sanity.content.gui;
 
+import com.origins_eternity.sanity.config.Configuration;
 import com.origins_eternity.sanity.content.capability.sanity.ISanity;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.Gui;
@@ -20,12 +21,19 @@ public class Overlay extends Gui {
     @SubscribeEvent
     public void onRenderGameOverlay(RenderGameOverlayEvent.Pre event) {
         EntityPlayerSP player = mc().player;
+        int posX = event.getResolution().getScaledWidth();
+        int posY = event.getResolution().getScaledHeight();
         if (event.getType() == RenderGameOverlayEvent.ElementType.AIR) {
             GlStateManager.enableBlend();
             GlStateManager.pushMatrix();
-            int posX = event.getResolution().getScaledWidth();
-            int posY = event.getResolution().getScaledHeight();
             drawHud(player, posX / 2 - 130, posY - GuiIngameForge.left_height + 20);
+            GlStateManager.popMatrix();
+            mc().getTextureManager().bindTexture(Gui.ICONS);
+            GlStateManager.disableBlend();
+        }
+        if (event.getType() == RenderGameOverlayEvent.ElementType.ALL) {
+            GlStateManager.enableBlend();
+            GlStateManager.pushMatrix();
             drawBlood(player, posX, posY);
             GlStateManager.popMatrix();
             mc().getTextureManager().bindTexture(Gui.ICONS);
@@ -50,6 +58,7 @@ public class Overlay extends Gui {
     private void drawHud(EntityPlayerSP player, int posX, int posY) {
         mc().getTextureManager().bindTexture(hud);
         ISanity sanity = player.getCapability(SANITY, null);
+        posX += Configuration.offX;
         if (sanity.getSanity() < 40f) {
             posY += player.ticksExisted % 2;
         }

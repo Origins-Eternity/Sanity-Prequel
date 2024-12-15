@@ -21,7 +21,7 @@ import static com.origins_eternity.sanity.utils.proxy.ClientProxy.mc;
 
 @Mod.EventBusSubscriber(modid = MOD_ID)
 public class ClientEvent {
-    private static final net.minecraft.util.SoundEvent[] SOUNDS = new SoundEvent[] {
+    private static final net.minecraft.util.SoundEvent[] SOUNDS = new SoundEvent[]{
             SoundEvents.ENTITY_CREEPER_PRIMED,
             SoundEvents.ENTITY_TNT_PRIMED,
             SoundEvents.ENTITY_SKELETON_AMBIENT,
@@ -47,7 +47,7 @@ public class ClientEvent {
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
         if (event.side.isClient()) {
             EntityPlayerSP player = (EntityPlayerSP) event.player;
-            if(!player.isCreative() && !player.isSpectator()) {
+            if (!player.isCreative() && !player.isSpectator()) {
                 ISanity sanity = player.getCapability(SANITY, null);
                 ISound insanity = PositionedSoundRecord.getMusicRecord(INSANITY);
                 if (sanity.getSanity() >= 40f) {

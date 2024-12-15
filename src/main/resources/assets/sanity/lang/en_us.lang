@@ -4,6 +4,8 @@ itemGroup.sanity=Sanity: Prequel
 
 item.sanity.garland.name=Garland
 
+config.sanity.hud=HUD OffX
+config.sanity.hud.tooltip=Offset on x of the HUD. A positive number means a shift to the right.
 config.sanity.lightning=Lightning
 config.sanity.lightning.tooltip=The sanity to reduce when player is struck by lightning.
 config.sanity.animal=Attack Animal

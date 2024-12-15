@@ -8,7 +8,6 @@ import static com.origins_eternity.sanity.Sanity.MOD_ID;
 
 public class Sounds {
     public static SoundEvent INSANITY = addSounds("insanity");
-    public static SoundEvent SWISH = addSounds("swish");
     public static SoundEvent FLOWERS_EQUIP = addSounds("flowers_equip");
 
     private static SoundEvent addSounds(String name) {

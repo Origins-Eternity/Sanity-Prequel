@@ -10,6 +10,11 @@ import static com.origins_eternity.sanity.Sanity.MOD_ID;
 
 @Config(modid = MOD_ID)
 public class Configuration {
+    @Config.Name("HUD OffX")
+    @Config.LangKey("config.sanity.hud")
+    @Config.Comment("Offset on x of the HUD. A positive number means a shift to the right.")
+    public static int offX = 0;
+
     @Config.Name("Attack Animal")
     @Config.LangKey("config.sanity.animal")
     @Config.Comment("The sanity to reduce when player attack an animal.")
