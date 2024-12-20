@@ -107,7 +107,6 @@ public class Utils {
         if (sanity.getSanity() < 50f) {
             addDizzyDebuff(player);
             if (sanity.getSanity() < 10f) {
-                player.setSprinting(false);
                 addLostDebuff(player);
             }
         }
