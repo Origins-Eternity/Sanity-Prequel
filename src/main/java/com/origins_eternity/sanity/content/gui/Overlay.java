@@ -20,21 +20,14 @@ public class Overlay extends Gui {
 
     @SubscribeEvent
     public void onRenderGameOverlay(RenderGameOverlayEvent.Pre event) {
-        EntityPlayerSP player = mc().player;
-        int posX = event.getResolution().getScaledWidth();
-        int posY = event.getResolution().getScaledHeight();
-        if (event.getType() == RenderGameOverlayEvent.ElementType.AIR) {
-            GlStateManager.enableBlend();
-            GlStateManager.pushMatrix();
-            drawHud(player, posX / 2 - 130, posY - GuiIngameForge.left_height + 20);
-            GlStateManager.popMatrix();
-            mc().getTextureManager().bindTexture(Gui.ICONS);
-            GlStateManager.disableBlend();
-        }
         if (event.getType() == RenderGameOverlayEvent.ElementType.ALL) {
+            EntityPlayerSP player = mc().player;
+            int posX = event.getResolution().getScaledWidth();
+            int posY = event.getResolution().getScaledHeight();
             GlStateManager.enableBlend();
             GlStateManager.pushMatrix();
             drawBlood(player, posX, posY);
+            drawHud(player, posX / 2 - 130, posY - GuiIngameForge.left_height + 20);
             GlStateManager.popMatrix();
             mc().getTextureManager().bindTexture(Gui.ICONS);
             GlStateManager.disableBlend();
@@ -59,6 +52,7 @@ public class Overlay extends Gui {
         mc().getTextureManager().bindTexture(hud);
         ISanity sanity = player.getCapability(SANITY, null);
         posX += Configuration.offX;
+        posY -= Configuration.offY;
         if (sanity.getSanity() < 40f) {
             posY += player.ticksExisted % 2;
         }

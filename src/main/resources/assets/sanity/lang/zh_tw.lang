@@ -4,8 +4,10 @@ itemGroup.sanity=理智：前傳
 
 item.sanity.garland.name=花環
 
-config.sanity.hud=HUD偏移量
-config.sanity.hud.tooltip=HUD的水準偏移量。正數表示向右偏移。
+config.sanity.offx=HUD水準偏移量
+config.sanity.offx.tooltip=HUD的水準偏移量。正數表示向右偏移。
+config.sanity.offy=HUD豎直偏移量
+config.sanity.offy.tooltip=HUD的豎直偏移量。正數表示向上偏移。
 config.sanity.lightning=閃電
 config.sanity.lightning.tooltip=當玩家被閃電擊中時，理智降低的值。
 config.sanity.animal=攻擊動物

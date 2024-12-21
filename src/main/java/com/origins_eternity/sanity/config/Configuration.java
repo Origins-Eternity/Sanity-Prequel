@@ -11,9 +11,14 @@ import static com.origins_eternity.sanity.Sanity.MOD_ID;
 @Config(modid = MOD_ID)
 public class Configuration {
     @Config.Name("HUD OffX")
-    @Config.LangKey("config.sanity.hud")
+    @Config.LangKey("config.sanity.offx")
     @Config.Comment("Offset on x of the HUD. A positive number means a shift to the right.")
     public static int offX = 0;
+
+    @Config.Name("HUD OffY")
+    @Config.LangKey("config.sanity.offy")
+    @Config.Comment("Offset on y of the HUD. A positive number means a shift to the top.")
+    public static int offY = 0;
 
     @Config.Name("Attack Animal")
     @Config.LangKey("config.sanity.animal")

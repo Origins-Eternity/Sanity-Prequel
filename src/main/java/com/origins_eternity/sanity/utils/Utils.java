@@ -107,6 +107,9 @@ public class Utils {
         if (sanity.getSanity() < 50f) {
             addDizzyDebuff(player);
             if (sanity.getSanity() < 10f) {
+                if (player.world.isRemote) {
+                    player.setSprinting(false);
+                }
                 addLostDebuff(player);
             }
         }
