@@ -60,7 +60,7 @@ public class Overlay extends Gui {
         int consume = 24 - (int) (percent * 24);
         drawTexturedModalRect(posX, posY, 0, 0, 33, 24);
         int heath = posY + consume;
-        if (sanity.getDown() > 0) {
+        if (sanity.getDown() > 0 && !sanity.getGarland()) {
             if (player.ticksExisted % 20 < 10) {
                 drawTexturedModalRect(posX + 13, posY, 72, 0, 6, consume);
                 drawTexturedModalRect(posX, heath, 33, consume, 33, 24 - consume);

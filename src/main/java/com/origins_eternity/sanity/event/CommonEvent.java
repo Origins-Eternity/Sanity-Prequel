@@ -1,6 +1,7 @@
 package com.origins_eternity.sanity.event;
 
 import com.origins_eternity.sanity.config.Configuration;
+import com.origins_eternity.sanity.content.armor.Armors;
 import com.origins_eternity.sanity.content.capability.Capabilities;
 import com.origins_eternity.sanity.content.capability.sanity.ISanity;
 import com.origins_eternity.sanity.content.capability.sanity.SanityProvider;
@@ -19,11 +20,13 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
+import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.AdvancementEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerSleepInBedEvent;
 import net.minecraftforge.event.entity.player.PlayerWakeUpEvent;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerChangedDimensionEvent;
@@ -131,19 +134,15 @@ public class CommonEvent {
         }
     }
 
-    static int counter;
-
     @SubscribeEvent
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
         EntityPlayer player = event.player;
         if ((!player.isSpectator()) && (!player.isCreative())) {
-            counter++;
-            if (counter >= 10) {
+            if (player.ticksExisted % 10 == 0) {
                 checkStatus(player);
                 if (!player.world.isRemote) {
                     tickPlayer(player);
                 }
-                counter = 0;
             }
         }
     }
@@ -183,6 +182,29 @@ public class CommonEvent {
                         item.damageItem(10, player);
                     } else {
                         item.damageItem(1, player);
+                    }
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onLivingEquipmentChange(LivingEquipmentChangeEvent event) {
+        if (event.getEntityLiving() instanceof EntityPlayer) {
+            EntityPlayer player = (EntityPlayer) event.getEntityLiving();
+            if (!player.world.isRemote) {
+                ISanity sanity = player.getCapability(SANITY, null);
+                if (Loader.isModLoaded("baubles")) {
+                    if (event.getTo().getItem().equals(Armors.GARLAND)) {
+                        sanity.setGarland(true);
+                    } else if (event.getFrom().getItem().equals(Armors.GARLAND)) {
+                        sanity.setGarland(false);
+                    }
+                } else {
+                    if (event.getTo().getItem().equals(Armors.FLOWER)) {
+                        sanity.setGarland(true);
+                    } else if (event.getFrom().getItem().equals(Armors.FLOWER)) {
+                        sanity.setGarland(false);
                     }
                 }
             }

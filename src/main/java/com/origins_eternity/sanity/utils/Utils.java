@@ -14,7 +14,9 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.fml.common.Loader;
 
+import static baubles.api.BaublesApi.isBaubleEquipped;
 import static com.origins_eternity.sanity.Sanity.packetHandler;
 import static com.origins_eternity.sanity.content.capability.Capabilities.SANITY;
 
@@ -53,7 +55,11 @@ public class Utils {
                 sanity.consumeSanity(Configuration.dark);
             }
         }
-        sanity.setGarland(player.inventory.armorItemInSlot(3).getItem().equals(Armors.FLOWER));
+        if (Loader.isModLoaded("baubles")) {
+            if (isBaubleEquipped(player, Armors.GARLAND) == -1 && !player.inventory.armorItemInSlot(3).getItem().equals(Armors.GARLAND)) {
+                sanity.setGarland(false);
+            }
+        }
         syncSanity(player);
     }
 
