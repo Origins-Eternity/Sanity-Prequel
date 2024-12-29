@@ -124,7 +124,7 @@ public class Configuration {
     @Config.Name("Dangerous Blocks")
     @Config.LangKey("config.sanity.blocks")
     @Config.Comment("The list of dangerous blocks or liquids which will decrease sanity when player is in it.")
-    public static String[] blocks = new String[]{"web", "water"};
+    public static String[] blocks = new String[]{"minecraft:web", "minecraft:water"};
 
     @Mod.EventBusSubscriber(modid = MOD_ID)
     public static class ConfigSyncHandler {

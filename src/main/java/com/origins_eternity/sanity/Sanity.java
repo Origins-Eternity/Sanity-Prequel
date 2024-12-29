@@ -1,7 +1,6 @@
 package com.origins_eternity.sanity;
 
 import com.origins_eternity.sanity.utils.proxy.CommonProxy;
-import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -19,8 +18,6 @@ public class Sanity {
 	
 	@SidedProxy(clientSide = "com.origins_eternity.sanity.utils.proxy.ClientProxy", serverSide = "com.origins_eternity.sanity.utils.proxy.CommonProxy")
 	public static CommonProxy proxy;
-
-	static { FluidRegistry.enableUniversalBucket(); }
 
 	public static final SimpleNetworkWrapper packetHandler = NetworkRegistry.INSTANCE.newSimpleChannel("sanity");
 

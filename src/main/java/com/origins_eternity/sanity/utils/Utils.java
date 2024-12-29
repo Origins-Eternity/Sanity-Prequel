@@ -4,6 +4,8 @@ import com.origins_eternity.sanity.config.Configuration;
 import com.origins_eternity.sanity.content.armor.Armors;
 import com.origins_eternity.sanity.content.capability.sanity.ISanity;
 import com.origins_eternity.sanity.message.SyncSanity;
+import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.MobEffects;
@@ -88,6 +90,30 @@ public class Utils {
         return match;
     }
 
+    public static boolean blockMatched(IBlockState block) {
+        boolean match = false;
+        for (String id : Configuration.blocks) {
+            String[] name = id.split(":");
+            if (name.length == 2) {
+                if (block.getBlock().equals(Block.REGISTRY.getObject(new ResourceLocation(id)))) {
+                    if (block.getBlock().getMetaFromState(block) == 0) {
+                        match = true;
+                        break;
+                    }
+                }
+            } else if (name.length == 3) {
+                ResourceLocation location = new ResourceLocation(name[0], name[1]);
+                if (block.getBlock().equals(Block.REGISTRY.getObject(location))) {
+                    if (block.getBlock().getMetaFromState(block) == Integer.parseInt(name[2])) {
+                        match = true;
+                        break;
+                    }
+                }
+            }
+        }
+        return match;
+    }
+
     private static void addPotions(EntityPlayer player, Potion potion) {
         if (!player.isPotionActive(potion)) {
             player.addPotionEffect(new PotionEffect(potion, 312, 1, false, false));
@@ -132,15 +158,9 @@ public class Utils {
     }
 
     public static boolean isDangerous(EntityPlayer player) {
-        boolean dangerous = false;
-            BlockPos pos = new BlockPos(player);
-            String blocks = player.world.getBlockState(pos).getBlock().getTranslationKey() + player.world.getBlockState(pos.up()).getBlock().getTranslationKey();
-            for (String block : Configuration.blocks) {
-                if (blocks.contains(block)) {
-                    dangerous = true;
-                    break;
-                }
-            }
-        return dangerous;
+        BlockPos pos = new BlockPos(player);
+        IBlockState state = player.world.getBlockState(pos);
+        IBlockState state1 = player.world.getBlockState(pos.up());
+        return blockMatched(state) || blockMatched(state1);
     }
 }

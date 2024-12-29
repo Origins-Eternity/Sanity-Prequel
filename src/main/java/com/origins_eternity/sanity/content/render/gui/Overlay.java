@@ -1,4 +1,4 @@
-package com.origins_eternity.sanity.content.gui;
+package com.origins_eternity.sanity.content.render.gui;
 
 import com.origins_eternity.sanity.config.Configuration;
 import com.origins_eternity.sanity.content.capability.sanity.ISanity;
