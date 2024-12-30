@@ -3,7 +3,7 @@ package com.origins_eternity.sanity.event;
 import com.origins_eternity.sanity.content.capability.sanity.ISanity;
 import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.PositionedSoundRecord;
-import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
@@ -19,6 +19,7 @@ import static com.origins_eternity.sanity.content.capability.Capabilities.SANITY
 import static com.origins_eternity.sanity.content.sound.Sounds.INSANITY;
 import static com.origins_eternity.sanity.utils.proxy.ClientProxy.mc;
 
+@SideOnly(Side.CLIENT)
 @Mod.EventBusSubscriber(modid = MOD_ID)
 public class ClientEvent {
     private static final net.minecraft.util.SoundEvent[] SOUNDS = new SoundEvent[]{
@@ -42,32 +43,29 @@ public class ClientEvent {
     static int confusing;
     static int whisper;
 
-    @SideOnly(Side.CLIENT)
     @SubscribeEvent
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
-        if (event.side.isClient()) {
-            EntityPlayerSP player = (EntityPlayerSP) event.player;
-            if (!player.isCreative() && !player.isSpectator()) {
-                ISanity sanity = player.getCapability(SANITY, null);
-                ISound insanity = PositionedSoundRecord.getMusicRecord(INSANITY);
-                if (sanity.getSanity() >= 40f) {
-                    if (whisper > 0) {
-                        mc().getSoundHandler().stopSounds();
-                        whisper = 0;
-                    }
+        EntityPlayer player = event.player;
+        if (!player.isCreative() && !player.isSpectator()) {
+            ISanity sanity = player.getCapability(SANITY, null);
+            ISound insanity = PositionedSoundRecord.getMusicRecord(INSANITY);
+            if (sanity.getSanity() >= 40f) {
+                if (whisper > 0) {
+                    mc().getSoundHandler().stopSounds();
+                    whisper = 0;
                 }
-                if (sanity.getSanity() < 50f) {
-                    confusing--;
-                    if (confusing <= 0) {
-                        player.world.playSound(player.posX, player.posY, player.posZ, SOUNDS[new Random().nextInt(SOUNDS.length)], SoundCategory.AMBIENT, 1f, 0.5f, false);
-                        confusing = new Random().nextInt(600) + 800;
-                    }
-                    if (sanity.getSanity() < 40f) {
-                        whisper--;
-                        if (whisper <= 0) {
-                            mc().getSoundHandler().playSound(insanity);
-                            whisper = 680;
-                        }
+            }
+            if (sanity.getSanity() < 50f) {
+                confusing--;
+                if (confusing <= 0) {
+                    player.world.playSound(player.posX, player.posY, player.posZ, SOUNDS[new Random().nextInt(SOUNDS.length)], SoundCategory.AMBIENT, 1f, 0.5f, false);
+                    confusing = new Random().nextInt(600) + 800;
+                }
+                if (sanity.getSanity() < 40f) {
+                    whisper--;
+                    if (whisper <= 0) {
+                        mc().getSoundHandler().playSound(insanity);
+                        whisper = 680;
                     }
                 }
             }

@@ -27,7 +27,7 @@ public class Overlay extends Gui {
             GlStateManager.enableBlend();
             GlStateManager.pushMatrix();
             drawBlood(player, posX, posY);
-            drawHud(player, posX / 2 - 130, posY - GuiIngameForge.left_height + 20);
+            drawHud(player, posX / 2 - 130, posY - GuiIngameForge.left_height + 30);
             GlStateManager.popMatrix();
             mc().getTextureManager().bindTexture(Gui.ICONS);
             GlStateManager.disableBlend();
