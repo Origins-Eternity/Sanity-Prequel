@@ -2,15 +2,16 @@
 **Added sanity to Minecraft. Players will gain some bad effects when in low sanity.**  
 ## Decrease Sanity
 - **Attack animals, monsters, villagers and other players.**  
-- **Eating bad foods such as carrion, raw meat, etc. (support mod's foods)**  
+- **Eating bad foods such as carrion, raw meat, etc. (support custom configurations)**  
 - **Struck by lightning.**  
 - **In hunger.**  
 - **Get hurt.**  
-- **Rain, water.**  
+- **Rain.**  
 - **In dark(doesn't work when player has night vision effect).**  
 - **Choking.**  
 - **Change dimensions.**  
-- **Falling.**
+- **Falling.**  
+- **Trapped in blocks like web, water, etc. (support custom configurations)**
 ## Increase Sanity    
 - **Sleep.**  
 - **Eating healthy foods.**  
