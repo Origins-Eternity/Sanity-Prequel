@@ -40,6 +40,8 @@ config.sanity.advancement=进度
 config.sanity.advancement.tooltip=当玩家获得进度时，理智升高的值。
 config.sanity.garland=花环
 config.sanity.garland.tooltip=当玩家佩戴花环时，理智升高的值。（每0.5秒）
+config.sanity.pet=宠物
+config.sanity.pet.tooltip=当玩家在宠物旁边时，理智升高的值。（每0.5秒）
 
 config.sanity.food=不健康的食物
 config.sanity.food.tooltip=不健康的食物和食用它们理智降低的值。（"食物;数值"）

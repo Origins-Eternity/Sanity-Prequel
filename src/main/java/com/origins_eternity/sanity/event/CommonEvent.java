@@ -1,5 +1,6 @@
 package com.origins_eternity.sanity.event;
 
+import baubles.api.BaublesApi;
 import com.origins_eternity.sanity.config.Configuration;
 import com.origins_eternity.sanity.content.armor.Armors;
 import com.origins_eternity.sanity.content.capability.Capabilities;
@@ -20,7 +21,6 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
-import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.AdvancementEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -171,9 +171,8 @@ public class CommonEvent {
         if (event.getEntity() instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) event.getEntity();
             if (!player.world.isRemote) {
-                ISanity sanity = player.getCapability(SANITY, null);
-                if (sanity.getGarland()) {
-                    ItemStack item = player.inventory.armorItemInSlot(3);
+                ItemStack item = player.inventory.armorItemInSlot(3);
+                if (item.getItem().equals(Armors.FLOWER)) {
                     if (event.getSource() == DamageSource.LIGHTNING_BOLT) {
                         item.damageItem(30, player);
                     } else if (event.getSource().isFireDamage()) {
@@ -183,28 +182,18 @@ public class CommonEvent {
                     } else {
                         item.damageItem(1, player);
                     }
-                }
-            }
-        }
-    }
-
-    @SubscribeEvent
-    public static void onLivingEquipmentChange(LivingEquipmentChangeEvent event) {
-        if (event.getEntityLiving() instanceof EntityPlayer) {
-            EntityPlayer player = (EntityPlayer) event.getEntityLiving();
-            if (!player.world.isRemote) {
-                ISanity sanity = player.getCapability(SANITY, null);
-                if (Loader.isModLoaded("baubles")) {
-                    if (event.getTo().getItem().equals(Armors.GARLAND)) {
-                        sanity.setGarland(true);
-                    } else if (event.getFrom().getItem().equals(Armors.GARLAND)) {
-                        sanity.setGarland(false);
-                    }
-                } else {
-                    if (event.getTo().getItem().equals(Armors.FLOWER)) {
-                        sanity.setGarland(true);
-                    } else if (event.getFrom().getItem().equals(Armors.FLOWER)) {
-                        sanity.setGarland(false);
+                } else if (Loader.isModLoaded("baubles")) {
+                    ItemStack bauble = BaublesApi.getBaublesHandler(player).getStackInSlot(4);
+                    if (bauble.getItem().equals(Armors.GARLAND)) {
+                        if (event.getSource() == DamageSource.LIGHTNING_BOLT) {
+                            bauble.damageItem(30, player);
+                        } else if (event.getSource().isFireDamage()) {
+                            bauble.damageItem(20, player);
+                        } else if (event.getSource().isExplosion()) {
+                            bauble.damageItem(10, player);
+                        } else {
+                            bauble.damageItem(1, player);
+                        }
                     }
                 }
             }

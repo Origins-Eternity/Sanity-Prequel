@@ -116,6 +116,12 @@ public class Configuration {
     @Config.RangeDouble(min = 0.0, max = 100.0)
     public static double garland = 0.2;
 
+    @Config.Name("Pet")
+    @Config.LangKey("config.sanity.pet")
+    @Config.Comment("The sanity to increase when player stay with pets.(per 0.5s)")
+    @Config.RangeDouble(min = 0.0, max = 100.0)
+    public static double pet = 0.2;
+
     @Config.Name("Unhealthy Food")
     @Config.LangKey("config.sanity.food")
     @Config.Comment("The list of unhealthy food and the sanity to reduce when eat it.('food;value')")

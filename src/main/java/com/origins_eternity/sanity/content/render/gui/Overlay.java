@@ -22,15 +22,17 @@ public class Overlay extends Gui {
     public void onRenderGameOverlay(RenderGameOverlayEvent.Pre event) {
         if (event.getType() == RenderGameOverlayEvent.ElementType.ALL) {
             EntityPlayerSP player = mc().player;
-            int posX = event.getResolution().getScaledWidth();
-            int posY = event.getResolution().getScaledHeight();
-            GlStateManager.enableBlend();
-            GlStateManager.pushMatrix();
-            drawBlood(player, posX, posY);
-            drawHud(player, posX / 2 - 130, posY - GuiIngameForge.left_height + 10);
-            GlStateManager.popMatrix();
-            mc().getTextureManager().bindTexture(Gui.ICONS);
-            GlStateManager.disableBlend();
+            if (!player.isCreative() && !player.isSpectator()) {
+                int posX = event.getResolution().getScaledWidth();
+                int posY = event.getResolution().getScaledHeight();
+                GlStateManager.enableBlend();
+                GlStateManager.pushMatrix();
+                drawBlood(player, posX, posY);
+                drawHud(player, posX / 2 - 130, posY - GuiIngameForge.left_height + 10);
+                GlStateManager.popMatrix();
+                mc().getTextureManager().bindTexture(Gui.ICONS);
+                GlStateManager.disableBlend();
+            }
         }
     }
 
@@ -60,7 +62,7 @@ public class Overlay extends Gui {
         int consume = 24 - (int) (percent * 24);
         drawTexturedModalRect(posX, posY, 0, 0, 33, 24);
         int heath = posY + consume;
-        if (sanity.getDown() > 0 && !sanity.getGarland()) {
+        if (sanity.getDown() > 0) {
             if (player.ticksExisted % 20 < 10) {
                 drawTexturedModalRect(posX + 13, posY, 72, 0, 6, consume);
                 drawTexturedModalRect(posX, heath, 33, consume, 33, 24 - consume);
@@ -69,9 +71,6 @@ public class Overlay extends Gui {
                 drawTexturedModalRect(posX + 13, posY + 1, 72, 0, 6, consume - 1);
                 drawTexturedModalRect(posX, heath, 33, consume, 33, 24 - consume);
                 drawTexturedModalRect(posX + 13, heath, 66, consume - 1, 6, 25 - consume);
-            }
-            if (sanity.getDown() > 15 && player.ticksExisted % 10 < 5) {
-                drawTexturedModalRect(posX, posY, 0, 24, 33, 24);
             }
         } else if (sanity.getUp() > 0) {
             if (player.ticksExisted % 20 < 10) {
@@ -85,6 +84,9 @@ public class Overlay extends Gui {
             }
         } else {
             drawTexturedModalRect(posX, heath, 33, consume, 33, 24 - consume);
+        }
+        if ((sanity.getDown() > 15 || sanity.getUp() > 15) && player.ticksExisted % 10 < 5) {
+            drawTexturedModalRect(posX, posY, 0, 24, 33, 24);
         }
     }
 }

@@ -43,19 +43,17 @@ public class Baubles extends ItemArmor implements IBauble {
     public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
         if(!world.isRemote) {
             IBaublesItemHandler baubles = BaublesApi.getBaublesHandler(player);
-            for(int i = 0; i < baubles.getSlots(); i++)
-                if((baubles.getStackInSlot(i) == null || baubles.getStackInSlot(i).isEmpty()) && baubles.isItemValidForSlot(i, player.getHeldItem(hand), player)) {
-                    baubles.setStackInSlot(i, player.getHeldItem(hand).copy());
-                    if(!player.capabilities.isCreativeMode){
-                        player.inventory.setInventorySlotContents(player.inventory.currentItem, ItemStack.EMPTY);
-                    }
-                    onEquipped(player.getHeldItem(hand), player);
-                    break;
+            if ((baubles.getStackInSlot(4) == null || baubles.getStackInSlot(4).isEmpty()) && baubles.isItemValidForSlot(4, player.getHeldItem(hand), player)) {
+                baubles.setStackInSlot(4, player.getHeldItem(hand).copy());
+                if (!player.capabilities.isCreativeMode) {
+                    player.inventory.setInventorySlotContents(player.inventory.currentItem, ItemStack.EMPTY);
                 }
+                onEquipped(player.getHeldItem(hand), player);
+            }
         } else {
             player.playSound(Sounds.FLOWERS_EQUIP, .75F, 2f);
         }
-        return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, player.getHeldItem(hand));
+        return new ActionResult<>(EnumActionResult.SUCCESS, player.getHeldItem(hand));
     }
 
     @Override
@@ -63,14 +61,13 @@ public class Baubles extends ItemArmor implements IBauble {
         EntityPlayer player = (EntityPlayer) entity;
         if (player.ticksExisted % 10 == 0) {
             ISanity sanity = player.getCapability(Capabilities.SANITY, null);
-            sanity.setGarland(true);
-            sanity.recoverSanity(Configuration.garland);
-            if (isWet(player) || isDangerous(player)) {
-                sanity.setWet(sanity.getWet() + 10);
+            if (sanity.getDown() == 0f) {
+                sanity.recoverSanity(Configuration.garland);
             }
-            if (sanity.getWet() > 60) {
-                itemstack.damageItem(1, player);
-                sanity.setWet(0);
+            if (isWet(player) || isDangerous(player)) {
+                if (player.ticksExisted % 60 == 0) {
+                    itemstack.damageItem(1, player);
+                }
             }
         }
     }
@@ -80,13 +77,14 @@ public class Baubles extends ItemArmor implements IBauble {
         if (player.ticksExisted % 10 == 0) {
             ISanity sanity = player.getCapability(Capabilities.SANITY, null);
             if (player.inventory.armorItemInSlot(3).getItem().equals(this)) {
-                sanity.recoverSanity(Configuration.garland);
-                if (isWet(player) || isDangerous(player)) {
-                    sanity.setWet(sanity.getWet() + 10);
+                ItemStack bauble = BaublesApi.getBaublesHandler(player).getStackInSlot(4);
+                if (sanity.getDown() == 0f && !bauble.getItem().equals(this)) {
+                    sanity.recoverSanity(Configuration.garland);
                 }
-                if (sanity.getWet() > 60) {
-                    stack.damageItem(1, player);
-                    sanity.setWet(0);
+                if (isWet(player) || isDangerous(player)) {
+                    if (player.ticksExisted % 60 == 0) {
+                        stack.damageItem(1, player);
+                    }
                 }
                 super.onArmorTick(world, player, stack);
             }
@@ -96,11 +94,5 @@ public class Baubles extends ItemArmor implements IBauble {
     @Override
     public EnumRarity getRarity(ItemStack ItemStack) {
         return EnumRarity.COMMON;
-    }
-
-    @Override
-    public void onEquipped(ItemStack itemstack, EntityLivingBase player) {
-        ISanity sanity = player.getCapability(Capabilities.SANITY, null);
-        sanity.setGarland(true);
     }
 }

@@ -29,13 +29,13 @@ public class ArmorCreator extends ItemArmor {
         if (player.ticksExisted % 10 == 0) {
             ISanity sanity = player.getCapability(Capabilities.SANITY, null);
             if (player.inventory.armorItemInSlot(3).getItem().equals(this)) {
-                sanity.recoverSanity(Configuration.garland);
-                if (isWet(player) || isDangerous(player)) {
-                    sanity.setWet(sanity.getWet() + 10);
+                if (sanity.getDown() == 0f) {
+                    sanity.recoverSanity(Configuration.garland);
                 }
-                if (sanity.getWet() > 60) {
-                    stack.damageItem(1, player);
-                    sanity.setWet(0);
+                if (isWet(player) || isDangerous(player)) {
+                    if (player.ticksExisted % 60 == 0) {
+                        stack.damageItem(1, player);
+                    }
                 }
                 super.onArmorTick(world, player, stack);
             }

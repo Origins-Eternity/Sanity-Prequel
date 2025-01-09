@@ -40,6 +40,8 @@ config.sanity.advancement=Advancement
 config.sanity.advancement.tooltip=The sanity to increase when player gain an advancement.
 config.sanity.garland=Garland
 config.sanity.garland.tooltip=The sanity to increase when player wear a garland.(per 0.5s)
+config.sanity.pet=Pet
+config.sanity.pet.tooltip=The sanity to increase when player stay with pets.(per 0.5s)
 
 config.sanity.food=Unhealthy Food
 config.sanity.food.tooltip=The list of unhealthy food and the sanity to reduce when eat it.('food;value')

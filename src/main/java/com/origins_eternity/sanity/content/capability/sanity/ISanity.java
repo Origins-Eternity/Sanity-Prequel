@@ -5,10 +5,6 @@ public interface ISanity {
 
     float getSanity();
 
-    void setWet(int wet);
-
-    int getWet();
-
     void setDown(int down);
 
     int getDown();
@@ -16,10 +12,6 @@ public interface ISanity {
     void setUp(int up);
 
     int getUp();
-
-    boolean getGarland();
-
-    void setGarland(boolean garland);
 
     void consumeSanity(double value);
 

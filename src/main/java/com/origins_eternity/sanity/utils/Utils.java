@@ -1,11 +1,12 @@
 package com.origins_eternity.sanity.utils;
 
 import com.origins_eternity.sanity.config.Configuration;
-import com.origins_eternity.sanity.content.armor.Armors;
 import com.origins_eternity.sanity.content.capability.sanity.ISanity;
 import com.origins_eternity.sanity.message.SyncSanity;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.MobEffects;
@@ -14,11 +15,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.fml.common.Loader;
 
-import static baubles.api.BaublesApi.isBaubleEquipped;
 import static com.origins_eternity.sanity.Sanity.packetHandler;
 import static com.origins_eternity.sanity.content.capability.Capabilities.SANITY;
 
@@ -32,9 +32,10 @@ public class Utils {
 
     public static void tickPlayer(EntityPlayer player) {
         ISanity sanity = player.getCapability(SANITY, null);
-        if (sanity.getDown() > 0) {
+        if (sanity.getDown() > 0f) {
             sanity.setDown(sanity.getDown() - 1);
-        } else if (sanity.getUp() > 0) {
+        }
+        if (sanity.getUp() > 0f) {
             sanity.setUp(sanity.getUp() - 1);
         }
         if (isWet(player)) {
@@ -46,20 +47,18 @@ public class Utils {
         if (player.getAir() < 60) {
             sanity.consumeSanity(Configuration.choking);
         }
-        if (player.fallDistance > 4) {
+        if (player.fallDistance > 4f) {
             sanity.consumeSanity((int) player.fallDistance);
         }
         if (isDangerous(player)) {
             sanity.consumeSanity(Configuration.danger);
         }
+        if (withPet(player) && sanity.getDown() == 0f) {
+            sanity.recoverSanity(Configuration.pet);
+        }
         if (player.world.getLight(new BlockPos(player), true) < 4) {
             if (!player.isPotionActive(MobEffects.NIGHT_VISION)) {
                 sanity.consumeSanity(Configuration.dark);
-            }
-        }
-        if (Loader.isModLoaded("baubles")) {
-            if (isBaubleEquipped(player, Armors.GARLAND) == -1 && !player.inventory.armorItemInSlot(3).getItem().equals(Armors.GARLAND)) {
-                sanity.setGarland(false);
             }
         }
         syncSanity(player);
@@ -162,5 +161,19 @@ public class Utils {
         IBlockState state = player.world.getBlockState(pos);
         IBlockState state1 = player.world.getBlockState(pos.up());
         return blockMatched(state) || blockMatched(state1);
+    }
+
+    public static boolean withPet(EntityPlayer player) {
+        boolean pet = false;
+        AxisAlignedBB box = player.getEntityBoundingBox().grow(5);
+        for (Entity entity: player.world.getEntitiesWithinAABB(Entity.class, box)) {
+            if (entity instanceof EntityTameable) {
+                EntityTameable entityTameable = (EntityTameable) entity;
+                if (entityTameable.isTamed() && entityTameable.isOwner(player)) {
+                    pet = true;
+                }
+            }
+        }
+        return pet;
     }
 }
