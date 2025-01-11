@@ -10,7 +10,7 @@
 - **Eating bad foods such as carrion, raw meat, etc. (support custom configurations)**  
 - **Struck by lightning.**  
 - **In hunger.**  
-- **In thirst. (support toughasnails and simpledifficulty)**  
+- **In thirst. (support Tough As Nails and SimpleDifficulty)**  
 - **Get hurt.**  
 - **Rain.**  
 - **In dark(doesn't work when player has night vision effect).**  
@@ -24,6 +24,7 @@
 - **Eating healthy foods.**  
 - **Wearing garland.**  
 - **Gain advancements.**  
+- **Compelete quests. (only support FTB Quests)**  
 - **Stay with pets.**
 ## Debuffs  
 - **Sanity < 50, gain Weakness and Fatigue debuffs. And player will experience auditory hallucinations.**  
