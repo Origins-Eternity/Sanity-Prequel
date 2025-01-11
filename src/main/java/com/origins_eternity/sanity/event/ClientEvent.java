@@ -49,7 +49,7 @@ public class ClientEvent {
         if (!player.isCreative() && !player.isSpectator()) {
             ISanity sanity = player.getCapability(SANITY, null);
             ISound insanity = PositionedSoundRecord.getMusicRecord(INSANITY);
-            if (sanity.getSanity() >= 45f) {
+            if (sanity.getSanity() >= 40f) {
                 if (whisper > 0) {
                     mc().getSoundHandler().stopSounds();
                     whisper = 0;
@@ -59,9 +59,9 @@ public class ClientEvent {
                 confusing--;
                 if (confusing <= 0) {
                     player.world.playSound(player.posX, player.posY, player.posZ, SOUNDS[new Random().nextInt(SOUNDS.length)], SoundCategory.AMBIENT, 1f, 0.5f, false);
-                    confusing = new Random().nextInt(600) + 800;
+                    confusing = new Random().nextInt(600) + 600;
                 }
-                if (sanity.getSanity() < 45f) {
+                if (sanity.getSanity() < 40f) {
                     whisper--;
                     if (whisper <= 0) {
                         mc().getSoundHandler().playSound(insanity);

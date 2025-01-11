@@ -9,6 +9,7 @@ import com.origins_eternity.sanity.content.capability.sanity.SanityProvider;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -19,9 +20,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
-import net.minecraftforge.event.entity.living.LivingDamageEvent;
-import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.AdvancementEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerSleepInBedEvent;
@@ -148,6 +147,17 @@ public class CommonEvent {
     }
 
     @SubscribeEvent
+    public static void onBabyEntitySpawn(BabyEntitySpawnEvent event) {
+        if (event.getCausedByPlayer() != null) {
+            EntityPlayer player = event.getCausedByPlayer();
+            if (!player.world.isRemote) {
+                ISanity sanity = player.getCapability(SANITY, null);
+                sanity.recoverSanity(Configuration.bred);
+            }
+        }
+    }
+
+    @SubscribeEvent
     public static void onAdvancement(AdvancementEvent event) {
         if (event.getAdvancement().getDisplay() == null || !event.getAdvancement().getDisplay().shouldAnnounceToChat()) return;
         EntityPlayer player = event.getEntityPlayer();
@@ -163,6 +173,17 @@ public class CommonEvent {
         if (!player.isCreative() && !player.world.isRemote) {
             ISanity sanity = player.getCapability(SANITY, null);
             sanity.consumeSanity(Configuration.trip);
+        }
+    }
+
+    @SubscribeEvent
+    public static void onLivingDeath(LivingDeathEvent event) {
+        if (event.getEntity() instanceof EntityTameable && !event.getEntity().world.isRemote) {
+            EntityTameable entityTameable = (EntityTameable) event.getEntity();
+            if (entityTameable.isTamed() && entityTameable.getOwner() != null) {
+                ISanity sanity = entityTameable.getOwner().getCapability(SANITY, null);
+                sanity.consumeSanity(Configuration.lost);
+            }
         }
     }
 

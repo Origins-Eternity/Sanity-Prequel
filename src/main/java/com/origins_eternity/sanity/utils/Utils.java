@@ -1,5 +1,7 @@
 package com.origins_eternity.sanity.utils;
 
+import com.charles445.simpledifficulty.api.SDCapabilities;
+import com.charles445.simpledifficulty.api.thirst.IThirstCapability;
 import com.origins_eternity.sanity.config.Configuration;
 import com.origins_eternity.sanity.content.capability.sanity.ISanity;
 import com.origins_eternity.sanity.message.SyncSanity;
@@ -18,6 +20,9 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.fml.common.Loader;
+import toughasnails.api.TANCapabilities;
+import toughasnails.api.stat.capability.IThirst;
 
 import static com.origins_eternity.sanity.Sanity.packetHandler;
 import static com.origins_eternity.sanity.content.capability.Capabilities.SANITY;
@@ -41,8 +46,11 @@ public class Utils {
         if (isWet(player)) {
             sanity.consumeSanity(Configuration.cold);
         }
-        if (player.getFoodStats().getFoodLevel() < 8) {
+        if (player.getFoodStats().getFoodLevel() < 6) {
             sanity.consumeSanity(Configuration.hunger);
+        }
+        if (isThirst(player)) {
+            sanity.consumeSanity(Configuration.thirst);
         }
         if (player.getAir() < 60) {
             sanity.consumeSanity(Configuration.choking);
@@ -175,5 +183,23 @@ public class Utils {
             }
         }
         return pet;
+    }
+
+
+    public static boolean isThirst(EntityPlayer player) {
+        boolean thirst = false;
+        if (Loader.isModLoaded("toughasnails")) {
+            IThirst thirstStats = player.getCapability(TANCapabilities.THIRST, null);
+            if (thirstStats.getThirst() < 6) {
+                thirst = true;
+            }
+        }
+        if (Loader.isModLoaded("simpledifficulty")) {
+            IThirstCapability thirstStats1 = player.getCapability(SDCapabilities.THIRST, null);
+            if (thirstStats1.getThirstLevel() < 6) {
+                thirst = true;
+            }
+        }
+        return thirst;
     }
 }

@@ -39,25 +39,29 @@ public class Sanity implements ISanity {
 
     @Override
     public void consumeSanity(double value) {
-        if (sanity != 0f) {
-            if (value >= 1f) {
-                down = 21;
-            } else {
-                down = 15;
+        if (value >= 0) {
+            if (sanity != 0f) {
+                if (value >= 1f) {
+                    down = 21;
+                } else {
+                    down = 15;
+                }
+                sanity = Math.max(sanity - (float) value, 0);
             }
-            sanity = Math.max(sanity - (float) value, 0);
         }
     }
 
     @Override
     public void recoverSanity(double value) {
-        if (sanity != 100f) {
-            if (value >= 1f) {
-                up = 21;
-            } else {
-                up = 15;
+        if (value >= 0) {
+            if (sanity != 100f) {
+                if (value >= 1f) {
+                    up = 21;
+                } else {
+                    up = 15;
+                }
+                sanity = Math.min(sanity + (float) value, 100);
             }
-            sanity = Math.min(sanity + (float) value, 100);
         }
     }
 }

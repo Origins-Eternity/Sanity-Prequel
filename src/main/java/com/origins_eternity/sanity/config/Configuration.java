@@ -74,6 +74,12 @@ public class Configuration {
     @Config.RangeDouble(min = 0.0, max = 100.0)
     public static double hunger = 0.1;
 
+    @Config.Name("Thirst")
+    @Config.LangKey("config.sanity.thirst")
+    @Config.Comment("The sanity to reduce when player's thirstLevel is low.(per 0.5s, support toughasnails and simpledifficulty)")
+    @Config.RangeDouble(min = 0.0, max = 100.0)
+    public static double thirst = 0.1;
+
     @Config.Name("Choking")
     @Config.LangKey("config.sanity.choking")
     @Config.Comment("The sanity to reduce when player's air is low.(per 0.5s)")
@@ -98,17 +104,29 @@ public class Configuration {
     @Config.RangeDouble(min = 0.0, max = 100.0)
     public static double eat = 1.0;
 
+    @Config.Name("Quest")
+    @Config.LangKey("config.sanity.quest")
+    @Config.Comment("The sanity to increase when player complete a quest.(only support FTB Quests)")
+    @Config.RangeDouble(min = 0.0, max = 100.0)
+    public static double quest = 10.0;
+
     @Config.Name("Sleep")
     @Config.LangKey("config.sanity.sleep")
     @Config.Comment("The sanity to increase when player wake up.")
     @Config.RangeDouble(min = 0.0, max = 100.0)
     public static double sleep = 50.0;
 
+    @Config.Name("Bred")
+    @Config.LangKey("config.sanity.bred")
+    @Config.Comment("The sanity to increase when player bred animals.")
+    @Config.RangeDouble(min = 0.0, max = 100.0)
+    public static double bred = 10.0;
+
     @Config.Name("Advancement")
     @Config.LangKey("config.sanity.advancement")
     @Config.Comment("The sanity to increase when player gain an advancement.")
     @Config.RangeDouble(min = 0.0, max = 100.0)
-    public static double advancement = 20.0;
+    public static double advancement = 15.0;
 
     @Config.Name("Garland")
     @Config.LangKey("config.sanity.garland")
@@ -121,6 +139,12 @@ public class Configuration {
     @Config.Comment("The sanity to increase when player stay with pets.(per 0.5s)")
     @Config.RangeDouble(min = 0.0, max = 100.0)
     public static double pet = 0.2;
+
+    @Config.Name("Lost")
+    @Config.LangKey("config.sanity.lost")
+    @Config.Comment("The sanity to reduce when player loses pets.")
+    @Config.RangeDouble(min = 0.0, max = 100.0)
+    public static double lost = 25.0;
 
     @Config.Name("Unhealthy Food")
     @Config.LangKey("config.sanity.food")
