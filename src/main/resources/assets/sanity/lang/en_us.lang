@@ -56,4 +56,4 @@ config.sanity.food.tooltip=The list of unhealthy food and the sanity to reduce w
 config.sanity.blocks=Dangerous Source
 config.sanity.blocks.tooltip=The list of dangerous blocks or liquids which will decrease sanity when player is in it.
 
-commands.sanity.usage=Usage: /sanity <add/remove/set> [player] <value>
+commands.sanity.usage=/sanity <add/remove/set> [player] <value>

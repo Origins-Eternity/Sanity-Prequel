@@ -1,6 +1,6 @@
 package com.origins_eternity.sanity.utils.proxy;
 
-import com.origins_eternity.sanity.content.render.gui.Overlay;
+import com.origins_eternity.sanity.content.render.Overlay;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;

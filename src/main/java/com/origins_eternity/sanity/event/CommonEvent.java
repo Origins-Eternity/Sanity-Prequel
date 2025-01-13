@@ -200,8 +200,6 @@ public class CommonEvent {
                         item.damageItem(20, player);
                     } else if (event.getSource().isExplosion()) {
                         item.damageItem(10, player);
-                    } else {
-                        item.damageItem(1, player);
                     }
                 } else if (Loader.isModLoaded("baubles")) {
                     ItemStack bauble = BaublesApi.getBaublesHandler(player).getStackInSlot(4);
@@ -212,8 +210,6 @@ public class CommonEvent {
                             bauble.damageItem(20, player);
                         } else if (event.getSource().isExplosion()) {
                             bauble.damageItem(10, player);
-                        } else {
-                            bauble.damageItem(1, player);
                         }
                     }
                 }
