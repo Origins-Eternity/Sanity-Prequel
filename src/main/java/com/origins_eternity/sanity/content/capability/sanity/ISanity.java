@@ -1,7 +1,7 @@
 package com.origins_eternity.sanity.content.capability.sanity;
 
 public interface ISanity {
-    void setSanity(float sanity);
+    void setSanity(double sanity);
 
     float getSanity();
 

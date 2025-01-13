@@ -29,7 +29,7 @@ config.sanity.cold.tooltip=The sanity to reduce when player get wet by rain.(per
 config.sanity.hunger=Hunger
 config.sanity.hunger.tooltip=The sanity to reduce when player's foodLevel is low.(per 0.5s)
 config.sanity.thirst=Thirst
-config.sanity.thirst.tooltip=The sanity to reduce when player's thirstLevel is low.(per 0.5s, support toughasnails and simpledifficulty)
+config.sanity.thirst.tooltip=The sanity to reduce when player's thirstLevel is low.(per 0.5s, support ToughAsNails and SimpleDifficulty)
 config.sanity.choking=Choking
 config.sanity.choking.tooltip=The sanity to reduce when player's air is low.(per 0.5s)
 config.sanity.danger=Danger
@@ -55,3 +55,5 @@ config.sanity.food=Unhealthy Food
 config.sanity.food.tooltip=The list of unhealthy food and the sanity to reduce when eat it.('food;value')
 config.sanity.blocks=Dangerous Source
 config.sanity.blocks.tooltip=The list of dangerous blocks or liquids which will decrease sanity when player is in it.
+
+commands.sanity.usage=Usage: /sanity <add/remove/set> [player] <value>

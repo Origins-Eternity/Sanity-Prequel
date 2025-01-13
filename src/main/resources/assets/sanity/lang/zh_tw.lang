@@ -55,3 +55,5 @@ config.sanity.food=不健康的食物
 config.sanity.food.tooltip=不健康的食物和食用它們理智降低的值。（"食物;數值"）
 config.sanity.blocks=危險源
 config.sanity.blocks.tooltip=當玩家處於清單中的方塊或流體時，會降低理智。
+
+commands.sanity.usage=用法：/sanity <add/remove/set> [玩家] <数值>

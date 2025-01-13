@@ -76,7 +76,7 @@ public class Configuration {
 
     @Config.Name("Thirst")
     @Config.LangKey("config.sanity.thirst")
-    @Config.Comment("The sanity to reduce when player's thirstLevel is low.(per 0.5s, support toughasnails and simpledifficulty)")
+    @Config.Comment("The sanity to reduce when player's thirstLevel is low.(per 0.5s, support ToughAsNails and SimpleDifficulty)")
     @Config.RangeDouble(min = 0.0, max = 100.0)
     public static double thirst = 0.1;
 

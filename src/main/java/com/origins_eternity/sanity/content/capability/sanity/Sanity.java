@@ -8,8 +8,8 @@ public class Sanity implements ISanity {
     private int up = 0;
 
     @Override
-    public void setSanity(float sanity) {
-        this.sanity = sanity;
+    public void setSanity(double sanity) {
+        this.sanity = (float) sanity;
     }
 
     @Override
