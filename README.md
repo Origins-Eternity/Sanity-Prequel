@@ -1,4 +1,4 @@
-![This is an image](https://s21.ax1x.com/2025/01/09/pECDVbR.png)
+![This is an image](https://s21.ax1x.com/2025/01/15/pEiWBsx.png)
 
 [![Discord](https://img.shields.io/discord/1321045735055163402?logo=discord&color=949af1)](https://discord.gg/JdrzWQvT3v)
 [![This is an image](https://cf.way2muchnoise.eu/versions/1134090.svg)](https://www.curseforge.com/minecraft/mc-mods/sanity-prequel/files)
