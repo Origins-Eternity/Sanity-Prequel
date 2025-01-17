@@ -57,3 +57,6 @@ config.sanity.blocks=Dangerous Source
 config.sanity.blocks.tooltip=The list of dangerous blocks or liquids which will decrease sanity when player is in it.
 
 commands.sanity.usage=/sanity <add/remove/set> [player] <value>
+
+sanity.subtitle.insanity=Whispers
+sanity.subtitle.leaves_rustle=Garland rustles

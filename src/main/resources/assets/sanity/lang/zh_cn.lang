@@ -57,3 +57,6 @@ config.sanity.blocks=危险源
 config.sanity.blocks.tooltip=当玩家处于列表中的方块或流体时，会降低理智。
 
 commands.sanity.usage=/sanity <add/remove/set> [玩家] <数值>
+
+sanity.subtitle.insanity=低语
+sanity.subtitle.leaves_rustle=花环:摩擦

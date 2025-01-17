@@ -5,6 +5,7 @@ import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -22,7 +23,7 @@ import static com.origins_eternity.sanity.utils.proxy.ClientProxy.mc;
 @SideOnly(Side.CLIENT)
 @Mod.EventBusSubscriber(modid = MOD_ID)
 public class ClientEvent {
-    private static final net.minecraft.util.SoundEvent[] SOUNDS = new SoundEvent[]{
+    private static final SoundEvent[] SOUNDS = new SoundEvent[]{
             SoundEvents.ENTITY_CREEPER_PRIMED,
             SoundEvents.ENTITY_TNT_PRIMED,
             SoundEvents.ENTITY_SKELETON_AMBIENT,
@@ -35,10 +36,10 @@ public class ClientEvent {
             SoundEvents.BLOCK_CHEST_CLOSE,
             SoundEvents.BLOCK_WOODEN_DOOR_OPEN,
             SoundEvents.BLOCK_WOODEN_TRAPDOOR_OPEN,
-            SoundEvents.ENTITY_WOLF_GROWL,
-            SoundEvents.ENTITY_SPLASH_POTION_BREAK,
-            SoundEvents.ENTITY_SPIDER_AMBIENT
+            SoundEvents.ENTITY_WOLF_GROWL
     };
+
+    private static final Random rand = new Random();
 
     static int confusing;
     static int whisper;
@@ -48,26 +49,64 @@ public class ClientEvent {
         EntityPlayer player = event.player;
         if (!player.isCreative() && !player.isSpectator()) {
             ISanity sanity = player.getCapability(SANITY, null);
-            ISound insanity = PositionedSoundRecord.getMusicRecord(INSANITY);
-            if (sanity.getSanity() >= 40f) {
-                if (whisper > 0) {
-                    mc().getSoundHandler().stopSounds();
-                    whisper = 0;
-                }
-            }
-            if (sanity.getSanity() < 50f) {
+            ISound insanity = PositionedSoundRecord.getMasterRecord(INSANITY, 1f);
+            if (sanity.getSanity() <= 50f) {
                 confusing--;
                 if (confusing <= 0) {
-                    player.world.playSound(player.posX, player.posY, player.posZ, SOUNDS[new Random().nextInt(SOUNDS.length)], SoundCategory.AMBIENT, 1f, 0.5f, false);
-                    confusing = new Random().nextInt(600) + 600;
+                    player.world.playSound(player.posX, player.posY, player.posZ, SOUNDS[rand.nextInt(SOUNDS.length)], SoundCategory.MASTER, 1f, 0.5f, false);
+                    confusing = new Random().nextInt(600) + 800;
                 }
-                if (sanity.getSanity() < 40f) {
+                if (sanity.getSanity() <= 45f) {
                     whisper--;
                     if (whisper <= 0) {
                         mc().getSoundHandler().playSound(insanity);
                         whisper = 680;
                     }
                 }
+            }
+        }
+    }
+
+    private static final String DECONVERGE = "shaders/post/deconverge.json";
+    private static final String NOTCH = "shaders/post/notch.json";
+    private static final String BITS = "shaders/post/bits.json";
+
+    static boolean deconverge = false;
+    static boolean notch = false;
+    static boolean bits = false;
+
+    @SubscribeEvent
+    public static void onRenderTick(TickEvent.RenderTickEvent event) {
+        EntityPlayer player = mc().player;
+        if (event.phase == TickEvent.Phase.END && player != null) {
+            ISanity sanity = player.getCapability(SANITY, null);
+            if (sanity.getSanity() <= 10f) {
+                if (!bits) {
+                    mc().entityRenderer.loadShader(new ResourceLocation(BITS));
+                    bits = true;
+                    deconverge = false;
+                    notch = false;
+                }
+            } else if (sanity.getSanity() <= 40f) {
+                if (!notch) {
+                    mc().entityRenderer.loadShader(new ResourceLocation(NOTCH));
+                    notch = true;
+                    deconverge = false;
+                    bits = false;
+                }
+            } else if (sanity.getSanity() <= 60f) {
+                if (!deconverge) {
+                    mc().entityRenderer.loadShader(new ResourceLocation(DECONVERGE)); {
+                        deconverge = true;
+                        notch = false;
+                        bits = false;
+                    }
+                }
+            } else if (deconverge || notch || bits) {
+                mc().entityRenderer.stopUseShader();
+                deconverge = false;
+                notch = false;
+                bits = false;
             }
         }
     }

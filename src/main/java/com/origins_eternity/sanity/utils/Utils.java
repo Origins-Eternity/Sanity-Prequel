@@ -14,8 +14,6 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -119,39 +117,6 @@ public class Utils {
             }
         }
         return match;
-    }
-
-    private static void addPotions(EntityPlayer player, Potion potion) {
-        if (!player.isPotionActive(potion)) {
-            player.addPotionEffect(new PotionEffect(potion, 312, 1, false, false));
-        }
-    }
-
-    private static void addLostDebuff(EntityPlayer player) {
-        if (!player.world.isRemote) {
-            addPotions(player, MobEffects.NAUSEA);
-            addPotions(player, MobEffects.BLINDNESS);
-        }
-    }
-
-    private static void addDizzyDebuff(EntityPlayer player) {
-        if (!player.world.isRemote) {
-            addPotions(player, MobEffects.WEAKNESS);
-            addPotions(player, MobEffects.MINING_FATIGUE);
-        }
-    }
-
-    public static void checkStatus(EntityPlayer player) {
-        ISanity sanity = player.getCapability(SANITY, null);
-        if (sanity.getSanity() < 50f) {
-            addDizzyDebuff(player);
-            if (sanity.getSanity() < 10f) {
-                if (player.world.isRemote) {
-                    player.setSprinting(false);
-                }
-                addLostDebuff(player);
-            }
-        }
     }
 
     public static boolean isWet(EntityPlayer player) {

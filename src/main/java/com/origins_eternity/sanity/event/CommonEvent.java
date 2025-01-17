@@ -33,7 +33,8 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 import static com.origins_eternity.sanity.Sanity.MOD_ID;
 import static com.origins_eternity.sanity.content.capability.Capabilities.SANITY;
-import static com.origins_eternity.sanity.utils.Utils.*;
+import static com.origins_eternity.sanity.utils.Utils.itemMatched;
+import static com.origins_eternity.sanity.utils.Utils.tickPlayer;
 
 @Mod.EventBusSubscriber(modid = MOD_ID)
 public class CommonEvent {
@@ -138,7 +139,6 @@ public class CommonEvent {
         EntityPlayer player = event.player;
         if ((!player.isSpectator()) && (!player.isCreative())) {
             if (player.ticksExisted % 10 == 0) {
-                checkStatus(player);
                 if (!player.world.isRemote) {
                     tickPlayer(player);
                 }

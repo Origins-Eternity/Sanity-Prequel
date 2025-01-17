@@ -1,13 +1,15 @@
 {
 	"insanity": {
-		"category": "ambient",
 		"sounds": [
 			"sanity:insanity"
-		]
+		],
+		"subtitle": "sanity.subtitle.insanity",
+		"stream": true
 	},
 	"flowers_equip": {
 		"sounds": [
 			"sanity:leaves_rustle"
-		]
+		],
+		"subtitle": "sanity.subtitle.leaves_rustle"
 	}
 }

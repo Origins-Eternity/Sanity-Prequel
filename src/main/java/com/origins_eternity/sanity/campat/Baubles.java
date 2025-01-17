@@ -65,7 +65,7 @@ public class Baubles extends ItemArmor implements IBauble {
                 sanity.recoverSanity(Configuration.garland);
             }
             if (isWet(player) || isDangerous(player)) {
-                if (player.ticksExisted % 60 == 0) {
+                if (player.ticksExisted % 20 == 0) {
                     itemstack.damageItem(1, player);
                 }
             }
@@ -81,8 +81,8 @@ public class Baubles extends ItemArmor implements IBauble {
                 if (sanity.getDown() == 0f && !bauble.getItem().equals(this)) {
                     sanity.recoverSanity(Configuration.garland);
                 }
-                if (isWet(player) || isDangerous(player)) {
-                    if (player.ticksExisted % 60 == 0) {
+                if (player.isWet()) {
+                    if (player.ticksExisted % 20 == 0) {
                         stack.damageItem(1, player);
                     }
                 }
