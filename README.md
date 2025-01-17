@@ -9,7 +9,7 @@
 **Most feature support custom configurations. Turn to mod's config file for more information.**
 ### Garland
 **Each garland has 60 durability in total, use any small flowers to craft it. Water, fire, lightning, and explosion can lead to damage it while wearing on head. (support Baubles)**
-![This is an image](https://s21.ax1x.com/2025/01/13/pEPvHyT.png)
+![This is an image](https://s21.ax1x.com/2025/01/17/pEFj3DO.png)
 ### Decrease Sanity
 - **Attack animals, monsters, villagers and other players.**  
 - **Eating bad foods such as carrion, raw meat, etc. (support custom configurations)**  
@@ -32,11 +32,13 @@
 - **Compelete quests. (only support FTB Quests)**  
 - **Stay with pets.**
 ### Commands
-**Using commands need permission level 2.**
-![This is an image](https://s21.ax1x.com/2025/01/13/pEPx9l6.png)
-### Debuffs  
-- **Sanity < 50, gain Weakness and Fatigue debuffs. And player will experience auditory hallucinations.**  
-- **Sanity < 40, whispers can be heard.**  
-- **Sanity < 10, gain Blindness and Nausea debuffs.**
+**Using commands need permission level 2. (support tab completion)**
+![This is an image](https://s21.ax1x.com/2025/01/17/pEFjK81.png)
+### Effects  
+- **Sanity < 60, at the edges of things, red, green, and blue seem to be separated in your eyes.**
+- **Sanity < 50, players will experience auditory hallucinations.**  
+- **Sanity < 45, whispers can be heard.**  
+- **Sanity < 40, there are a grid of small dots lies in your eyes. The world looks washed out...**  
+- **Sanity < 10, game's graphics are even more distorted, with details barely legible.**
 ## About  
 **This mod has been open source under the Apache License 2.0, you can use, modify, port and distribute this mod under the license. And there are currently no plans to make a mod like this for a new Minecraft version.**
