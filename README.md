@@ -35,6 +35,7 @@
 **Using commands need permission level 2. (support tab completion)**
 ![This is an image](https://s21.ax1x.com/2025/01/17/pEFjK81.png)
 ### Effects  
+![This is an image](https://s21.ax1x.com/2025/01/17/pEFxepR.png)
 - **Sanity < 60, at the edges of things, red, green, and blue seem to be separated in your eyes.**
 - **Sanity < 50, players will experience auditory hallucinations.**  
 - **Sanity < 45, whispers can be heard.**  
