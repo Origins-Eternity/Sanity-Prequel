@@ -1,5 +1,11 @@
 package com.origins_eternity.sanity.content.capability.sanity;
 
+import net.minecraft.nbt.NBTBase;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumFacing;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ICapabilitySerializable;
+
 public class Sanity implements ISanity {
     private float sanity = 100;
 
@@ -61,6 +67,60 @@ public class Sanity implements ISanity {
                     up = 15;
                 }
                 sanity = Math.min(sanity + (float) value, 100);
+            }
+        }
+    }
+
+    public static class SanityProvider implements ICapabilitySerializable<NBTBase> {
+        final Capability<ISanity> capability;
+        final ISanity instance;
+
+        public SanityProvider(Capability<ISanity> sanity) {
+            this.capability = sanity;
+            this.instance = capability.getDefaultInstance();
+        }
+
+        @Override
+        public boolean hasCapability(Capability<?> sanity, EnumFacing facing) {
+            return sanity == this.capability;
+        }
+
+        @Override
+        public <T> T getCapability(Capability<T> sanity, EnumFacing facing) {
+            if (sanity == this.capability) {
+                return capability.cast(this.instance);
+            }
+            return null;
+        }
+
+        @Override
+        public NBTBase serializeNBT() {
+            return this.capability.writeNBT(this.instance, null);
+        }
+
+        @Override
+        public void deserializeNBT(NBTBase nbt) {
+            this.capability.readNBT(this.instance, null, nbt);
+        }
+    }
+
+    public static class SanityStorage implements Capability.IStorage<ISanity> {
+        @Override
+        public NBTBase writeNBT(Capability<ISanity> capability, ISanity instance, EnumFacing side) {
+            NBTTagCompound compound = new NBTTagCompound();
+            compound.setFloat("Sanity", instance.getSanity());
+            compound.setInteger("Down", instance.getDown());
+            compound.setInteger("Up", instance.getUp());
+            return compound;
+        }
+
+        @Override
+        public void readNBT(Capability<ISanity> capability, ISanity instance, EnumFacing side, NBTBase nbt) {
+            if (nbt instanceof NBTTagCompound) {
+                NBTTagCompound compound = (NBTTagCompound) nbt;
+                instance.setSanity(compound.getFloat("Sanity"));
+                instance.setDown(compound.getInteger("Down"));
+                instance.setUp(compound.getInteger("Up"));
             }
         }
     }

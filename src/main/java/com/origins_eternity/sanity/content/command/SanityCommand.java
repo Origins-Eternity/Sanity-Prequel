@@ -34,48 +34,29 @@ public class SanityCommand extends CommandBase {
 
     @Override
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-        if (args.length == 2) {
-            if (sender instanceof EntityPlayerMP) {
-                Scanner scanner = new Scanner(args[1]);
-                if (scanner.hasNextDouble()) {
-                    EntityPlayerMP player = (EntityPlayerMP) sender;
-                    ISanity sanity = player.getCapability(Capabilities.SANITY, null);
-                    double value = scanner.nextDouble();
-                    switch (args[0]) {
-                        case "add":
-                            sanity.recoverSanity(value);
-                            break;
-                        case "remove":
-                            sanity.consumeSanity(value);
-                            break;
-                        case "set":
-                            sanity.setSanity(value);
-                            break;
-                    }
-                } else {
-                    throw new WrongUsageException("commands.sanity.usage");
-                }
+        if (args.length == 2 || args.length == 3) {
+            EntityPlayerMP player;
+            Scanner scanner;
+            if (args.length == 2) {
+                player = (EntityPlayerMP) sender;
+                scanner = new Scanner(args[1]);
+            } else {
+                player = server.getPlayerList().getPlayerByUsername(args[1]);
+                scanner = new Scanner(args[2]);
             }
-        } else if (args.length == 3) {
-            EntityPlayerMP player = server.getPlayerList().getPlayerByUsername(args[1]);
-            if (player != null) {
-                Scanner scanner = new Scanner(args[2]);
-                if (scanner.hasNextDouble()) {
-                    ISanity sanity = player.getCapability(Capabilities.SANITY, null);
-                    double value = scanner.nextDouble();
-                    switch (args[0]) {
-                        case "add":
-                            sanity.recoverSanity(value);
-                            break;
-                        case "remove":
-                            sanity.consumeSanity(value);
-                            break;
-                        case "set":
-                            sanity.setSanity(value);
-                            break;
-                    }
-                } else {
-                    throw new WrongUsageException("commands.sanity.usage");
+            if (player != null && scanner.hasNextDouble()) {
+                ISanity sanity = player.getCapability(Capabilities.SANITY, null);
+                double value = scanner.nextDouble();
+                switch (args[0]) {
+                    case "add":
+                        sanity.recoverSanity(value);
+                        break;
+                    case "remove":
+                        sanity.consumeSanity(value);
+                        break;
+                    case "set":
+                        sanity.setSanity(value);
+                        break;
                 }
             } else {
                 throw new WrongUsageException("commands.sanity.usage");

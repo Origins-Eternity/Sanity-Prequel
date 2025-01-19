@@ -1,6 +1,6 @@
 package com.origins_eternity.sanity.content.armor;
 
-import com.origins_eternity.sanity.campat.Baubles;
+import com.origins_eternity.sanity.compat.Baubles;
 import com.origins_eternity.sanity.content.ArmorCreator;
 import com.origins_eternity.sanity.content.material.Flower;
 import net.minecraft.inventory.EntityEquipmentSlot;

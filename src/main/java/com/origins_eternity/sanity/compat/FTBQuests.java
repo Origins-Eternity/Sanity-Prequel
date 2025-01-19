@@ -1,4 +1,4 @@
-package com.origins_eternity.sanity.campat;
+package com.origins_eternity.sanity.compat;
 
 import com.feed_the_beast.ftbquests.events.ObjectCompletedEvent;
 import com.origins_eternity.sanity.config.Configuration;

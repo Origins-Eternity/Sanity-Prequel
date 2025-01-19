@@ -5,7 +5,7 @@ import com.origins_eternity.sanity.config.Configuration;
 import com.origins_eternity.sanity.content.armor.Armors;
 import com.origins_eternity.sanity.content.capability.Capabilities;
 import com.origins_eternity.sanity.content.capability.sanity.ISanity;
-import com.origins_eternity.sanity.content.capability.sanity.SanityProvider;
+import com.origins_eternity.sanity.content.capability.sanity.Sanity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntityAnimal;
@@ -42,7 +42,7 @@ public class CommonEvent {
     public static void onAttachCapability(AttachCapabilitiesEvent<Entity> event) {
         Entity entity = event.getObject();
         if (entity instanceof EntityPlayer) {
-            event.addCapability(new ResourceLocation(MOD_ID, "sanity"), new SanityProvider(Capabilities.SANITY));
+            event.addCapability(new ResourceLocation(MOD_ID, "sanity"), new Sanity.SanityProvider(Capabilities.SANITY));
         }
     }
 

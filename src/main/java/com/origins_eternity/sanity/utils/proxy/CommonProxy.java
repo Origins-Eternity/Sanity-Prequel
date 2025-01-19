@@ -1,6 +1,6 @@
 package com.origins_eternity.sanity.utils.proxy;
 
-import com.origins_eternity.sanity.campat.FTBQuests;
+import com.origins_eternity.sanity.compat.FTBQuests;
 import com.origins_eternity.sanity.content.capability.Capabilities;
 import com.origins_eternity.sanity.content.command.SanityCommand;
 import com.origins_eternity.sanity.message.SyncSanity;

@@ -101,6 +101,7 @@ dependencies {
     compileOnly "curse.maven:ftblib-237167:2985811"
     compileOnly "curse.maven:toughasnails-246391:2710969"
     compileOnly "curse.maven:simpledifficulty-360779:3613814"
+    compileOnly "curse.maven:crafttweaker-239197:6061762"
     // For more info...
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html

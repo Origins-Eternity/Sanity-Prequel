@@ -1,4 +1,4 @@
-package com.origins_eternity.sanity.campat;
+package com.origins_eternity.sanity.compat;
 
 import baubles.api.BaubleType;
 import baubles.api.BaublesApi;
