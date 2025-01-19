@@ -12,11 +12,11 @@
 ![This is an image](https://s21.ax1x.com/2025/01/17/pEFj3DO.png)
 ### Effects
 ![This is an image](https://s21.ax1x.com/2025/01/18/pEkiLJU.png)
-- **Sanity < 60, at the edges of things, red, green, and blue seem to be separated in your eyes.**
-- **Sanity < 50, players will experience auditory hallucinations.**
-- **Sanity < 45, whispers can be heard.**
-- **Sanity < 40, there are a grid of small dots lies in your eyes. The world looks washed out...**
-- **Sanity < 10, game's graphics are even more distorted, with details barely legible.**
+- **Sanity ≤ 60, at the edges of things, red, green, and blue seem to be separated in your eyes.**
+- **Sanity ≤ 50, players will experience auditory hallucinations.**
+- **Sanity ≤ 45, whispers can be heard.**
+- **Sanity ≤ 40, there are a grid of small dots lies in your eyes. The world looks washed out...**
+- **Sanity ≤ 10, game's graphics are even more distorted, with details barely legible.**
 ### Decrease Sanity
 - **Attack animals, monsters, villagers and other players.**  
 - **Eating bad foods such as carrion, raw meat, etc. (support custom configurations)**  
@@ -55,6 +55,6 @@ events.onBlockHarvestDrops(function(event as BlockHarvestDropsEvent) {
     }
 });
 ```
-**This script makes any small flowers drop a dead bush when broken by a player with sanity of 10 or less.**
+**This *example* script makes any small flowers drop a dead bush when broken by a player with sanity of 10 or less.**
 ## About  
 **This mod has been open source under the Apache License 2.0, you can use, modify, port and distribute this mod under the license. And there are currently no plans to make a mod like this for a new Minecraft version.**
