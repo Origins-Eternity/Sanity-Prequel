@@ -42,8 +42,8 @@
 **Using commands need permission level 2. (support tab completion)**
 ![This is an image](https://s21.ax1x.com/2025/01/17/pEFjK81.png)
 ### CraftTweaker
-**Add a ZenExpansion for IPlayer(`sanity`). Developers can call this method on any IPlayer object, including its subtypes.**
-```
+**Add a ZenExpansion for [IPlayer](https://docs.blamejared.com/1.12/en/Vanilla/Players/IPlayer) (`sanity`). Developers can call this method on any [IPlayer](https://docs.blamejared.com/1.12/en/Vanilla/Players/IPlayer) object, including its subtypes.**
+```zenscript
 import crafttweaker.event.BlockHarvestDropsEvent;
 
 events.onBlockHarvestDrops(function(event as BlockHarvestDropsEvent) {
