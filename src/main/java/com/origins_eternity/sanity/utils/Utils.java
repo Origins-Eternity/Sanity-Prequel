@@ -7,7 +7,7 @@ import com.origins_eternity.sanity.content.capability.sanity.ISanity;
 import com.origins_eternity.sanity.message.SyncSanity;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.Entity;
+import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -42,7 +42,7 @@ public class Utils {
             sanity.setUp(sanity.getUp() - 1);
         }
         if (isWet(player)) {
-            sanity.consumeSanity(Configuration.cold);
+            sanity.consumeSanity(Configuration.rian);
         }
         if (player.getFoodStats().getFoodLevel() < 6) {
             sanity.consumeSanity(Configuration.hunger);
@@ -54,10 +54,13 @@ public class Utils {
             sanity.consumeSanity(Configuration.choking);
         }
         if (player.fallDistance > 4f) {
-            sanity.consumeSanity((int) player.fallDistance);
+            sanity.consumeSanity(player.fallDistance * Configuration.fall);
         }
         if (isDangerous(player)) {
             sanity.consumeSanity(Configuration.danger);
+        }
+        if (withMob(player)) {
+            sanity.consumeSanity(Configuration.mob);
         }
         if (withPet(player) && sanity.getDown() == 0f) {
             sanity.recoverSanity(Configuration.pet);
@@ -136,22 +139,33 @@ public class Utils {
         return blockMatched(state) || blockMatched(state1);
     }
 
-    public static boolean withPet(EntityPlayer player) {
+    private static boolean withPet(EntityPlayer player) {
         boolean pet = false;
         AxisAlignedBB box = player.getEntityBoundingBox().grow(5);
-        for (Entity entity: player.world.getEntitiesWithinAABB(Entity.class, box)) {
-            if (entity instanceof EntityTameable) {
-                EntityTameable entityTameable = (EntityTameable) entity;
-                if (entityTameable.isTamed() && entityTameable.isOwner(player)) {
+        for (EntityTameable entity: player.world.getEntitiesWithinAABB(EntityTameable.class, box)) {
+            if (entity != null) {
+                if (entity.isTamed() && entity.isOwner(player)) {
                     pet = true;
+                    break;
                 }
             }
         }
         return pet;
     }
 
+    private static boolean withMob(EntityPlayer player) {
+        boolean mob = false;
+        AxisAlignedBB box = player.getEntityBoundingBox().grow(8);
+        for (EntityMob entity: player.world.getEntitiesWithinAABB(EntityMob.class, box)) {
+            if (entity != null) {
+                mob = true;
+                break;
+            }
+        }
+        return mob;
+    }
 
-    public static boolean isThirst(EntityPlayer player) {
+    private static boolean isThirst(EntityPlayer player) {
         boolean thirst = false;
         if (Loader.isModLoaded("toughasnails")) {
             IThirst thirstStats = player.getCapability(TANCapabilities.THIRST, null);

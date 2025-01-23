@@ -81,32 +81,28 @@ public class ClientEvent {
         if (event.phase == TickEvent.Phase.END && player != null) {
             ISanity sanity = player.getCapability(SANITY, null);
             if (sanity.getSanity() <= 10f) {
-                if (!bits) {
+                if (!bits || !mc().entityRenderer.isShaderActive()) {
                     mc().entityRenderer.loadShader(new ResourceLocation(BITS));
                     bits = true;
                     deconverge = false;
                     notch = false;
                 }
             } else if (sanity.getSanity() <= 40f) {
-                if (!notch) {
+                if (!notch || !mc().entityRenderer.isShaderActive()) {
                     mc().entityRenderer.loadShader(new ResourceLocation(NOTCH));
                     notch = true;
                     deconverge = false;
                     bits = false;
                 }
             } else if (sanity.getSanity() <= 60f) {
-                if (!deconverge) {
-                    mc().entityRenderer.loadShader(new ResourceLocation(DECONVERGE)); {
-                        deconverge = true;
-                        notch = false;
-                        bits = false;
-                    }
+                if (!deconverge || !mc().entityRenderer.isShaderActive()) {
+                    mc().entityRenderer.loadShader(new ResourceLocation(DECONVERGE));
+                    deconverge = true;
+                    notch = false;
+                    bits = false;
                 }
             } else if (deconverge || notch || bits) {
                 mc().entityRenderer.stopUseShader();
-                deconverge = false;
-                notch = false;
-                bits = false;
             }
         }
     }

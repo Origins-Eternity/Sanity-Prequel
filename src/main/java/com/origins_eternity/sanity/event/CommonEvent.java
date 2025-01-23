@@ -7,7 +7,6 @@ import com.origins_eternity.sanity.content.capability.Capabilities;
 import com.origins_eternity.sanity.content.capability.sanity.ISanity;
 import com.origins_eternity.sanity.content.capability.sanity.Sanity;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.passive.EntityVillager;
@@ -122,8 +121,6 @@ public class CommonEvent {
                     ISanity sanity = player.getCapability(SANITY, null);
                     if (event.getEntity() instanceof EntityAnimal) {
                         sanity.consumeSanity(Configuration.attackAnimal);
-                    } else if (event.getEntity() instanceof EntityMob) {
-                        sanity.consumeSanity(Configuration.attackMob);
                     } else if (event.getEntity() instanceof EntityVillager) {
                         sanity.consumeSanity(Configuration.attackVillager);
                     } else if (event.getEntity() instanceof  EntityPlayer) {

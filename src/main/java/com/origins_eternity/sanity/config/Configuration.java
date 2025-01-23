@@ -26,12 +26,6 @@ public class Configuration {
     @Config.RangeDouble(min = 0.0, max = 100.0)
     public static double attackAnimal = 0.5;
 
-    @Config.Name("Attack Mob")
-    @Config.LangKey("config.sanity.mob")
-    @Config.Comment("The sanity to reduce when player attack a monster.")
-    @Config.RangeDouble(min = 0.0, max = 100.0)
-    public static double attackMob = 1.0;
-
     @Config.Name("Attack Villager")
     @Config.LangKey("config.sanity.villager")
     @Config.Comment("The sanity to reduce when player attack a villager.")
@@ -56,27 +50,33 @@ public class Configuration {
     @Config.RangeDouble(min = 0.0, max = 100.0)
     public static double hurt = 1.0;
 
+    @Config.Name("Fall")
+    @Config.LangKey("config.sanity.fall")
+    @Config.Comment("The sanity to reduce based on the fall distance with the ratio of 1 to this number.")
+    @Config.RangeDouble(min = 0.0, max = 100.0)
+    public static double fall = 1.0;
+
     @Config.Name("Trip")
     @Config.LangKey("config.sanity.trip")
     @Config.Comment("The sanity to reduce when player change dimension.")
     @Config.RangeDouble(min = 0.0, max = 100.0)
     public static double trip = 10.0;
 
-    @Config.Name("Cold")
-    @Config.LangKey("config.sanity.cold")
-    @Config.Comment("The sanity to reduce when player get wet by rain.(per 0.5s)")
+    @Config.Name("Rain")
+    @Config.LangKey("config.sanity.rain")
+    @Config.Comment("The sanity to reduce when player get wet by rain. (per 0.5s)")
     @Config.RangeDouble(min = 0.0, max = 100.0)
-    public static double cold = 0.1;
+    public static double rian = 0.1;
 
     @Config.Name("Hunger")
     @Config.LangKey("config.sanity.hunger")
-    @Config.Comment("The sanity to reduce when player's foodLevel is low.(per 0.5s)")
+    @Config.Comment("The sanity to reduce when player's foodLevel is low. (per 0.5s)")
     @Config.RangeDouble(min = 0.0, max = 100.0)
     public static double hunger = 0.1;
 
     @Config.Name("Thirst")
     @Config.LangKey("config.sanity.thirst")
-    @Config.Comment("The sanity to reduce when player's thirstLevel is low.(per 0.5s, support ToughAsNails and SimpleDifficulty)")
+    @Config.Comment("The sanity to reduce when player's thirstLevel is low. (per 0.5s, support ToughAsNails and SimpleDifficulty)")
     @Config.RangeDouble(min = 0.0, max = 100.0)
     public static double thirst = 0.1;
 
@@ -88,15 +88,21 @@ public class Configuration {
 
     @Config.Name("Danger")
     @Config.LangKey("config.sanity.danger")
-    @Config.Comment("The sanity to reduce when player is dangerous blocks or liquids that in the list below.(per 0.5s)")
+    @Config.Comment("The sanity to reduce when player is dangerous blocks or liquids that in the list below. (per 0.5s)")
     @Config.RangeDouble(min = 0.0, max = 100.0)
     public static double danger = 0.1;
 
     @Config.Name("Dark")
     @Config.LangKey("config.sanity.dark")
-    @Config.Comment("The sanity to reduce when player is in dark.(per 0.5s)")
+    @Config.Comment("The sanity to reduce when player is in dark. (per 0.5s)")
     @Config.RangeDouble(min = 0.0, max = 100.0)
     public static double dark = 0.1;
+
+    @Config.Name("Mob")
+    @Config.LangKey("config.sanity.mob")
+    @Config.Comment("The sanity to reduce when mobs are around player. (per 0.5s, within 8 blocks)")
+    @Config.RangeDouble(min = 0.0, max = 100.0)
+    public static double mob = 0.1;
 
     @Config.Name("Eat")
     @Config.LangKey("config.sanity.eat")
@@ -106,7 +112,7 @@ public class Configuration {
 
     @Config.Name("Quest")
     @Config.LangKey("config.sanity.quest")
-    @Config.Comment("The sanity to increase when player complete a quest.(only support FTB Quests)")
+    @Config.Comment("The sanity to increase when player complete a quest. (only support FTB Quests)")
     @Config.RangeDouble(min = 0.0, max = 100.0)
     public static double quest = 10.0;
 
@@ -130,13 +136,13 @@ public class Configuration {
 
     @Config.Name("Garland")
     @Config.LangKey("config.sanity.garland")
-    @Config.Comment("The sanity to increase when player wear a garland.(per 0.5s)")
+    @Config.Comment("The sanity to increase when player wear a garland. (per 0.5s)")
     @Config.RangeDouble(min = 0.0, max = 100.0)
     public static double garland = 0.2;
 
     @Config.Name("Pet")
     @Config.LangKey("config.sanity.pet")
-    @Config.Comment("The sanity to increase when player stay with pets.(per 0.5s)")
+    @Config.Comment("The sanity to increase when player stay with pets. (per 0.5s, within 5 blocks)")
     @Config.RangeDouble(min = 0.0, max = 100.0)
     public static double pet = 0.2;
 
@@ -148,7 +154,7 @@ public class Configuration {
 
     @Config.Name("Unhealthy Food")
     @Config.LangKey("config.sanity.food")
-    @Config.Comment("The list of unhealthy food and the sanity to reduce when eat it.('food;value')")
+    @Config.Comment("The list of unhealthy food and the sanity to reduce when eat it. ('food;value')")
     public static String[] food = new String[]{"minecraft:rotten_flesh;3.0", "minecraft:spider_eye;3.0", "minecraft:chicken;2.0", "minecraft:porkchop;2.0", "minecraft:mutton;2.0", "minecraft:beef;2.0", "minecraft:rabbit;2.0", "minecraft:poisonous_potato;2.0", "minecraft:fish;2.0", "minecraft:fish:1;2.0", "minecraft:fish:2;2.0", "minecraft:fish:3;2.0"};
 
     @Config.Name("Dangerous Blocks")
