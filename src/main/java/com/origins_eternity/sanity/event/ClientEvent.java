@@ -12,7 +12,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import scala.util.Random;
 
 import static com.origins_eternity.sanity.Sanity.MOD_ID;
@@ -20,8 +19,7 @@ import static com.origins_eternity.sanity.content.capability.Capabilities.SANITY
 import static com.origins_eternity.sanity.content.sound.Sounds.INSANITY;
 import static com.origins_eternity.sanity.utils.proxy.ClientProxy.mc;
 
-@SideOnly(Side.CLIENT)
-@Mod.EventBusSubscriber(modid = MOD_ID)
+@Mod.EventBusSubscriber(modid = MOD_ID, value = Side.CLIENT)
 public class ClientEvent {
     private static final SoundEvent[] SOUNDS = new SoundEvent[]{
             SoundEvents.ENTITY_CREEPER_PRIMED,

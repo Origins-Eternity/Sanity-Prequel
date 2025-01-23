@@ -12,6 +12,7 @@ import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
@@ -189,7 +190,7 @@ public class CommonEvent {
         if (event.getEntity() instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) event.getEntity();
             if (!player.world.isRemote) {
-                ItemStack item = player.inventory.armorItemInSlot(3);
+                ItemStack item = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD);
                 if (item.getItem().equals(Armors.FLOWER)) {
                     if (event.getSource() == DamageSource.LIGHTNING_BOLT) {
                         item.damageItem(30, player);
