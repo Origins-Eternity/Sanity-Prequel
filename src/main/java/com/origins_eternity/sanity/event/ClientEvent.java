@@ -3,15 +3,16 @@ package com.origins_eternity.sanity.event;
 import com.origins_eternity.sanity.content.capability.sanity.ISanity;
 import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.PositionedSoundRecord;
+import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import scala.util.Random;
 
 import static com.origins_eternity.sanity.Sanity.MOD_ID;
@@ -19,7 +20,7 @@ import static com.origins_eternity.sanity.content.capability.Capabilities.SANITY
 import static com.origins_eternity.sanity.content.sound.Sounds.INSANITY;
 import static com.origins_eternity.sanity.utils.proxy.ClientProxy.mc;
 
-@Mod.EventBusSubscriber(modid = MOD_ID, value = Side.CLIENT)
+@Mod.EventBusSubscriber(modid = MOD_ID)
 public class ClientEvent {
     private static final SoundEvent[] SOUNDS = new SoundEvent[]{
             SoundEvents.ENTITY_CREEPER_PRIMED,
@@ -42,20 +43,21 @@ public class ClientEvent {
     static int confusing;
     static int whisper;
 
+    @SideOnly(Side.CLIENT)
     @SubscribeEvent
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
         EntityPlayer player = event.player;
-        if (!player.isCreative() && !player.isSpectator()) {
+        if (!player.isCreative() && !player.isSpectator() && player == mc().player) {
             ISanity sanity = player.getCapability(SANITY, null);
-            ISound insanity = PositionedSoundRecord.getMasterRecord(INSANITY, 1f);
             if (sanity.getSanity() <= 50f) {
                 confusing--;
                 if (confusing <= 0) {
-                    player.world.playSound(player.posX, player.posY, player.posZ, SOUNDS[rand.nextInt(SOUNDS.length)], SoundCategory.MASTER, 1f, 0.5f, false);
-                    confusing = new Random().nextInt(600) + 800;
+                    player.playSound(SOUNDS[rand.nextInt(SOUNDS.length)], 1f, 0.5f);
+                    confusing = rand.nextInt(600) + 800;
                 }
                 if (sanity.getSanity() <= 45f) {
                     whisper--;
+                    ISound insanity = PositionedSoundRecord.getMasterRecord(INSANITY, 1f);
                     if (whisper <= 0) {
                         mc().getSoundHandler().playSound(insanity);
                         whisper = 680;
@@ -73,10 +75,11 @@ public class ClientEvent {
     static boolean notch = false;
     static boolean bits = false;
 
+    @SideOnly(Side.CLIENT)
     @SubscribeEvent
     public static void onRenderTick(TickEvent.RenderTickEvent event) {
         EntityPlayer player = mc().player;
-        if (event.phase == TickEvent.Phase.END && player != null) {
+        if (event.phase == TickEvent.Phase.END && player != null && OpenGlHelper.shadersSupported) {
             ISanity sanity = player.getCapability(SANITY, null);
             if (sanity.getSanity() <= 10f) {
                 if (!bits || !mc().entityRenderer.isShaderActive()) {

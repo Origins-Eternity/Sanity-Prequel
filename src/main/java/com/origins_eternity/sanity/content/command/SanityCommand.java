@@ -9,6 +9,7 @@ import net.minecraft.util.math.BlockPos;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
@@ -35,16 +36,11 @@ public class SanityCommand extends CommandBase {
     @Override
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
         if (args.length == 2 || args.length == 3) {
-            EntityPlayerMP player;
-            Scanner scanner;
-            if (args.length == 2) {
-                player = (EntityPlayerMP) sender;
-                scanner = new Scanner(args[1]);
+            EntityPlayerMP player = args.length == 2 ? getCommandSenderAsPlayer(sender) : getPlayer(server, sender, args[1]);
+            Scanner scanner = args.length == 2 ? new Scanner(args[1]) : new Scanner(args[2]);
+            if (!scanner.hasNextDouble()) {
+                throw new NumberInvalidException("commands.generic.num.invalid", scanner.next());
             } else {
-                player = server.getPlayerList().getPlayerByUsername(args[1]);
-                scanner = new Scanner(args[2]);
-            }
-            if (player != null && scanner.hasNextDouble()) {
                 ISanity sanity = player.getCapability(Capabilities.SANITY, null);
                 double value = scanner.nextDouble();
                 switch (args[0]) {
@@ -57,9 +53,9 @@ public class SanityCommand extends CommandBase {
                     case "set":
                         sanity.setSanity(value);
                         break;
+                    default:
+                        throw new WrongUsageException("commands.sanity.usage");
                 }
-            } else {
-                throw new WrongUsageException("commands.sanity.usage");
             }
         } else {
             throw new WrongUsageException("commands.sanity.usage");
@@ -75,19 +71,13 @@ public class SanityCommand extends CommandBase {
     public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos targetPos) {
         if (args.length == 1) {
             return getListOfStringsMatchingLastWord(args, "add", "remove", "set");
-        } else if (args.length == 2 && (args[0].equalsIgnoreCase("add") || args[0].equalsIgnoreCase("remove") || args[0].equalsIgnoreCase("set"))) {
-            return getListOfStringsMatchingLastWord(args, server.getOnlinePlayerNames());
+        } else {
+            return args.length == 2 ? getListOfStringsMatchingLastWord(args, server.getOnlinePlayerNames()) : Collections.emptyList();
         }
-        return super.getTabCompletions(server, sender, args, targetPos);
     }
 
     @Override
     public boolean isUsernameIndex(String[] args, int index) {
-        return args.length > 1 && index == 1;
-    }
-
-    @Override
-    public int compareTo(ICommand command) {
-        return 0;
+        return index == 1;
     }
 }
