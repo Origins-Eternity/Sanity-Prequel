@@ -4,7 +4,7 @@
 [![This is an image](https://cf.way2muchnoise.eu/versions/1134090.svg)](https://www.curseforge.com/minecraft/mc-mods/sanity-prequel/files)
 [![This is an image](https://cf.way2muchnoise.eu/full_1134090_downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/sanity-prequel)
 ## Introduction
-**Inspired by the [Sanity: Descent Into Madness](https://github.com/croissantnova/SanityDescentIntoMadness) mod, players will gain some bad effects when in low sanity. Textures and sound effects are modified from Sanity: Descent Into Madness.**
+**Inspired by the [Sanity: Descent Into Madness](https://github.com/croissantnova/SanityDescentIntoMadness) mod, players will gain some bad effects when in low sanity. Textures modified from Sanity: Descent Into Madness owned by croissantnova. Sound effects provided by Zapsplat.**
 ## Features
 **Most feature support custom configurations. Turn to mod's config file for more information.**
 ### Garland
@@ -59,4 +59,5 @@ events.onBlockHarvestDrops(function(event as BlockHarvestDropsEvent) {
 ```
 **This *example* script makes any small flowers drop a dead bush when broken by a player with sanity of 10 or less.**
 ## About  
-**This mod has been open source under the Apache License 2.0, you can use, modify, port and distribute this mod under the license. And there are currently no plans to make a mod like this for a new Minecraft version.**
+**Only the codebase has been open source under the Apache License 2.0, you can use, modify, port and distribute this mod under the license. Sound effects retain their respective license which can be found at https://www.zapsplat.com/license-type/standard-license. All other textures assets belongs to croissantnova retain the license can be found at https://github.com/croissantnova/SanityDescentIntoMadness?tab=License-1-ov-file#readme.
+And there are currently no plans to make a mod like this for a new Minecraft version.**
