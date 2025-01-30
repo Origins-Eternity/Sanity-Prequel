@@ -60,4 +60,4 @@ events.onBlockHarvestDrops(function(event as BlockHarvestDropsEvent) {
 **This *example* script makes any small flowers drop a dead bush when broken by a player with sanity of 10 or less.**
 ## About  
 
-**Only the codebase has been open source under the Apache License 2.0, you can use, modify, port and distribute this mod under the license. Sound effects retain their respective [license](https://www.zapsplat.com/license-type/standard-license). All other textures assets retain croissantnova's [license](https://github.com/croissantnova/SanityDescentIntoMadness?tab=License-1-ov-file#readme). And there are currently no plans to make a mod like this for a new Minecraft version.**
+**Only the codebase has been open source under the Apache License 2.0, you can use, modify the code to port, distribute this mod under the license. Sound effects retain their respective [license](https://www.zapsplat.com/license-type/standard-license). All other textures assets retain croissantnova's [license](https://github.com/croissantnova/SanityDescentIntoMadness?tab=License-1-ov-file#readme). And there are currently no plans to make a mod like this for a new Minecraft version.**
