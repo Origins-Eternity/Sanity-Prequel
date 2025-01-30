@@ -4,7 +4,7 @@
 [![This is an image](https://cf.way2muchnoise.eu/versions/1134090.svg)](https://www.curseforge.com/minecraft/mc-mods/sanity-prequel/files)
 [![This is an image](https://cf.way2muchnoise.eu/full_1134090_downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/sanity-prequel)
 ## Introduction
-**Inspired by the [Sanity: Descent Into Madness](https://github.com/croissantnova/SanityDescentIntoMadness) mod, players will gain some bad effects when in low sanity. Textures modified from Sanity: Descent Into Madness owned by croissantnova. Sound effects provided by Zapsplat.**
+**Inspired by the [Sanity: Descent Into Madness](https://github.com/croissantnova/SanityDescentIntoMadness) mod, players will gain some bad effects when in low sanity. Textures modified from Sanity: Descent Into Madness owned by croissantnova. Sound effects provided by [Zapsplat](https://www.zapsplat.com).**
 ## Features
 **Most feature support custom configurations. Turn to mod's config file for more information.**
 ### Garland
