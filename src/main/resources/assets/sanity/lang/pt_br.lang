@@ -1,0 +1,66 @@
+# Sanidade: Prólogo Português (Brasil)
+
+itemGroup.sanity=Sanidade: Prólogo
+
+item.sanity.garland.name=Guirlanda
+
+config.sanity.offx=Deslocamento horizontal do HUD
+config.sanity.offx.tooltip=Deslocamento horizontal do HUD. Valores positivos deslocam para a direita.
+config.sanity.offy=Deslocamento vertical do HUD
+config.sanity.offy.tooltip=Deslocamento vertical do HUD. Valores positivos deslocam para cima.
+config.sanity.flash=Tempo de permanência do HUD
+config.sanity.flash.tooltip=Tempo (em segundos) que o HUD permanece na tela. (Defina como -1 para desativar)
+config.sanity.lightning=Relâmpago
+config.sanity.lightning.tooltip=Valor de redução de sanidade quando o jogador é atingido por um relâmpago.
+config.sanity.animal=Ataque a animais
+config.sanity.animal.tooltip=Valor de redução de sanidade quando o jogador ataca um animal.
+config.sanity.villager=Ataque a aldeões
+config.sanity.villager.tooltip=Valor de redução de sanidade quando o jogador ataca um aldeão.
+config.sanity.player=Ataque a jogadores
+config.sanity.player.tooltip=Valor de redução de sanidade quando o jogador ataca outro jogador.
+config.sanity.hurt=Ferimentos
+config.sanity.hurt.tooltip=Valor de redução de sanidade quando o jogador sofre dano, multiplicado por este fator.
+config.sanity.fall=Queda
+config.sanity.fall.tooltip=Valor de redução de sanidade quando o jogador cai de uma grande altura, multiplicado pela distância da queda.
+config.sanity.trip=Viagem
+config.sanity.trip.tooltip=Valor de redução de sanidade quando o jogador muda de dimensão.
+config.sanity.lost=Perda
+config.sanity.lost.tooltip=Valor de redução de sanidade quando o jogador perde um animal de estimação.
+config.sanity.rain=Chuva
+config.sanity.rain.tooltip=Valor de redução de sanidade quando o jogador se molha com a chuva. (A cada 0.5 segundos)
+config.sanity.hunger=Fome
+config.sanity.hunger.tooltip=Valor de redução de sanidade quando o jogador tem baixa saturação de comida. (A cada 0.5 segundos)
+config.sanity.thirst=Sede
+config.sanity.thirst.tooltip=Valor de redução de sanidade quando o jogador tem baixa hidratação. (A cada 0.5 segundos, suporta força de vontade e vontade firme)
+config.sanity.choking=Asfixia
+config.sanity.choking.tooltip=Valor de redução de sanidade quando o jogador tem baixo nível de oxigênio. (A cada 0.5 segundos)
+config.sanity.danger=Perigo
+config.sanity.danger.tooltip=Valor de redução de sanidade quando o jogador está em blocos ou fluidos perigosos. (A cada 0.5 segundos)
+config.sanity.dark=Escuridão
+config.sanity.dark.tooltip=Valor de redução de sanidade quando o jogador está em total escuridão. (A cada 0.5 segundos)
+config.sanity.mob=Monstros
+config.sanity.mob.tooltip=Valor de redução de sanidade quando monstros estão próximos do jogador. (A cada 0.5 segundos, dentro de 8 blocos)
+config.sanity.eat=Comida
+config.sanity.eat.tooltip=Valor de aumento de sanidade quando o jogador consome comida saudável.
+config.sanity.quest=Missão
+config.sanity.quest.tooltip=Valor de aumento de sanidade quando o jogador completa uma missão. (Apenas missões FTB)
+config.sanity.sleep=Descanso
+config.sanity.sleep.tooltip=Valor de aumento de sanidade quando o jogador acorda.
+config.sanity.bred=Criação
+config.sanity.bred.tooltip=Valor de aumento de sanidade quando o jogador cria animais.
+config.sanity.advancement=Avanço
+config.sanity.advancement.tooltip=Valor de aumento de sanidade quando o jogador ganha um avanço.
+config.sanity.garland=Guirlanda
+config.sanity.garland.tooltip=Valor de aumento de sanidade quando o jogador usa uma guirlanda. (A cada 0.5 segundos)
+config.sanity.pet=Animal de estimação
+config.sanity.pet.tooltip=Valor de aumento de sanidade quando o jogador está próximo de seu animal de estimação (dentro de 5 blocos). (A cada 0.5 segundos)
+
+config.sanity.food=Comida não saudável
+config.sanity.food.tooltip=Valor de redução de sanidade ao consumir comida não saudável. ("Comida; Valor")
+config.sanity.blocks=Fontes de perigo
+config.sanity.blocks.tooltip=Quando o jogador está em blocos ou fluidos listados, sua sanidade será reduzida.
+
+commands.sanity.usage=/sanity <add/remove/set> [Jogador] <Valor>
+
+sanity.subtitle.insanity=Sussurro
+sanity.subtitle.leaves_rustle=Guirlanda: Farfalhar
