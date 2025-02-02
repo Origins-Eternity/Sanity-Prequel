@@ -150,7 +150,9 @@ public class CommonEvent {
             EntityPlayer player = event.getCausedByPlayer();
             if (!player.world.isRemote) {
                 ISanity sanity = player.getCapability(SANITY, null);
-                sanity.recoverSanity(Configuration.bred);
+                if (sanity.getUp() == 0) {
+                    sanity.recoverSanity(Configuration.bred);
+                }
             }
         }
     }

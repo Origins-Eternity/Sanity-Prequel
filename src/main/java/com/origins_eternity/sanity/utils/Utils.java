@@ -35,11 +35,14 @@ public class Utils {
 
     public static void tickPlayer(EntityPlayer player) {
         ISanity sanity = player.getCapability(SANITY, null);
-        if (sanity.getDown() > 0f) {
+        if (sanity.getDown() > 0) {
             sanity.setDown(sanity.getDown() - 1);
         }
-        if (sanity.getUp() > 0f) {
+        if (sanity.getUp() > 0) {
             sanity.setUp(sanity.getUp() - 1);
+        }
+        if (sanity.getFlash() > 0 && player.ticksExisted % 20 == 0) {
+            sanity.setFlash(sanity.getFlash() - 1);
         }
         if (isWet(player)) {
             sanity.consumeSanity(Configuration.rian);

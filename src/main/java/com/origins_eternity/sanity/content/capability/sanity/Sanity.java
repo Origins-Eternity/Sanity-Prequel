@@ -1,5 +1,6 @@
 package com.origins_eternity.sanity.content.capability.sanity;
 
+import com.origins_eternity.sanity.config.Configuration;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
@@ -12,6 +13,8 @@ public class Sanity implements ISanity {
     private int down = 0;
 
     private int up = 0;
+
+    private int flash = -1;
 
     @Override
     public void setSanity(double sanity) {
@@ -44,9 +47,22 @@ public class Sanity implements ISanity {
     }
 
     @Override
+    public void setFlash(int flash) {
+        this.flash = Math.max(flash, -1);
+    }
+
+    @Override
+    public int getFlash() {
+        return flash;
+    }
+
+    @Override
     public void consumeSanity(double value) {
         if (value >= 0) {
             if (sanity != 0f) {
+                if (Configuration.flash != -1) {
+                    flash = Configuration.flash;
+                }
                 if (value >= 1f) {
                     down = 21;
                 } else {
@@ -61,6 +77,9 @@ public class Sanity implements ISanity {
     public void recoverSanity(double value) {
         if (value >= 0) {
             if (sanity != 100f) {
+                if (Configuration.flash != -1) {
+                    flash = Configuration.flash;
+                }
                 if (value >= 1f) {
                     up = 21;
                 } else {
@@ -111,6 +130,7 @@ public class Sanity implements ISanity {
             compound.setFloat("Sanity", instance.getSanity());
             compound.setInteger("Down", instance.getDown());
             compound.setInteger("Up", instance.getUp());
+            compound.setInteger("Flash", instance.getFlash());
             return compound;
         }
 
@@ -121,6 +141,7 @@ public class Sanity implements ISanity {
                 instance.setSanity(compound.getFloat("Sanity"));
                 instance.setDown(compound.getInteger("Down"));
                 instance.setUp(compound.getInteger("Up"));
+                instance.setFlash(compound.getInteger("Flash"));
             }
         }
     }

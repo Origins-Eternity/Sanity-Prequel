@@ -20,6 +20,12 @@ public class Configuration {
     @Config.Comment("Offset on y of the HUD. A positive number means a shift to the top.")
     public static int offY = 0;
 
+    @Config.Name("HUD Flash Time")
+    @Config.LangKey("config.sanity.flash")
+    @Config.Comment("How many seconds the overlay should be visible when sanity changed. (set this to -1 to disable)")
+    @Config.RangeInt(min = -1, max = 30)
+    public static int flash = -1;
+
     @Config.Name("Attack Animal")
     @Config.LangKey("config.sanity.animal")
     @Config.Comment("The sanity to reduce when player attack an animal.")
@@ -150,7 +156,7 @@ public class Configuration {
     @Config.LangKey("config.sanity.lost")
     @Config.Comment("The sanity to reduce when player loses pets.")
     @Config.RangeDouble(min = 0.0, max = 100.0)
-    public static double lost = 25.0;
+    public static double lost = 30.0;
 
     @Config.Name("Unhealthy Food")
     @Config.LangKey("config.sanity.food")
