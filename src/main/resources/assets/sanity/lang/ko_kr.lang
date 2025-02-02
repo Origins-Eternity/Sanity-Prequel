@@ -1,0 +1,66 @@
+# 이성: 전조 한국어
+
+itemGroup.sanity=이성: 전조
+
+item.sanity.garland.name=화환
+
+config.sanity.offx=HUD 수평 오프셋
+config.sanity.offx.tooltip=HUD의 수평 오프셋입니다. 양수 값은 오른쪽으로 오프셋됩니다.
+config.sanity.offy=HUD 수직 오프셋
+config.sanity.offy.tooltip=HUD의 수직 오프셋입니다. 양수 값은 위쪽으로 오프셋됩니다.
+config.sanity.flash=HUD 표시 시간
+config.sanity.flash.tooltip=HUD가 화면에 표시되는 시간(초)입니다. (-1로 설정하면 비활성화됨)
+config.sanity.lightning=번개
+config.sanity.lightning.tooltip=플레이어가 번개에 맞았을 때 이성이 감소하는 값입니다.
+config.sanity.animal=동물 공격
+config.sanity.animal.tooltip=플레이어가 동물을 공격할 때 이성이 감소하는 값입니다.
+config.sanity.villager=마을 사람 공격
+config.sanity.villager.tooltip=플레이어가 마을 사람을 공격할 때 이성이 감소하는 값입니다.
+config.sanity.player=플레이어 공격
+config.sanity.player.tooltip=플레이어가 다른 플레이어를 공격할 때 이성이 감소하는 값입니다.
+config.sanity.hurt=부상
+config.sanity.hurt.tooltip=플레이어가 피해를 입을 때 이성이 감소하는 값은 피해 값에 이 배율을 곱한 값입니다.
+config.sanity.fall=낙하
+config.sanity.fall.tooltip=플레이어가 높은 곳에서 떨어질 때 이성이 감소하는 값은 낙하 거리와 이 배율을 곱한 값입니다.
+config.sanity.trip=차원 이동
+config.sanity.trip.tooltip=플레이어가 차원을 변경할 때 이성이 감소하는 값입니다.
+config.sanity.lost=애완동물 잃기
+config.sanity.lost.tooltip=플레이어가 애완동물을 잃었을 때 이성이 감소하는 값입니다.
+config.sanity.rain=비 맞기
+config.sanity.rain.tooltip=플레이어가 비에 맞을 때 이성이 감소하는 값입니다. (0.5초마다)
+config.sanity.hunger=배고픔
+config.sanity.hunger.tooltip=플레이어의 허기 상태가 낮을 때 이성이 감소하는 값입니다. (0.5초마다)
+config.sanity.thirst=갈증
+config.sanity.thirst.tooltip=플레이어의 수분 상태가 낮을 때 이성이 감소하는 값입니다. (0.5초마다, 의지력 및 강한 의지 지원)
+config.sanity.choking=질식
+config.sanity.choking.tooltip=플레이어의 산소 값이 낮을 때 이성이 감소하는 값입니다. (0.5초마다)
+config.sanity.danger=위험
+config.sanity.danger.tooltip=플레이어가 위험한 블록이나 액체에 있을 때 이성이 감소하는 값입니다. (0.5초마다)
+config.sanity.dark=어둠
+config.sanity.dark.tooltip=플레이어가 어둠 속에 있을 때 이성이 감소하는 값입니다. (0.5초마다)
+config.sanity.mob=몬스터
+config.sanity.mob.tooltip=플레이어 주위에 몬스터가 있을 때 이성이 감소하는 값입니다. (0.5초마다, 8블록 범위 내)
+config.sanity.eat=음식
+config.sanity.eat.tooltip=플레이어가 건강한 음식을 먹을 때 이성이 증가하는 값입니다.
+config.sanity.quest=퀘스트
+config.sanity.quest.tooltip=플레이어가 퀘스트를 완료할 때 이성이 증가하는 값입니다. (FTB 퀘스트만 지원)
+config.sanity.sleep=수면
+config.sanity.sleep.tooltip=플레이어가 깨어날 때 이성이 증가하는 값입니다.
+config.sanity.bred=번식
+config.sanity.bred.tooltip=플레이어가 동물을 번식시킬 때 이성이 증가하는 값입니다.
+config.sanity.advancement=진행
+config.sanity.advancement.tooltip=플레이어가 진행을 얻을 때 이성이 증가하는 값입니다.
+config.sanity.garland=화환
+config.sanity.garland.tooltip=플레이어가 화환을 착용할 때 이성이 증가하는 값입니다. (0.5초마다)
+config.sanity.pet=애완동물
+config.sanity.pet.tooltip=플레이어가 애완동물 근처(5블록 범위 내)에 있을 때 이성이 증가하는 값입니다. (0.5초마다)
+
+config.sanity.food=불건강한 음식
+config.sanity.food.tooltip=불건강한 음식을 먹을 때 이성이 감소하는 값입니다. ("음식;값")
+config.sanity.blocks=위험 요소
+config.sanity.blocks.tooltip=플레이어가 목록에 있는 블록이나 액체에 있을 때 이성이 감소합니다.
+
+commands.sanity.usage=/sanity <add/remove/set> [플레이어] <값>
+
+sanity.subtitle.insanity=속삭임
+sanity.subtitle.leaves_rustle=화환: 마찰
