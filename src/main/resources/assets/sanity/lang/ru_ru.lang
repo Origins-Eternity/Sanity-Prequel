@@ -1,0 +1,66 @@
+# Разум: Пролог Русский 
+
+itemGroup.sanity=Разум: Пролог
+
+item.sanity.garland.name=Венок
+
+config.sanity.offx=Горизонтальный сдвиг HUD
+config.sanity.offx.tooltip=Горизонтальный сдвиг HUD. Положительное значение сдвигает вправо.
+config.sanity.offy=Вертикальный сдвиг HUD
+config.sanity.offy.tooltip=Вертикальный сдвиг HUD. Положительное значение сдвигает вверх.
+config.sanity.flash=Время задержки HUD
+config.sanity.flash.tooltip=Время (в секундах), на которое HUD остается на экране. (Установите -1, чтобы отключить)
+config.sanity.lightning=Молния
+config.sanity.lightning.tooltip=Когда игрока ударяет молния, значение снижения разума.
+config.sanity.animal=Атака на животных
+config.sanity.animal.tooltip=Когда игрок атакует животное, значение снижения разума.
+config.sanity.villager=Атака на жителей
+config.sanity.villager.tooltip=Когда игрок атакует жителя, значение снижения разума.
+config.sanity.player=Атака на игрока
+config.sanity.player.tooltip=Когда игрок атакует другого игрока, значение снижения разума.
+config.sanity.hurt=Получение урона
+config.sanity.hurt.tooltip=Когда игрок получает урон, значение снижения разума умножается на этот множитель.
+config.sanity.fall=Падение
+config.sanity.fall.tooltip=Когда игрок падает с большой высоты, значение снижения разума умножается на этот множитель.
+config.sanity.trip=Путешествие
+config.sanity.trip.tooltip=Когда игрок переходит между измерениями, значение снижения разума.
+config.sanity.lost=Потеря
+config.sanity.lost.tooltip=Когда игрок теряет питомца, значение снижения разума.
+config.sanity.rain=Дождь
+config.sanity.rain.tooltip=Когда игрок промокает под дождем, значение снижения разума. (Каждые 0.5 секунды)
+config.sanity.hunger=Голод
+config.sanity.hunger.tooltip=Когда у игрока низкий уровень голода, значение снижения разума. (Каждые 0.5 секунды)
+config.sanity.thirst=Жажда
+config.sanity.thirst.tooltip=Когда у игрока низкий уровень воды, значение снижения разума. (Каждые 0.5 секунды, поддержка стойкой воли и сильной воли)
+config.sanity.choking=Удушье
+config.sanity.choking.tooltip=Когда у игрока низкий уровень кислорода, значение снижения разума. (Каждые 0.5 секунды)
+config.sanity.danger=Опасность
+config.sanity.danger.tooltip=Когда игрок находится в опасном блоке или жидкости, значение снижения разума. (Каждые 0.5 секунды)
+config.sanity.dark=Тьма
+config.sanity.dark.tooltip=Когда игрок находится в темноте, значение снижения разума. (Каждые 0.5 секунды)
+config.sanity.mob=Монстры
+config.sanity.mob.tooltip=Когда рядом с игроком находятся монстры, значение снижения разума. (Каждые 0.5 секунды, в радиусе 8 блоков)
+config.sanity.eat=Еда
+config.sanity.eat.tooltip=Когда игрок ест здоровую еду, значение повышения разума.
+config.sanity.quest=Задание
+config.sanity.quest.tooltip=Когда игрок выполняет задание, значение повышения разума. (Поддерживаются только FTB-задания)
+config.sanity.sleep=Сон
+config.sanity.sleep.tooltip=Когда игрок просыпается, значение повышения разума.
+config.sanity.bred=Размножение
+config.sanity.bred.tooltip=Когда игрок разводит животных, значение повышения разума.
+config.sanity.advancement=Продвижение
+config.sanity.advancement.tooltip=Когда игрок получает достижение, значение повышения разума.
+config.sanity.garland=Венок
+config.sanity.garland.tooltip=Когда игрок носит венок, значение повышения разума. (Каждые 0.5 секунды)
+config.sanity.pet=Питомец
+config.sanity.pet.tooltip=Когда игрок находится рядом с питомцем (в радиусе 5 блоков), значение повышения разума. (Каждые 0.5 секунды)
+
+config.sanity.food=Нездоровая еда
+config.sanity.food.tooltip=Нездоровая еда и значение снижения разума при ее употреблении. ("Еда; Значение")
+config.sanity.blocks=Опасные блоки
+config.sanity.blocks.tooltip=Когда игрок находится в одном из указанных блоков или жидкости, разум снижается.
+
+commands.sanity.usage=/sanity <add/remove/set> [Игрок] <Значение>
+
+sanity.subtitle.insanity=Шепот
+sanity.subtitle.leaves_rustle=Венок: Шорох
