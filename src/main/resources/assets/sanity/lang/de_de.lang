@@ -1,8 +1,8 @@
-# Wahnsinn: Prolog Deutsch
 
 itemGroup.sanity=Wahnsinn: Prolog
 
 item.sanity.garland.name=Blumenkranz
+item.sanity.umbrella.name=Regenschirm
 
 config.sanity.offx=HUD-Horizontale Verschiebung
 config.sanity.offx.tooltip=Horizontale Verschiebung des HUD. Positive Werte verschieben nach rechts.
@@ -35,11 +35,13 @@ config.sanity.thirst.tooltip=Wert der Verringerung der Wahnsinnsbar, wenn der Sp
 config.sanity.choking=Ersticken
 config.sanity.choking.tooltip=Wert der Verringerung der Wahnsinnsbar, wenn der Spieler wenig Sauerstoff hat. (Alle 0,5 Sekunden)
 config.sanity.danger=Gefahr
-config.sanity.danger.tooltip=Wert der Verringerung der Wahnsinnsbar, wenn der Spieler in gefährlichen Blöcken oder Flüssigkeiten ist. (Alle 0,5 Sekunden)
+config.sanity.danger.tooltip=Wert der Verringerung der Wahnsinnsbar, wenn ein Spieler in einem gefährlichen Block oder einer Flüssigkeit feststeckt. (Alle 0,5 Sekunden)
 config.sanity.dark=Dunkelheit
 config.sanity.dark.tooltip=Wert der Verringerung der Wahnsinnsbar, wenn der Spieler sich in völliger Dunkelheit befindet. (Alle 0,5 Sekunden)
 config.sanity.mob=Monster
 config.sanity.mob.tooltip=Wert der Verringerung der Wahnsinnsbar, wenn sich Monster in der Nähe des Spielers aufhalten. (Alle 0,5 Sekunden, innerhalb von 8 Blöcken)
+config.sanity.kill=Töte den Mob
+config.sanity.kill.tooltip=Wert der Erhöhung der Wahnsinnsbar, wenn der Spieler ein Monster.
 config.sanity.eat=Essen
 config.sanity.eat.tooltip=Wert der Erhöhung der Wahnsinnsbar, wenn der Spieler gesundes Essen isst.
 config.sanity.quest=Mission
@@ -53,7 +55,7 @@ config.sanity.advancement.tooltip=Wert der Erhöhung der Wahnsinnsbar, wenn der 
 config.sanity.garland=Blumenkranz
 config.sanity.garland.tooltip=Wert der Erhöhung der Wahnsinnsbar, wenn der Spieler einen Blumenkranz trägt. (Alle 0,5 Sekunden)
 config.sanity.pet=Haustier
-config.sanity.pet.tooltip=Wert der Erhöhung der Wahnsinnsbar, wenn der Spieler sich in der Nähe seines Haustiers (innerhalb von 5 Blöcken) aufhält. (Alle 0,5 Sekunden)
+config.sanity.pet.tooltip=Wert der Erhöhung der Wahnsinnsbar, wenn der Spieler sich in der Nähe seines Haustiers aufhält. (Alle 0,5 Sekunden, innerhalb von 5 Blöcken)
 
 config.sanity.food=Ungesundes Essen
 config.sanity.food.tooltip=Wert der Verringerung der Wahnsinnsbar, wenn der Spieler ungesundes Essen isst. ("Essen;Wert")

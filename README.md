@@ -8,8 +8,10 @@
 ## Features
 **Most feature support custom configurations. Turn to mod's config file for more information.**
 ### Garland
-**Each garland has 60 durability in total, use any small flowers to craft it. Water, fire, lightning, and explosion can lead to damage it while wearing on head. (support Baubles)**
+**Each garland has 60 durability in total, use any small flowers to craft it. Be in danger like water, web, fire, lightning, and explosion can lead to damage it while wearing on head. (support Baubles)**
 ![This is an image](https://s21.ax1x.com/2025/01/17/pEFj3DO.png)
+### Umbrella
+**Umbrella has 120 durability, which will damage from lightning, fire, explosion. And break or attack can also damage it.
 ### Effects
 - **Sanity ≤ 60, at the edges of things, red, green, and blue seem to be separated in your eyes.**
 - **Sanity ≤ 50, players will experience auditory hallucinations.**
@@ -32,7 +34,7 @@
 - **Change dimensions.**  
 - **Falling.**  
 - **Lost pets.**  
-- **Trapped in blocks like web, water, etc. (support custom configurations)**
+- **Trapped in blocks like web and water. (support custom configurations)**
 ### Increase Sanity    
 - **Sleep.**  
 - **Eating healthy foods.**  

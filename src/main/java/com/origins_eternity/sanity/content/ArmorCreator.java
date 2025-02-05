@@ -15,7 +15,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
 import static com.origins_eternity.sanity.content.tab.CreativeTab.SANITY;
-import static com.origins_eternity.sanity.utils.Utils.isDangerous;
+import static com.origins_eternity.sanity.utils.Utils.dangerHead;
 import static com.origins_eternity.sanity.utils.Utils.isWet;
 
 public class ArmorCreator extends ItemArmor {
@@ -35,7 +35,7 @@ public class ArmorCreator extends ItemArmor {
                 if (sanity.getDown() == 0f) {
                     sanity.recoverSanity(Configuration.garland);
                 }
-                if (isWet(player) || isDangerous(player)) {
+                if (isWet(player) || dangerHead(player)) {
                     if (player.ticksExisted % 20 == 0) {
                         stack.damageItem(1, player);
                     }

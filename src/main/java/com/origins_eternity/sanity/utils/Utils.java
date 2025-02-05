@@ -54,13 +54,13 @@ public class Utils {
         if (isThirst(player)) {
             sanity.consumeSanity(Configuration.thirst);
         }
-        if (player.getAir() < 60) {
+        if (player.getAir() < 90) {
             sanity.consumeSanity(Configuration.choking);
         }
         if (player.fallDistance > 4f) {
             sanity.consumeSanity(player.fallDistance * Configuration.fall);
         }
-        if (isDangerous(player)) {
+        if (dangerFeet(player) || dangerHead(player)) {
             sanity.consumeSanity(Configuration.danger);
         }
         if (withMob(player)) {
@@ -135,11 +135,16 @@ public class Utils {
         return false;
     }
 
-    public static boolean isDangerous(EntityPlayer player) {
+    public static boolean dangerFeet(EntityPlayer player) {
         BlockPos pos = new BlockPos(player);
         IBlockState state = player.world.getBlockState(pos);
-        IBlockState state1 = player.world.getBlockState(pos.up());
-        return blockMatched(state) || blockMatched(state1);
+        return blockMatched(state);
+    }
+
+    public static boolean dangerHead(EntityPlayer player) {
+        BlockPos pos = new BlockPos(player);
+        IBlockState state = player.world.getBlockState(pos.up());
+        return blockMatched(state);
     }
 
     private static boolean withPet(EntityPlayer player) {

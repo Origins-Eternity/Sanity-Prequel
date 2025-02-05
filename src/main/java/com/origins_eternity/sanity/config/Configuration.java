@@ -94,7 +94,7 @@ public class Configuration {
 
     @Config.Name("Danger")
     @Config.LangKey("config.sanity.danger")
-    @Config.Comment("The sanity to reduce when player is dangerous blocks or liquids that in the list below. (per 0.5s)")
+    @Config.Comment("The sanity to reduce when player get trapped in dangerous blocks or liquids. (per 0.5s)")
     @Config.RangeDouble(min = 0.0, max = 100.0)
     public static double danger = 0.1;
 

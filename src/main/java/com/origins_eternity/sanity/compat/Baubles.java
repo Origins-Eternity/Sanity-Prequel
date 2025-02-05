@@ -25,7 +25,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
 import static com.origins_eternity.sanity.content.tab.CreativeTab.SANITY;
-import static com.origins_eternity.sanity.utils.Utils.isDangerous;
+import static com.origins_eternity.sanity.utils.Utils.dangerHead;
 import static com.origins_eternity.sanity.utils.Utils.isWet;
 
 public class Baubles extends ItemArmor implements IBauble {
@@ -68,7 +68,7 @@ public class Baubles extends ItemArmor implements IBauble {
             if (sanity.getDown() == 0f) {
                 sanity.recoverSanity(Configuration.garland);
             }
-            if (isWet(player) || isDangerous(player)) {
+            if (isWet(player) || dangerHead(player)) {
                 if (player.ticksExisted % 20 == 0) {
                     itemstack.damageItem(1, player);
                 }
@@ -85,7 +85,7 @@ public class Baubles extends ItemArmor implements IBauble {
                 if (sanity.getDown() == 0f && !bauble.getItem().equals(this)) {
                     sanity.recoverSanity(Configuration.garland);
                 }
-                if (isWet(player) || isDangerous(player)) {
+                if (isWet(player) || dangerHead(player)) {
                     if (player.ticksExisted % 20 == 0) {
                         stack.damageItem(1, player);
                     }
