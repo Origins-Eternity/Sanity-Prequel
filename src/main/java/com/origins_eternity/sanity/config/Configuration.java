@@ -72,7 +72,7 @@ public class Configuration {
     @Config.LangKey("config.sanity.rain")
     @Config.Comment("The sanity to reduce when player get wet by rain. (per 0.5s)")
     @Config.RangeDouble(min = 0.0, max = 100.0)
-    public static double rian = 0.1;
+    public static double rain = 0.1;
 
     @Config.Name("Hunger")
     @Config.LangKey("config.sanity.hunger")
@@ -110,11 +110,17 @@ public class Configuration {
     @Config.RangeDouble(min = 0.0, max = 100.0)
     public static double mob = 0.1;
 
+    @Config.Name("Kill Mob")
+    @Config.LangKey("config.sanity.kill")
+    @Config.Comment("The sanity to increase when player kill a mob.")
+    @Config.RangeDouble(min = 0.0, max = 100.0)
+    public static double killMob = 2.5;
+
     @Config.Name("Eat")
     @Config.LangKey("config.sanity.eat")
     @Config.Comment("The sanity to increase when player eat healthy food.")
     @Config.RangeDouble(min = 0.0, max = 100.0)
-    public static double eat = 1.0;
+    public static double eat = 5.0;
 
     @Config.Name("Quest")
     @Config.LangKey("config.sanity.quest")

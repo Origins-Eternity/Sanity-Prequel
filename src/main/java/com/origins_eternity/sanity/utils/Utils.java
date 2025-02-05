@@ -24,6 +24,7 @@ import toughasnails.api.stat.capability.IThirst;
 
 import static com.origins_eternity.sanity.Sanity.packetHandler;
 import static com.origins_eternity.sanity.content.capability.Capabilities.SANITY;
+import static com.origins_eternity.sanity.content.umbrella.Umbrellas.UMBRELLA;
 
 public class Utils {
     public static void syncSanity(EntityPlayer player) {
@@ -45,7 +46,7 @@ public class Utils {
             sanity.setFlash(sanity.getFlash() - 1);
         }
         if (isWet(player)) {
-            sanity.consumeSanity(Configuration.rian);
+            sanity.consumeSanity(Configuration.rain);
         }
         if (player.getFoodStats().getFoodLevel() < 6) {
             sanity.consumeSanity(Configuration.hunger);
@@ -126,13 +127,12 @@ public class Utils {
     }
 
     public static boolean isWet(EntityPlayer player) {
-        boolean wet = false;
         BlockPos.PooledMutableBlockPos blockpos$pooledmutableblockpos = BlockPos.PooledMutableBlockPos.retain(player.posX, player.posY, player.posZ);
         if (player.world.isRainingAt(blockpos$pooledmutableblockpos) || player.world.isRainingAt(blockpos$pooledmutableblockpos.setPos(player.posX, player.posY + (double)player.height, player.posZ))) {
             blockpos$pooledmutableblockpos.release();
-            wet = true;
+            return !player.getHeldItemMainhand().getItem().equals(UMBRELLA) && !player.getHeldItemOffhand().getItem().equals(UMBRELLA);
         }
-        return wet;
+        return false;
     }
 
     public static boolean isDangerous(EntityPlayer player) {
@@ -144,7 +144,7 @@ public class Utils {
 
     private static boolean withPet(EntityPlayer player) {
         boolean pet = false;
-        AxisAlignedBB box = player.getEntityBoundingBox().grow(5);
+        AxisAlignedBB box = player.getEntityBoundingBox().grow(5, 3, 5);
         for (EntityTameable entity: player.world.getEntitiesWithinAABB(EntityTameable.class, box)) {
             if (entity != null) {
                 if (entity.isTamed() && entity.isOwner(player)) {
@@ -158,7 +158,7 @@ public class Utils {
 
     private static boolean withMob(EntityPlayer player) {
         boolean mob = false;
-        AxisAlignedBB box = player.getEntityBoundingBox().grow(8);
+        AxisAlignedBB box = player.getEntityBoundingBox().grow(8, 5, 8);
         for (EntityMob entity: player.world.getEntitiesWithinAABB(EntityMob.class, box)) {
             if (entity != null) {
                 mob = true;

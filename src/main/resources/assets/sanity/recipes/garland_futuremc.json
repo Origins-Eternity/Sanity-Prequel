@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "garland",
+  "pattern": [
+    "###",
+    "# #",
+    "###"
+  ],
+  "key": {
+    "#": [
+      {
+        "item": "futuremc:cornflower",
+        "data": 0
+      },
+      {
+        "item": "futuremc:lily_of_the_valley",
+        "data": 0
+      }
+    ]
+  },
+  "result": {
+    "item": "sanity:garland"
+  }
+}

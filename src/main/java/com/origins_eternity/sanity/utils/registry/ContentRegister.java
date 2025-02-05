@@ -11,16 +11,16 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.Objects;
-
 import static com.origins_eternity.sanity.Sanity.MOD_ID;
 import static com.origins_eternity.sanity.content.armor.Armors.FLOWER;
 import static com.origins_eternity.sanity.content.armor.Armors.GARLAND;
+import static com.origins_eternity.sanity.content.umbrella.Umbrellas.UMBRELLA;
 
 @Mod.EventBusSubscriber(modid = MOD_ID)
 public class ContentRegister {
     @SubscribeEvent
     public static void registerItems(RegistryEvent.Register<Item> event) {
+        event.getRegistry().register(UMBRELLA);
         if (Loader.isModLoaded("baubles")) {
             event.getRegistry().register(GARLAND);
         } else {
@@ -30,10 +30,11 @@ public class ContentRegister {
 
     @SideOnly(Side.CLIENT)
     public static void registerModels() {
+        ModelLoader.setCustomModelResourceLocation(UMBRELLA, 0, new ModelResourceLocation(UMBRELLA.getRegistryName(), "inventory"));
         if (Loader.isModLoaded("baubles")) {
-            ModelLoader.setCustomModelResourceLocation(GARLAND, 0, new ModelResourceLocation(Objects.requireNonNull(GARLAND.getRegistryName()), "inventory"));
+            ModelLoader.setCustomModelResourceLocation(GARLAND, 0, new ModelResourceLocation(GARLAND.getRegistryName(), "inventory"));
         } else {
-            ModelLoader.setCustomModelResourceLocation(FLOWER, 0, new ModelResourceLocation(Objects.requireNonNull(FLOWER.getRegistryName()), "inventory"));
+            ModelLoader.setCustomModelResourceLocation(FLOWER, 0, new ModelResourceLocation(FLOWER.getRegistryName(), "inventory"));
         }
     }
 

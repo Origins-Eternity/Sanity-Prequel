@@ -3,6 +3,7 @@
 itemGroup.sanity=Sanity: Prequel
 
 item.sanity.garland.name=Garland
+item.sanity.umbrella.name=Umbrella
 
 config.sanity.offx=HUD OffX
 config.sanity.offx.tooltip=Offset on x of the HUD. A positive number means a shift to the right.
@@ -40,6 +41,8 @@ config.sanity.dark=Dark
 config.sanity.dark.tooltip=The sanity to reduce when player is in dark.(per 0.5s)
 config.sanity.mob=Mob
 config.sanity.mob.tooltip=The sanity to reduce when mobs are around player. (per 0.5s, within 8 blocks)
+config.sanity.kill=Kill Mob
+config.sanity.kill.tooltip=The sanity to increase when player kill a mob.
 config.sanity.eat=Eat
 config.sanity.eat.tooltip=The sanity to increase when player eat healthy food.
 config.sanity.quest=Quest

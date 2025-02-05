@@ -3,6 +3,7 @@
 itemGroup.sanity=Cordura: Prólogo
 
 item.sanity.garland.name=Corona de flores
+item.sanity.umbrella.name=Paraguas
 
 config.sanity.offx=Desplazamiento horizontal del HUD
 config.sanity.offx.tooltip=Desplazamiento horizontal del HUD. Los valores positivos desplazan hacia la derecha.
@@ -40,6 +41,8 @@ config.sanity.dark=Oscuridad
 config.sanity.dark.tooltip=Valor de reducción de cordura cuando el jugador está en oscuridad total. (Cada 0.5 segundos)
 config.sanity.mob=Monstruos
 config.sanity.mob.tooltip=Valor de reducción de cordura cuando hay monstruos cerca del jugador. (Cada 0.5 segundos, dentro de 8 bloques)
+config.sanity.kill=Eliminar Mob
+config.sanity.kill.tooltip=La cordura aumentará cuando el jugador elimine un mob.
 config.sanity.eat=Comida
 config.sanity.eat.tooltip=Valor de aumento de cordura cuando el jugador consume comida saludable.
 config.sanity.quest=Misión
@@ -53,7 +56,7 @@ config.sanity.advancement.tooltip=Valor de aumento de cordura cuando el jugador 
 config.sanity.garland=Corona de flores
 config.sanity.garland.tooltip=Valor de aumento de cordura cuando el jugador usa una corona de flores. (Cada 0.5 segundos)
 config.sanity.pet=Mascota
-config.sanity.pet.tooltip=Valor de aumento de cordura cuando el jugador está cerca de su mascota (dentro de 5 bloques). (Cada 0.5 segundos)
+config.sanity.pet.tooltip=Valor de aumento de cordura cuando el jugador está cerca de su mascota. (Cada 0.5 segundos, dentro de 5 bloques)
 
 config.sanity.food=Comida poco saludable
 config.sanity.food.tooltip=Valor de reducción de cordura al consumir comida poco saludable. ("Comida; Valor")
@@ -63,4 +66,4 @@ config.sanity.blocks.tooltip=Cuando el jugador está en bloques o fluidos listad
 commands.sanity.usage=/sanity <add/remove/set> [Jugador] <Valor>
 
 sanity.subtitle.insanity=Sussurro
-sanity.subtitle.leaves_rustle=Corona de flores: Roce
+sanity.subtitle.leaves_rustle=Corona de flores: Roceitem.sanity.umbrella.name=Umbrella

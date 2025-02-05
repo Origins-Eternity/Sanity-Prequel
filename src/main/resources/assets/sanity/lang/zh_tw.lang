@@ -3,6 +3,7 @@
 itemGroup.sanity=理智：前傳
 
 item.sanity.garland.name=花環
+item.sanity.umbrella.name=雨傘
 
 config.sanity.offx=HUD水準偏移量
 config.sanity.offx.tooltip=HUD的水準偏移量。正數表示向右偏移。
@@ -40,6 +41,8 @@ config.sanity.dark=黑暗
 config.sanity.dark.tooltip=當玩家處於黑暗中時，理智降低的值。(每0.5秒)
 config.sanity.mob=怪物
 config.sanity.mob.tooltip=當玩家周圍有怪物遊蕩時，理智降低的值。（每0.5秒，8格範圍內）
+config.sanity.kill=殺死怪物
+config.sanity.kill.tooltip=當玩家殺死怪物時，理智升高的值。
 config.sanity.eat=食物
 config.sanity.eat.tooltip=當玩家食用健康的食物時，理智升高的值。
 config.sanity.quest=任務

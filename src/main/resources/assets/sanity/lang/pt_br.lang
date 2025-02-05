@@ -3,6 +3,7 @@
 itemGroup.sanity=Sanidade: Prólogo
 
 item.sanity.garland.name=Guirlanda
+item.sanity.umbrella.name=Guarda-chuva
 
 config.sanity.offx=Deslocamento horizontal do HUD
 config.sanity.offx.tooltip=Deslocamento horizontal do HUD. Valores positivos deslocam para a direita.
@@ -40,6 +41,8 @@ config.sanity.dark=Escuridão
 config.sanity.dark.tooltip=Valor de redução de sanidade quando o jogador está em total escuridão. (A cada 0.5 segundos)
 config.sanity.mob=Monstros
 config.sanity.mob.tooltip=Valor de redução de sanidade quando monstros estão próximos do jogador. (A cada 0.5 segundos, dentro de 8 blocos)
+config.sanity.kill=Eliminar Mob
+config.sanity.kill.tooltip=A sanidade aumenta quando o jogador elimina um mob.
 config.sanity.eat=Comida
 config.sanity.eat.tooltip=Valor de aumento de sanidade quando o jogador consome comida saudável.
 config.sanity.quest=Missão
@@ -53,7 +56,7 @@ config.sanity.advancement.tooltip=Valor de aumento de sanidade quando o jogador 
 config.sanity.garland=Guirlanda
 config.sanity.garland.tooltip=Valor de aumento de sanidade quando o jogador usa uma guirlanda. (A cada 0.5 segundos)
 config.sanity.pet=Animal de estimação
-config.sanity.pet.tooltip=Valor de aumento de sanidade quando o jogador está próximo de seu animal de estimação (dentro de 5 blocos). (A cada 0.5 segundos)
+config.sanity.pet.tooltip=Valor de aumento de sanidade quando o jogador está próximo de seu animal de estimação. (A cada 0.5 segundos, dentro de 5 blocos)
 
 config.sanity.food=Comida não saudável
 config.sanity.food.tooltip=Valor de redução de sanidade ao consumir comida não saudável. ("Comida; Valor")

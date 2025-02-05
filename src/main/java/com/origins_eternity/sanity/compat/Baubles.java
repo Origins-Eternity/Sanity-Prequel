@@ -9,15 +9,19 @@ import com.origins_eternity.sanity.config.Configuration;
 import com.origins_eternity.sanity.content.capability.Capabilities;
 import com.origins_eternity.sanity.content.capability.sanity.ISanity;
 import com.origins_eternity.sanity.content.sound.Sounds;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockFlower;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
 import static com.origins_eternity.sanity.content.tab.CreativeTab.SANITY;
@@ -81,7 +85,7 @@ public class Baubles extends ItemArmor implements IBauble {
                 if (sanity.getDown() == 0f && !bauble.getItem().equals(this)) {
                     sanity.recoverSanity(Configuration.garland);
                 }
-                if (player.isWet()) {
+                if (isWet(player) || isDangerous(player)) {
                     if (player.ticksExisted % 20 == 0) {
                         stack.damageItem(1, player);
                     }
@@ -89,6 +93,16 @@ public class Baubles extends ItemArmor implements IBauble {
                 super.onArmorTick(world, player, stack);
             }
         }
+    }
+
+    @Override
+    public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
+        if (repair.getItem() instanceof ItemBlock) {
+            Block block = ((ItemBlock) repair.getItem()).getBlock();
+            ResourceLocation location = repair.getItem().getRegistryName();
+            return block instanceof BlockFlower || location.equals(new ResourceLocation("futuremc:cornflower")) || location.equals(new ResourceLocation("futuremc:lily_of_the_valley"));
+        }
+        return false;
     }
 
     @Override

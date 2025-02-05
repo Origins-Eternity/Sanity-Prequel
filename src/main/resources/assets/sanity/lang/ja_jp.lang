@@ -3,6 +3,7 @@
 itemGroup.sanity=理智：前伝
 
 item.sanity.garland.name=花輪
+item.sanity.umbrella.name=傘
 
 config.sanity.offx=HUD水平オフセット
 config.sanity.offx.tooltip=HUDの水平オフセット。正の値は右にオフセットします。
@@ -40,6 +41,8 @@ config.sanity.dark=暗闇
 config.sanity.dark.tooltip=プレイヤーが暗闇にいるときに理智が減少する値。（0.5秒ごと）
 config.sanity.mob=モンスター
 config.sanity.mob.tooltip=プレイヤーの周りにモンスターがいるときに理智が減少する値。（0.5秒ごと、8ブロック範囲内）
+config.sanity.kill=モブを倒す
+config.sanity.kill.tooltip=プレイヤーがモブを倒すと、精神力が増加します。
 config.sanity.eat=食べ物
 config.sanity.eat.tooltip=プレイヤーが健康的な食べ物を食べると理智が増加する値。
 config.sanity.quest=クエスト
@@ -53,7 +56,7 @@ config.sanity.advancement.tooltip=プレイヤーが進行を得たときに理�
 config.sanity.garland=花輪
 config.sanity.garland.tooltip=プレイヤーが花輪を装備したときに理智が増加する値。（0.5秒ごと）
 config.sanity.pet=ペット
-config.sanity.pet.tooltip=プレイヤーがペットの近く（5ブロック範囲内）にいるときに理智が増加する値。（0.5秒ごと）
+config.sanity.pet.tooltip=プレイヤーがペットの近くにいるときに理智が増加する値。（0.5秒ごと、5ブロック範囲内）
 
 config.sanity.food=不健康な食べ物
 config.sanity.food.tooltip=不健康な食べ物を食べると理智が減少する値。（"食べ物;値"）

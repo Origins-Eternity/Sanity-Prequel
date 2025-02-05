@@ -3,6 +3,7 @@
 itemGroup.sanity=이성: 전조
 
 item.sanity.garland.name=화환
+item.sanity.umbrella.name=우산
 
 config.sanity.offx=HUD 수평 오프셋
 config.sanity.offx.tooltip=HUD의 수평 오프셋입니다. 양수 값은 오른쪽으로 오프셋됩니다.
@@ -40,6 +41,8 @@ config.sanity.dark=어둠
 config.sanity.dark.tooltip=플레이어가 어둠 속에 있을 때 이성이 감소하는 값입니다. (0.5초마다)
 config.sanity.mob=몬스터
 config.sanity.mob.tooltip=플레이어 주위에 몬스터가 있을 때 이성이 감소하는 값입니다. (0.5초마다, 8블록 범위 내)
+config.sanity.kill=몹 죽이기
+config.sanity.kill.tooltip=플레이어가 몹을 죽일 때 증가하는 정신력입니다.
 config.sanity.eat=음식
 config.sanity.eat.tooltip=플레이어가 건강한 음식을 먹을 때 이성이 증가하는 값입니다.
 config.sanity.quest=퀘스트
@@ -53,7 +56,7 @@ config.sanity.advancement.tooltip=플레이어가 진행을 얻을 때 이성이
 config.sanity.garland=화환
 config.sanity.garland.tooltip=플레이어가 화환을 착용할 때 이성이 증가하는 값입니다. (0.5초마다)
 config.sanity.pet=애완동물
-config.sanity.pet.tooltip=플레이어가 애완동물 근처(5블록 범위 내)에 있을 때 이성이 증가하는 값입니다. (0.5초마다)
+config.sanity.pet.tooltip=플레이어가 애완동물 근처에 있을 때 이성이 증가하는 값입니다. (0.5초마다, 5블록 범위 내)
 
 config.sanity.food=불건강한 음식
 config.sanity.food.tooltip=불건강한 음식을 먹을 때 이성이 감소하는 값입니다. ("음식;값")

@@ -39,7 +39,8 @@
 - **Wearing garland.**  
 - **Gain advancements.**  
 - **Compelete quests. (only support FTB Quests)**  
-- **Stay with pets. (within 5 blocks)**
+- **Stay with pets. (within 5 blocks)**  
+- **Kill mobs.**
 ### Commands
 **Using commands need permission level 2. (support tab completion)**
 ![This is an image](https://s21.ax1x.com/2025/01/17/pEFjK81.png)

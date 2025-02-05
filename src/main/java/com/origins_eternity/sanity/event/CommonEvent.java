@@ -7,6 +7,7 @@ import com.origins_eternity.sanity.content.capability.Capabilities;
 import com.origins_eternity.sanity.content.capability.sanity.ISanity;
 import com.origins_eternity.sanity.content.capability.sanity.Sanity;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.passive.EntityVillager;
@@ -14,7 +15,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemFood;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
@@ -33,6 +33,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 import static com.origins_eternity.sanity.Sanity.MOD_ID;
 import static com.origins_eternity.sanity.content.capability.Capabilities.SANITY;
+import static com.origins_eternity.sanity.content.umbrella.Umbrellas.UMBRELLA;
 import static com.origins_eternity.sanity.utils.Utils.itemMatched;
 import static com.origins_eternity.sanity.utils.Utils.tickPlayer;
 
@@ -178,11 +179,19 @@ public class CommonEvent {
 
     @SubscribeEvent
     public static void onLivingDeath(LivingDeathEvent event) {
-        if (event.getEntity() instanceof EntityTameable && !event.getEntity().world.isRemote) {
-            EntityTameable entityTameable = (EntityTameable) event.getEntity();
-            if (entityTameable.isTamed() && entityTameable.getOwner() != null) {
-                ISanity sanity = entityTameable.getOwner().getCapability(SANITY, null);
-                sanity.consumeSanity(Configuration.lost);
+        if (!event.getEntity().world.isRemote) {
+            if (event.getEntity() instanceof EntityTameable) {
+                EntityTameable entityTameable = (EntityTameable) event.getEntity();
+                if (entityTameable.isTamed() && entityTameable.getOwner() != null) {
+                    ISanity sanity = entityTameable.getOwner().getCapability(SANITY, null);
+                    sanity.consumeSanity(Configuration.lost);
+                }
+            } else if (event.getEntity() instanceof EntityMob && event.getSource().getTrueSource() instanceof EntityPlayer) {
+                EntityPlayer player = (EntityPlayer) event.getSource().getTrueSource();
+                ISanity sanity = player.getCapability(SANITY, null);
+                if (sanity.getUp() == 0) {
+                    sanity.recoverSanity(Configuration.killMob);
+                }
             }
         }
     }
@@ -192,25 +201,26 @@ public class CommonEvent {
         if (event.getEntity() instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) event.getEntity();
             if (!player.world.isRemote) {
-                ItemStack item = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD);
-                if (item.getItem().equals(Armors.FLOWER)) {
-                    if (event.getSource() == DamageSource.LIGHTNING_BOLT) {
-                        item.damageItem(30, player);
-                    } else if (event.getSource().isFireDamage()) {
-                        item.damageItem(20, player);
-                    } else if (event.getSource().isExplosion()) {
-                        item.damageItem(10, player);
+                int damage = 0;
+                if (event.getSource() == DamageSource.LIGHTNING_BOLT) {
+                    damage = 30;
+                } else if (event.getSource().isFireDamage()) {
+                    damage = 20;
+                } else if (event.getSource().isExplosion()) {
+                    damage = 10;
+                }
+                if (damage != 0) {
+                    if (player.getItemStackFromSlot(EntityEquipmentSlot.HEAD).getItem().getRegistryName().equals(new ResourceLocation("sanity:garland"))) {
+                        player.getItemStackFromSlot(EntityEquipmentSlot.HEAD).damageItem(damage, player);
                     }
-                } else if (Loader.isModLoaded("baubles")) {
-                    ItemStack bauble = BaublesApi.getBaublesHandler(player).getStackInSlot(4);
-                    if (bauble.getItem().equals(Armors.GARLAND)) {
-                        if (event.getSource() == DamageSource.LIGHTNING_BOLT) {
-                            bauble.damageItem(30, player);
-                        } else if (event.getSource().isFireDamage()) {
-                            bauble.damageItem(20, player);
-                        } else if (event.getSource().isExplosion()) {
-                            bauble.damageItem(10, player);
-                        }
+                    if (Loader.isModLoaded("baubles") && BaublesApi.getBaublesHandler(player).getStackInSlot(4).getItem().equals(Armors.GARLAND)) {
+                        BaublesApi.getBaublesHandler(player).getStackInSlot(4).damageItem(damage, player);
+                    }
+                    if (player.getHeldItemMainhand().getItem().equals(UMBRELLA)) {
+                        player.getHeldItemMainhand().damageItem(damage, player);
+                    }
+                    if (player.getHeldItemOffhand().getItem().equals(UMBRELLA)) {
+                        player.getHeldItemOffhand().damageItem(damage, player);
                     }
                 }
             }
