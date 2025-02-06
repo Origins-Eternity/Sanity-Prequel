@@ -3,6 +3,7 @@ package com.origins_eternity.sanity.event;
 import com.origins_eternity.sanity.content.capability.sanity.ISanity;
 import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.PositionedSoundRecord;
+import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
@@ -81,29 +82,33 @@ public class ClientEvent {
         EntityPlayer player = mc().player;
         if (event.phase == TickEvent.Phase.END && player != null && OpenGlHelper.shadersSupported) {
             ISanity sanity = player.getCapability(SANITY, null);
+            EntityRenderer renderer = mc().entityRenderer;
             if (sanity.getSanity() <= 10f) {
-                if (!bits || !mc().entityRenderer.isShaderActive()) {
-                    mc().entityRenderer.loadShader(new ResourceLocation(BITS));
+                if (!bits || !renderer.isShaderActive()) {
+                    renderer.loadShader(new ResourceLocation(BITS));
                     bits = true;
                     deconverge = false;
                     notch = false;
                 }
             } else if (sanity.getSanity() <= 40f) {
-                if (!notch || !mc().entityRenderer.isShaderActive()) {
-                    mc().entityRenderer.loadShader(new ResourceLocation(NOTCH));
+                if (!notch || !renderer.isShaderActive()) {
+                    renderer.loadShader(new ResourceLocation(NOTCH));
                     notch = true;
                     deconverge = false;
                     bits = false;
                 }
             } else if (sanity.getSanity() <= 60f) {
-                if (!deconverge || !mc().entityRenderer.isShaderActive()) {
-                    mc().entityRenderer.loadShader(new ResourceLocation(DECONVERGE));
+                if (!deconverge || !renderer.isShaderActive()) {
+                    renderer.loadShader(new ResourceLocation(DECONVERGE));
                     deconverge = true;
                     notch = false;
                     bits = false;
                 }
             } else if (deconverge || notch || bits) {
-                mc().entityRenderer.stopUseShader();
+                renderer.stopUseShader();
+                deconverge = false;
+                notch = false;
+                bits = false;
             }
         }
     }
