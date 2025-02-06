@@ -25,12 +25,20 @@ public class UmbrellaCreator extends ItemTool {
 
     @Override
     public float getDestroySpeed(ItemStack stack, IBlockState state) {
-        return 0f;
+        return 0.5f;
     }
 
     @Override
     public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
         stack.damageItem(5, attacker);
+        return true;
+    }
+
+    @Override
+    public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
+        if (!worldIn.isRemote && (double)state.getBlockHardness(worldIn, pos) != 0.0D) {
+            stack.damageItem(5, entityLiving);
+        }
         return true;
     }
 
