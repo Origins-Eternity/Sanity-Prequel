@@ -64,9 +64,9 @@ public class Sanity implements ISanity {
                     flash = Configuration.flash;
                 }
                 if (value >= 1f) {
-                    down = 21;
-                } else {
-                    down = 15;
+                    setDown(21);
+                } else if (value > 0f) {
+                    setDown(15);
                 }
                 sanity = Math.max(sanity - (float) value, 0);
             }
@@ -81,9 +81,9 @@ public class Sanity implements ISanity {
                     flash = Configuration.flash;
                 }
                 if (value >= 1f) {
-                    up = 21;
-                } else {
-                    up = 15;
+                    setUp(21);
+                } else if (value > 0f) {
+                    setUp(15);
                 }
                 sanity = Math.min(sanity + (float) value, 100);
             }
