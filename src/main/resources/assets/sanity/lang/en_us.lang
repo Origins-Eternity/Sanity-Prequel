@@ -5,11 +5,15 @@ itemGroup.sanity=Sanity: Prequel
 item.sanity.garland.name=Garland
 item.sanity.umbrella.name=Umbrella
 
-config.sanity.offx=HUD OffX
-config.sanity.offx.tooltip=Offset on x of the HUD. A positive number means a shift to the right.
-config.sanity.offy=HUD OffY
-config.sanity.offy.tooltip=Offset on y of the HUD. A positive number means a shift to the top.
-config.sanity.flash=HUD Flash Time
+config.sanity.blood=Blood Overlay
+config.sanity.blood.tooltip=Whether to enable the blood overlay.
+config.sanity.brain=Brain Overlay
+config.sanity.brain.tooltip=Whether to enable the brain overlay.
+config.sanity.offx=Brain OffX
+config.sanity.offx.tooltip=Offset on x of the Brain. A positive number means a shift to the right.
+config.sanity.offy=Brain OffY
+config.sanity.offy.tooltip=Offset on y of the Brain. A positive number means a shift to the top.
+config.sanity.flash=Brain Flash Time
 config.sanity.flash.tooltip=How many seconds the overlay should be visible when sanity changed. (set this to -1 to disable)
 config.sanity.lightning=Lightning
 config.sanity.lightning.tooltip=The sanity to reduce when player is struck by lightning.
@@ -63,7 +67,7 @@ config.sanity.food.tooltip=The list of unhealthy food and the sanity to reduce w
 config.sanity.blocks=Dangerous Source
 config.sanity.blocks.tooltip=The list of dangerous blocks or liquids which will decrease sanity when player is in it.
 
-commands.sanity.usage=/sanity <add/remove/set> [player] <value>
+commands.sanity.usage=/sanity <add|remove|set> [player] <value>
 
 sanity.subtitle.insanity=Whispers
 sanity.subtitle.leaves_rustle=Garland rustles

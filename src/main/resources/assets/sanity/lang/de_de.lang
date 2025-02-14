@@ -4,12 +4,16 @@ itemGroup.sanity=Wahnsinn: Prolog
 item.sanity.garland.name=Blumenkranz
 item.sanity.umbrella.name=Regenschirm
 
-config.sanity.offx=HUD-Horizontale Verschiebung
-config.sanity.offx.tooltip=Horizontale Verschiebung des HUD. Positive Werte verschieben nach rechts.
-config.sanity.offy=HUD-Vertikale Verschiebung
-config.sanity.offy.tooltip=Vertikale Verschiebung des HUD. Positive Werte verschieben nach oben.
-config.sanity.flash=HUD-Anzeigezeit
-config.sanity.flash.tooltip=Die Zeit (in Sekunden), die das HUD auf dem Bildschirm bleibt. (Setze auf -1, um es zu deaktivieren)
+config.sanity.blood=Blut-Overlay
+config.sanity.blood.tooltip=Ob das Blut-Overlay aktiviert werden soll.
+config.sanity.brain=Gehirn-Overlay
+config.sanity.brain.tooltip=Ob das Gehirn-Overlay aktiviert werden soll.
+config.sanity.offx=Gehirn-Horizontale Verschiebung
+config.sanity.offx.tooltip=Horizontale Verschiebung des Gehirn. Positive Werte verschieben nach rechts.
+config.sanity.offy=Gehirn-Vertikale Verschiebung
+config.sanity.offy.tooltip=Vertikale Verschiebung des Gehirn. Positive Werte verschieben nach oben.
+config.sanity.flash=Gehirn-Anzeigezeit
+config.sanity.flash.tooltip=Die Zeit (in Sekunden), die das Gehirn auf dem Bildschirm bleibt. (Setze auf -1, um es zu deaktivieren)
 config.sanity.lightning=Blitze
 config.sanity.lightning.tooltip=Wert der Verringerung der Wahnsinnsbar in dem Moment, wenn der Spieler vom Blitz getroffen wird.
 config.sanity.animal=Tierangriff
@@ -62,7 +66,7 @@ config.sanity.food.tooltip=Wert der Verringerung der Wahnsinnsbar, wenn der Spie
 config.sanity.blocks=Gefährliche Blöcke
 config.sanity.blocks.tooltip=Wert der Verringerung der Wahnsinnsbar, wenn der Spieler sich in einem Block oder Flüssigkeit aus der Liste befindet.
 
-commands.sanity.usage=/sanity <add/remove/set> [Spieler] <Wert>
+commands.sanity.usage=/sanity <add|remove|set> [Spieler] <Wert>
 
 sanity.subtitle.insanity=Flüstern
 sanity.subtitle.leaves_rustle=Blumenkranz: Reiben

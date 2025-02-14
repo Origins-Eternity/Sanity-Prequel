@@ -5,12 +5,16 @@ itemGroup.sanity=理智：前伝
 item.sanity.garland.name=花輪
 item.sanity.umbrella.name=傘
 
-config.sanity.offx=HUD水平オフセット
-config.sanity.offx.tooltip=HUDの水平オフセット。正の値は右にオフセットします。
-config.sanity.offy=HUD垂直オフセット
-config.sanity.offy.tooltip=HUDの垂直オフセット。正の値は上にオフセットします。
-config.sanity.flash=HUD表示時間
-config.sanity.flash.tooltip=HUDが画面に表示される秒数。（-1に設定すると無効化）
+config.sanity.blood=血の表示
+config.sanity.blood.tooltip=血の表示を有効にするかどうか。
+config.sanity.brain=脳の表示
+config.sanity.brain.tooltip=脳の表示を有効にするかどうか。
+config.sanity.offx=脳水平オフセット
+config.sanity.offx.tooltip=脳の水平オフセット。正の値は右にオフセットします。
+config.sanity.offy=脳垂直オフセット
+config.sanity.offy.tooltip=脳の垂直オフセット。正の値は上にオフセットします。
+config.sanity.flash=脳表示時間
+config.sanity.flash.tooltip=脳が画面に表示される秒数。（-1に設定すると無効化）
 config.sanity.lightning=雷
 config.sanity.lightning.tooltip=プレイヤーが雷に打たれたときに理智が減少する値。
 config.sanity.animal=動物を攻撃
@@ -63,7 +67,7 @@ config.sanity.food.tooltip=不健康な食べ物を食べると理智が減少�
 config.sanity.blocks=危険源
 config.sanity.blocks.tooltip=プレイヤーがリストにあるブロックや液体にいると理智が減少する。
 
-commands.sanity.usage=/sanity <add/remove/set> [プレイヤー] <値>
+commands.sanity.usage=/sanity <add|remove|set> [プレイヤー] <値>
 
 sanity.subtitle.insanity=囁き
 sanity.subtitle.leaves_rustle=花輪：摩擦

@@ -10,19 +10,29 @@ import static com.origins_eternity.sanity.Sanity.MOD_ID;
 
 @Config(modid = MOD_ID)
 public class Configuration {
-    @Config.Name("HUD OffX")
+    @Config.Name("Blood Overlay")
+    @Config.LangKey("config.sanity.blood")
+    @Config.Comment("Whether to enable the blood overlay.")
+    public static boolean blood = true;
+
+    @Config.Name("Brain Overlay")
+    @Config.LangKey("config.sanity.brain")
+    @Config.Comment("Whether to enable the brain overlay.")
+    public static boolean brain = true;
+
+    @Config.Name("Brain OffX")
     @Config.LangKey("config.sanity.offx")
-    @Config.Comment("Offset on x of the HUD. A positive number means a shift to the right.")
+    @Config.Comment("Offset on x of the Brain. A positive number means a shift to the right.")
     public static int offX = 0;
 
-    @Config.Name("HUD OffY")
+    @Config.Name("Brain OffY")
     @Config.LangKey("config.sanity.offy")
-    @Config.Comment("Offset on y of the HUD. A positive number means a shift to the top.")
+    @Config.Comment("Offset on y of the Brain. A positive number means a shift to the top.")
     public static int offY = 0;
 
-    @Config.Name("HUD Flash Time")
+    @Config.Name("Brain Flash Time")
     @Config.LangKey("config.sanity.flash")
-    @Config.Comment("How many seconds the overlay should be visible when sanity changed. (set this to -1 to disable)")
+    @Config.Comment("How many seconds the brain should be visible when sanity changed. (set this to -1 to disable)")
     @Config.RangeInt(min = -1, max = 30)
     public static int flash = -1;
 

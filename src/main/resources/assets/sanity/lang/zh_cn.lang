@@ -5,12 +5,16 @@ itemGroup.sanity=理智：前传
 item.sanity.garland.name=花环
 item.sanity.umbrella.name=雨伞
 
-config.sanity.offx=HUD水平偏移量
-config.sanity.offx.tooltip=HUD的水平偏移量。正数表示向右偏移。
-config.sanity.offy=HUD竖直偏移量
-config.sanity.offy.tooltip=HUD的竖直偏移量。正数表示向上偏移。
-config.sanity.flash=HUD暂留时间
-config.sanity.flash.tooltip=HUD在屏幕上的暂留秒数。（设置为-1以禁用）
+config.sanity.blood=血液显示
+config.sanity.blood.tooltip=是否启用血液显示。
+config.sanity.brain=大脑显示
+config.sanity.brain.tooltip=是否启用大脑显示。
+config.sanity.offx=大脑水平偏移量
+config.sanity.offx.tooltip=大脑的水平偏移量。正数表示向右偏移。
+config.sanity.offy=大脑竖直偏移量
+config.sanity.offy.tooltip=大脑的竖直偏移量。正数表示向上偏移。
+config.sanity.flash=大脑暂留时间
+config.sanity.flash.tooltip=大脑在屏幕上的暂留秒数。（设置为-1以禁用）
 config.sanity.lightning=闪电
 config.sanity.lightning.tooltip=当玩家被闪电击中时，理智降低的值。
 config.sanity.animal=攻击动物
@@ -63,7 +67,7 @@ config.sanity.food.tooltip=不健康的食物和食用它们理智降低的值�
 config.sanity.blocks=危险源
 config.sanity.blocks.tooltip=当玩家处于列表中的方块或流体时，会降低理智。
 
-commands.sanity.usage=/sanity <add/remove/set> [玩家] <数值>
+commands.sanity.usage=/sanity <add|remove|set> [玩家] <数值>
 
 sanity.subtitle.insanity=低语
 sanity.subtitle.leaves_rustle=花环:摩擦

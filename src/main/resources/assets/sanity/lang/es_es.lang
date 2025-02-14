@@ -5,12 +5,16 @@ itemGroup.sanity=Cordura: Prólogo
 item.sanity.garland.name=Corona de flores
 item.sanity.umbrella.name=Paraguas
 
-config.sanity.offx=Desplazamiento horizontal del HUD
-config.sanity.offx.tooltip=Desplazamiento horizontal del HUD. Los valores positivos desplazan hacia la derecha.
-config.sanity.offy=Desplazamiento vertical del HUD
-config.sanity.offy.tooltip=Desplazamiento vertical del HUD. Los valores positivos desplazan hacia arriba.
-config.sanity.flash=Tiempo de permanencia del HUD
-config.sanity.flash.tooltip=El tiempo (en segundos) que el HUD permanece en pantalla. (Ponlo en -1 para desactivarlo)
+config.sanity.blood=Superposición de sangre
+config.sanity.blood.tooltip=Si se habilita la superposición de sangre.
+config.sanity.brain=Superposición de cerebro
+config.sanity.brain.tooltip=Si se debe habilitar la superposición de cerebro.
+config.sanity.offx=Desplazamiento horizontal del Cerebro
+config.sanity.offx.tooltip=Desplazamiento horizontal del Cerebro. Los valores positivos desplazan hacia la derecha.
+config.sanity.offy=Desplazamiento vertical del Cerebro
+config.sanity.offy.tooltip=Desplazamiento vertical del Cerebro. Los valores positivos desplazan hacia arriba.
+config.sanity.flash=Tiempo de permanencia del Cerebro
+config.sanity.flash.tooltip=El tiempo (en segundos) que el Cerebro permanece en pantalla. (Ponlo en -1 para desactivarlo)
 config.sanity.lightning=Rayos
 config.sanity.lightning.tooltip=Valor de reducción de cordura cuando el jugador es alcanzado por un rayo.
 config.sanity.animal=Atacar animales
@@ -63,7 +67,7 @@ config.sanity.food.tooltip=Valor de reducción de cordura al consumir comida poc
 config.sanity.blocks=Fuentes de peligro
 config.sanity.blocks.tooltip=Cuando el jugador está en bloques o fluidos listados, su cordura se reducirá.
 
-commands.sanity.usage=/sanity <add/remove/set> [Jugador] <Valor>
+commands.sanity.usage=/sanity <add|remove|set> [Jugador] <Valor>
 
 sanity.subtitle.insanity=Sussurro
 sanity.subtitle.leaves_rustle=Corona de flores: Roceitem.sanity.umbrella.name=Umbrella

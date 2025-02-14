@@ -26,8 +26,12 @@ public class Overlay extends Gui {
                 int posY = event.getResolution().getScaledHeight();
                 GlStateManager.enableBlend();
                 GlStateManager.pushMatrix();
-                drawBlood(player, posX, posY);
-                drawHud(player, posX / 2 - 130, posY - 29);
+                if (Configuration.blood) {
+                    drawBlood(player, posX, posY);
+                }
+                if (Configuration.brain) {
+                    drawBrain(player, posX / 2 - 130, posY - 29);
+                }
                 GlStateManager.popMatrix();
                 mc().getTextureManager().bindTexture(Gui.ICONS);
                 GlStateManager.disableBlend();
@@ -49,7 +53,7 @@ public class Overlay extends Gui {
         }
     }
 
-    private void drawHud(EntityPlayerSP player, int posX, int posY) {
+    private void drawBrain(EntityPlayerSP player, int posX, int posY) {
         ISanity sanity = player.getCapability(SANITY, null);
         if (sanity.getFlash() > 0 || sanity.getFlash() == -1) {
             mc().getTextureManager().bindTexture(hud);

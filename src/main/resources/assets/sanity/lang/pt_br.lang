@@ -5,12 +5,16 @@ itemGroup.sanity=Sanidade: Prólogo
 item.sanity.garland.name=Guirlanda
 item.sanity.umbrella.name=Guarda-chuva
 
-config.sanity.offx=Deslocamento horizontal do HUD
-config.sanity.offx.tooltip=Deslocamento horizontal do HUD. Valores positivos deslocam para a direita.
-config.sanity.offy=Deslocamento vertical do HUD
-config.sanity.offy.tooltip=Deslocamento vertical do HUD. Valores positivos deslocam para cima.
-config.sanity.flash=Tempo de permanência do HUD
-config.sanity.flash.tooltip=Tempo (em segundos) que o HUD permanece na tela. (Defina como -1 para desativar)
+config.sanity.blood=Sobreposição de Sangue
+config.sanity.blood.tooltip=Se deseja habilitar a sobreposição de sangue.
+config.sanity.brain=Sobreposição de Cérebro
+config.sanity.brain.tooltip=Se deseja habilitar a sobreposição de cérebro.
+config.sanity.offx=Deslocamento horizontal do Cérebro
+config.sanity.offx.tooltip=Deslocamento horizontal do Cérebro. Valores positivos deslocam para a direita.
+config.sanity.offy=Deslocamento vertical do Cérebro
+config.sanity.offy.tooltip=Deslocamento vertical do Cérebro. Valores positivos deslocam para cima.
+config.sanity.flash=Tempo de permanência do Cérebro
+config.sanity.flash.tooltip=Tempo (em segundos) que o Cérebro permanece na tela. (Defina como -1 para desativar)
 config.sanity.lightning=Relâmpago
 config.sanity.lightning.tooltip=Valor de redução de sanidade quando o jogador é atingido por um relâmpago.
 config.sanity.animal=Ataque a animais
@@ -63,7 +67,7 @@ config.sanity.food.tooltip=Valor de redução de sanidade ao consumir comida nã
 config.sanity.blocks=Fontes de perigo
 config.sanity.blocks.tooltip=Quando o jogador está em blocos ou fluidos listados, sua sanidade será reduzida.
 
-commands.sanity.usage=/sanity <add/remove/set> [Jogador] <Valor>
+commands.sanity.usage=/sanity <add|remove|set> [Jogador] <Valor>
 
 sanity.subtitle.insanity=Sussurro
 sanity.subtitle.leaves_rustle=Guirlanda: Farfalhar
