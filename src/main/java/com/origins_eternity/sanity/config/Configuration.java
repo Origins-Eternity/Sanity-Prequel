@@ -20,6 +20,11 @@ public class Configuration {
     @Config.Comment("Whether to enable the brain overlay.")
     public static boolean brain = true;
 
+    @Config.Name("Reset Sanity")
+    @Config.LangKey("config.sanity.reset")
+    @Config.Comment("Whether to reset sanity after respawning.")
+    public static boolean reset = false;
+
     @Config.Name("Brain OffX")
     @Config.LangKey("config.sanity.offx")
     @Config.Comment("Offset on x of the Brain. A positive number means a shift to the right.")

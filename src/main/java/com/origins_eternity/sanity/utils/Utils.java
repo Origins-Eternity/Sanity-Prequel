@@ -42,9 +42,6 @@ public class Utils {
         if (sanity.getUp() > 0) {
             sanity.setUp(sanity.getUp() - 1);
         }
-        if (sanity.getFlash() > 0 && player.ticksExisted % 20 == 0) {
-            sanity.setFlash(sanity.getFlash() - 1);
-        }
         if (isWet(player)) {
             sanity.consumeSanity(Configuration.rain);
         }

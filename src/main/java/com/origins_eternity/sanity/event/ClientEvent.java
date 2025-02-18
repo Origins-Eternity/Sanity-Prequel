@@ -1,5 +1,6 @@
 package com.origins_eternity.sanity.event;
 
+import com.origins_eternity.sanity.config.Configuration;
 import com.origins_eternity.sanity.content.capability.sanity.ISanity;
 import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.PositionedSoundRecord;
@@ -43,6 +44,7 @@ public class ClientEvent {
 
     static int confusing;
     static int whisper;
+    public static int flash = Configuration.flash;
 
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
@@ -63,6 +65,13 @@ public class ClientEvent {
                         mc().getSoundHandler().playSound(insanity);
                         whisper = 680;
                     }
+                }
+            }
+            if (Configuration.flash != -1) {
+                if (sanity.getDown() >= 15 || sanity.getUp() >= 15) {
+                    flash = Configuration.flash * 20;
+                } else if (flash > 0) {
+                    flash--;
                 }
             }
         }

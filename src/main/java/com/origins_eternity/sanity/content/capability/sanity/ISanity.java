@@ -13,10 +13,6 @@ public interface ISanity {
 
     int getUp();
 
-    void setFlash(int flash);
-
-    int getFlash();
-
     void consumeSanity(double value);
 
     void recoverSanity(double value);

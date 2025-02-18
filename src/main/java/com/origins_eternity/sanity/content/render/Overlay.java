@@ -11,6 +11,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import static com.origins_eternity.sanity.Sanity.MOD_ID;
 import static com.origins_eternity.sanity.content.capability.Capabilities.SANITY;
+import static com.origins_eternity.sanity.event.ClientEvent.flash;
 import static com.origins_eternity.sanity.utils.proxy.ClientProxy.mc;
 
 public class Overlay extends Gui {
@@ -18,7 +19,7 @@ public class Overlay extends Gui {
     private static final ResourceLocation blood = new ResourceLocation(MOD_ID, "textures/gui/blood.png");
 
     @SubscribeEvent
-    public void onRenderGameOverlay(RenderGameOverlayEvent.Pre event) {
+    public void onRenderGameOverlay(RenderGameOverlayEvent.Post event) {
         if (event.getType() == RenderGameOverlayEvent.ElementType.ALL) {
             EntityPlayerSP player = mc().player;
             if (!player.isCreative() && !player.isSpectator()) {
@@ -55,7 +56,7 @@ public class Overlay extends Gui {
 
     private void drawBrain(EntityPlayerSP player, int posX, int posY) {
         ISanity sanity = player.getCapability(SANITY, null);
-        if (sanity.getFlash() > 0 || sanity.getFlash() == -1) {
+        if (flash > 0 || Configuration.flash == -1) {
             mc().getTextureManager().bindTexture(hud);
             posX += Configuration.offX;
             posY -= Configuration.offY;

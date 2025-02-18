@@ -55,7 +55,7 @@ public class CommonEvent {
             Capability<ISanity> capability = Capabilities.SANITY;
             ISanity origin = old.getCapability(capability, null);
             ISanity present = clone.getCapability(capability, null);
-            if (!event.isWasDeath()) {
+            if (!event.isWasDeath() || Configuration.reset) {
                 capability.getStorage().readNBT(capability, present, null, capability.getStorage().writeNBT(capability, origin, null));
             }
         }
