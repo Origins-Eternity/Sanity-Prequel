@@ -68,6 +68,8 @@ config.sanity.food=不健康的食物
 config.sanity.food.tooltip=不健康的食物和食用它們理智降低的值。（"食物;數值"）
 config.sanity.blocks=危險源
 config.sanity.blocks.tooltip=當玩家處於清單中的方塊或流體時，會降低理智。
+config.sanity.sounds=聲音
+config.sanity.sounds.tooltip=當玩家理智較低時，會隨機播放清單中的聲音。
 
 commands.sanity.usage=/sanity <add|remove|set> [玩家] <数值>
 

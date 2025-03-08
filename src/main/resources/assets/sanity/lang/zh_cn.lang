@@ -65,9 +65,11 @@ config.sanity.pet=宠物
 config.sanity.pet.tooltip=当玩家在宠物旁边时，理智升高的值。（每0.5秒，5格范围内）
 
 config.sanity.food=不健康的食物
-config.sanity.food.tooltip=不健康的食物和食用它们理智降低的值。（"食物;数值"）
+config.sanity.food.tooltip=当玩家食用列表中的食物时，降低的理智值。（"食物;数值"）
 config.sanity.blocks=危险源
 config.sanity.blocks.tooltip=当玩家处于列表中的方块或流体时，会降低理智。
+config.sanity.sounds=声音
+config.sanity.sounds.tooltip=当玩家理智较低时，会随机播放列表中的声音。
 
 commands.sanity.usage=/sanity <add|remove|set> [玩家] <数值>
 

@@ -189,6 +189,11 @@ public class Configuration {
     @Config.Comment("The list of dangerous blocks or liquids which will decrease sanity when player is in it.")
     public static String[] blocks = new String[]{"minecraft:web", "minecraft:water"};
 
+    @Config.Name("Sounds")
+    @Config.LangKey("config.sanity.sounds")
+    @Config.Comment("The list of sounds which will play randomly when sanity is low.")
+    public static String[] sounds = new String[]{"entity.creeper.primed", "entity.tnt.primed", "entity.skeleton.ambient", "entity.skeleton.step", "entity.zombie.ambient", "entity.zombie.step", "entity.enderman.ambient", "entity.hostile.big_fall", "block.chest.open", "block.chest.close", "block.wooden_door.open", "block.wooden_trapdoor.open", "entity.wolf.growl"};
+
     @Mod.EventBusSubscriber(modid = MOD_ID)
     public static class ConfigSyncHandler {
         @SubscribeEvent

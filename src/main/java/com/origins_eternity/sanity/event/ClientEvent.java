@@ -7,7 +7,6 @@ import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -24,22 +23,6 @@ import static com.origins_eternity.sanity.utils.proxy.ClientProxy.mc;
 
 @Mod.EventBusSubscriber(modid = MOD_ID)
 public class ClientEvent {
-    private static final SoundEvent[] SOUNDS = new SoundEvent[]{
-            SoundEvents.ENTITY_CREEPER_PRIMED,
-            SoundEvents.ENTITY_TNT_PRIMED,
-            SoundEvents.ENTITY_SKELETON_AMBIENT,
-            SoundEvents.ENTITY_SKELETON_STEP,
-            SoundEvents.ENTITY_ZOMBIE_AMBIENT,
-            SoundEvents.ENTITY_ZOMBIE_STEP,
-            SoundEvents.ENTITY_ENDERMEN_AMBIENT,
-            SoundEvents.ENTITY_HOSTILE_BIG_FALL,
-            SoundEvents.BLOCK_CHEST_OPEN,
-            SoundEvents.BLOCK_CHEST_CLOSE,
-            SoundEvents.BLOCK_WOODEN_DOOR_OPEN,
-            SoundEvents.BLOCK_WOODEN_TRAPDOOR_OPEN,
-            SoundEvents.ENTITY_WOLF_GROWL
-    };
-
     private static final Random rand = new Random();
 
     static int confusing;
@@ -55,7 +38,11 @@ public class ClientEvent {
             if (sanity.getSanity() <= 50f) {
                 confusing--;
                 if (confusing <= 0) {
-                    player.playSound(SOUNDS[rand.nextInt(SOUNDS.length)], 1f, 0.5f);
+                    int number = rand.nextInt(Configuration.sounds.length);
+                    SoundEvent sound = SoundEvent.REGISTRY.getObject(new ResourceLocation(Configuration.sounds[number]));
+                    if (sound != null) {
+                        player.playSound(sound, 1f, 0.5f);
+                    }
                     confusing = rand.nextInt(600) + 800;
                 }
                 if (sanity.getSanity() <= 45f) {

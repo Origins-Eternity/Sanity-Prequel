@@ -68,6 +68,8 @@ config.sanity.food=Unhealthy Food
 config.sanity.food.tooltip=The list of unhealthy food and the sanity to reduce when eat it. ('food;value')
 config.sanity.blocks=Dangerous Source
 config.sanity.blocks.tooltip=The list of dangerous blocks or liquids which will decrease sanity when player is in it.
+config.sanity.sounds=Sounds
+config.sanity.sounds.tooltip=The list of sounds which will play randomly when sanity is low.
 
 commands.sanity.usage=/sanity <add|remove|set> [player] <value>
 
