@@ -14,7 +14,7 @@
 ![This is an image](https://s21.ax1x.com/2025/02/05/pEeKjN8.png)
 ### Effects
 - **Sanity ≤ 60, at the edges of things, red, green, and blue seem to be separated in your eyes.**
-- **Sanity ≤ 50, players will experience auditory hallucinations.**
+- **Sanity ≤ 50, players will experience auditory hallucinations. (support custom sound list)**
 - **Sanity ≤ 45, whispers can be heard.**
 - **Sanity ≤ 40, there are a grid of small dots lies in your eyes. The world looks washed out...**
 - **Sanity ≤ 10, game's graphics are even more distorted, with details barely legible.**
