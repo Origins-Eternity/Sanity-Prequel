@@ -49,8 +49,6 @@ config.sanity.mob=怪物
 config.sanity.mob.tooltip=當玩家周圍有怪物遊蕩時，理智降低的值。（每0.5秒，8格範圍內）
 config.sanity.kill=殺死怪物
 config.sanity.kill.tooltip=當玩家殺死怪物時，理智升高的值。
-config.sanity.eat=食物
-config.sanity.eat.tooltip=當玩家食用健康的食物時，理智升高的值。
 config.sanity.quest=任務
 config.sanity.quest.tooltip=當玩家完成一項任務時，理智升高的值。（僅支援FTB任務）
 config.sanity.sleep=睡眠
@@ -64,10 +62,10 @@ config.sanity.garland.tooltip=當玩家戴上花環時，理智升高的值。�
 config.sanity.pet=寵物
 config.sanity.pet.tooltip=當玩家在寵物旁邊時，理智升高的值。（每0.5秒，5格範圍內）
 
-config.sanity.food=不健康的食物
-config.sanity.food.tooltip=不健康的食物和食用它們理智降低的值。（"食物;數值"）
-config.sanity.blocks=危險源
-config.sanity.blocks.tooltip=當玩家處於清單中的方塊或流體時，會降低理智。
+config.sanity.food=食物
+config.sanity.food.tooltip=當玩家食用清單中的食物時，降低或升高的理智值。玩家吃下其他食物將會恢復5理智值。（“食物; 數值“）
+config.sanity.environment=環境
+config.sanity.environment.tooltip=當玩家處於清單中的方塊或流體時，降低或升高的理智值。
 config.sanity.sounds=聲音
 config.sanity.sounds.tooltip=當玩家理智較低時，會隨機播放清單中的聲音。
 

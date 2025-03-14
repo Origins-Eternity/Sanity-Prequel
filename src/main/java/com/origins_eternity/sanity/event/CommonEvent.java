@@ -67,11 +67,16 @@ public class CommonEvent {
             EntityPlayerMP player = (EntityPlayerMP) event.getEntityLiving();
             if ((!player.isCreative()) && (event.getItem().getItem() instanceof ItemFood)) {
                 ISanity sanity = player.getCapability(SANITY, null);
-                if (itemMatched(event.getItem()) != -1) {
-                    double value = Double.parseDouble(Configuration.food[itemMatched(event.getItem())].split(";")[1]);
-                    sanity.consumeSanity(value);
+                int num = itemMatched(event.getItem());
+                if (num == -1) {
+                    sanity.recoverSanity(5.0);
                 } else {
-                    sanity.recoverSanity(Configuration.eat);
+                    double value = Double.parseDouble(Configuration.food[num].split(";")[1]);
+                    if (value > 0) {
+                        sanity.recoverSanity(value);
+                    } else {
+                        sanity.consumeSanity(-value);
+                    }
                 }
             }
         }

@@ -49,9 +49,9 @@ public class Sanity implements ISanity {
     public void consumeSanity(double value) {
         if (value >= 0) {
             if (sanity != 0f) {
-                if (value >= 1f) {
+                if (value >= 1) {
                     setDown(21);
-                } else if (value > 0f) {
+                } else if (value > 0) {
                     setDown(15);
                 }
                 sanity = Math.max(sanity - (float) value, 0);
@@ -63,9 +63,9 @@ public class Sanity implements ISanity {
     public void recoverSanity(double value) {
         if (value >= 0) {
             if (sanity != 100f) {
-                if (value >= 1f) {
+                if (value >= 1) {
                     setUp(21);
-                } else if (value > 0f) {
+                } else if (value > 0) {
                     setUp(15);
                 }
                 sanity = Math.min(sanity + (float) value, 100);

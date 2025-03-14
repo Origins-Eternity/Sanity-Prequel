@@ -57,8 +57,13 @@ public class Utils {
         if (player.fallDistance > 4f) {
             sanity.consumeSanity(player.fallDistance * Configuration.fall);
         }
-        if (dangerFeet(player) || dangerHead(player)) {
-            sanity.consumeSanity(Configuration.danger);
+        if (checkFeet(player) != 0 || checkHead(player) != 0) {
+            double value = (checkFeet(player) + checkHead(player)) / 2.0;
+            if (value > 0) {
+                sanity.recoverSanity(value);
+            } else {
+                sanity.consumeSanity(-value);
+            }
         }
         if (withMob(player)) {
             sanity.consumeSanity(Configuration.mob);
@@ -99,14 +104,15 @@ public class Utils {
         return match;
     }
 
-    public static boolean blockMatched(IBlockState block) {
-        boolean match = false;
-        for (String id : Configuration.blocks) {
-            String[] name = id.split(":");
+    public static int blockMatched(IBlockState block) {
+        int match = -1;
+        for (int i = 0; i < Configuration.blocks.length; i++) {
+            String[] parts = Configuration.blocks[i].split(";");
+            String[] name = parts[0].split(":");
             if (name.length == 2) {
-                if (block.getBlock().equals(Block.REGISTRY.getObject(new ResourceLocation(id)))) {
+                if (block.getBlock().equals(Block.REGISTRY.getObject(new ResourceLocation(parts[0])))) {
                     if (block.getBlock().getMetaFromState(block) == 0) {
-                        match = true;
+                        match = i;
                         break;
                     }
                 }
@@ -114,7 +120,7 @@ public class Utils {
                 ResourceLocation location = new ResourceLocation(name[0], name[1]);
                 if (block.getBlock().equals(Block.REGISTRY.getObject(location))) {
                     if (block.getBlock().getMetaFromState(block) == Integer.parseInt(name[2])) {
-                        match = true;
+                        match = i;
                         break;
                     }
                 }
@@ -132,16 +138,24 @@ public class Utils {
         return false;
     }
 
-    public static boolean dangerFeet(EntityPlayer player) {
+    public static double checkFeet(EntityPlayer player) {
+        double value = 0;
         BlockPos pos = new BlockPos(player);
         IBlockState state = player.world.getBlockState(pos);
-        return blockMatched(state);
+        if (blockMatched(state) != -1) {
+            value = Double.parseDouble(Configuration.blocks[blockMatched(state)].split(";")[1].trim());
+        }
+        return value;
     }
 
-    public static boolean dangerHead(EntityPlayer player) {
+    public static double checkHead(EntityPlayer player) {
+        double value = 0;
         BlockPos pos = new BlockPos(player);
         IBlockState state = player.world.getBlockState(pos.up());
-        return blockMatched(state);
+        if (blockMatched(state) != -1) {
+            value = Double.parseDouble(Configuration.blocks[blockMatched(state)].split(";")[1].trim());
+        }
+        return value;
     }
 
     private static boolean withPet(EntityPlayer player) {

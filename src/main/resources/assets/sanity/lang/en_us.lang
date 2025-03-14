@@ -49,8 +49,6 @@ config.sanity.mob=Mob
 config.sanity.mob.tooltip=The sanity to reduce when mobs are around player. (per 0.5s, within 8 blocks)
 config.sanity.kill=Kill Mob
 config.sanity.kill.tooltip=The sanity to increase when player kill a mob.
-config.sanity.eat=Eat
-config.sanity.eat.tooltip=The sanity to increase when player eat healthy food.
 config.sanity.quest=Quest
 config.sanity.quest.tooltip=The sanity to increase when player complete a quest. (only support FTB Quests)
 config.sanity.sleep=Sleep
@@ -64,10 +62,10 @@ config.sanity.garland.tooltip=The sanity to increase when player wear a garland.
 config.sanity.pet=Pet
 config.sanity.pet.tooltip=The sanity to increase when player stay with pets. (per 0.5s, within 5 blocks)
 
-config.sanity.food=Unhealthy Food
-config.sanity.food.tooltip=The list of unhealthy food and the sanity to reduce when eat it. ('food;value')
-config.sanity.blocks=Dangerous Source
-config.sanity.blocks.tooltip=The list of dangerous blocks or liquids which will decrease sanity when player is in it.
+config.sanity.food=Food
+config.sanity.food.tooltip=The sanity to decrease or increase after eating food which in this list. Player will gain 5 sanity after eating other foods. ('food;value')
+config.sanity.environment=Environment
+config.sanity.environment.tooltip=The sanity to decrease or increase when in blocks or liquids in this list. ('block;value', per 0.5s)
 config.sanity.sounds=Sounds
 config.sanity.sounds.tooltip=The list of sounds which will play randomly when sanity is low.
 
