@@ -1,6 +1,5 @@
 package com.origins_eternity.sanity.content.render;
 
-import com.origins_eternity.sanity.config.Configuration;
 import com.origins_eternity.sanity.content.capability.sanity.ISanity;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.Gui;
@@ -10,6 +9,7 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import static com.origins_eternity.sanity.Sanity.MOD_ID;
+import static com.origins_eternity.sanity.config.Configuration.Overlay;
 import static com.origins_eternity.sanity.content.capability.Capabilities.SANITY;
 import static com.origins_eternity.sanity.event.ClientEvent.flash;
 import static com.origins_eternity.sanity.utils.proxy.ClientProxy.mc;
@@ -27,10 +27,10 @@ public class Overlay extends Gui {
                 int posY = event.getResolution().getScaledHeight();
                 GlStateManager.enableBlend();
                 GlStateManager.pushMatrix();
-                if (Configuration.blood) {
+                if (Overlay.blood) {
                     drawBlood(player, posX, posY);
                 }
-                if (Configuration.brain) {
+                if (Overlay.brain) {
                     drawBrain(player, posX / 2 - 130, posY - 29);
                 }
                 GlStateManager.popMatrix();
@@ -58,10 +58,10 @@ public class Overlay extends Gui {
 
     private void drawBrain(EntityPlayerSP player, int posX, int posY) {
         ISanity sanity = player.getCapability(SANITY, null);
-        if (flash > 0 || Configuration.flash == -1) {
+        if (flash > 0 || Overlay.flash == -1) {
             mc().getTextureManager().bindTexture(hud);
-            posX += Configuration.offX;
-            posY -= Configuration.offY;
+            posX += Overlay.offX;
+            posY -= Overlay.offY;
             if (sanity.getSanity() < 40f) {
                 posY += player.ticksExisted % 2;
             }

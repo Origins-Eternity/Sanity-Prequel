@@ -2,7 +2,6 @@ package com.origins_eternity.sanity.utils;
 
 import com.charles445.simpledifficulty.api.SDCapabilities;
 import com.charles445.simpledifficulty.api.thirst.IThirstCapability;
-import com.origins_eternity.sanity.config.Configuration;
 import com.origins_eternity.sanity.content.capability.sanity.ISanity;
 import com.origins_eternity.sanity.message.SyncSanity;
 import net.minecraft.block.Block;
@@ -23,6 +22,7 @@ import toughasnails.api.TANCapabilities;
 import toughasnails.api.stat.capability.IThirst;
 
 import static com.origins_eternity.sanity.Sanity.packetHandler;
+import static com.origins_eternity.sanity.config.Configuration.Mechanics;
 import static com.origins_eternity.sanity.content.capability.Capabilities.SANITY;
 import static com.origins_eternity.sanity.content.umbrella.Umbrellas.UMBRELLA;
 
@@ -43,19 +43,19 @@ public class Utils {
             sanity.setUp(sanity.getUp() - 1);
         }
         if (isWet(player)) {
-            sanity.consumeSanity(Configuration.rain);
+            sanity.consumeSanity(Mechanics.rain);
         }
         if (player.getFoodStats().getFoodLevel() < 6) {
-            sanity.consumeSanity(Configuration.hunger);
+            sanity.consumeSanity(Mechanics.hunger);
         }
         if (isThirst(player)) {
-            sanity.consumeSanity(Configuration.thirst);
+            sanity.consumeSanity(Mechanics.thirst);
         }
         if (player.getAir() < 90) {
-            sanity.consumeSanity(Configuration.choking);
+            sanity.consumeSanity(Mechanics.choking);
         }
         if (player.fallDistance > 4f) {
-            sanity.consumeSanity(player.fallDistance * Configuration.fall);
+            sanity.consumeSanity(player.fallDistance * Mechanics.fall);
         }
         if (checkFeet(player) != 0 || checkHead(player) != 0) {
             double value = (checkFeet(player) + checkHead(player)) / 2.0;
@@ -66,14 +66,14 @@ public class Utils {
             }
         }
         if (withMob(player)) {
-            sanity.consumeSanity(Configuration.mob);
+            sanity.consumeSanity(Mechanics.mob);
         }
         if (withPet(player) && sanity.getDown() == 0f) {
-            sanity.recoverSanity(Configuration.pet);
+            sanity.recoverSanity(Mechanics.pet);
         }
         if (player.world.getLight(new BlockPos(player), true) < 4) {
             if (!player.isPotionActive(MobEffects.NIGHT_VISION)) {
-                sanity.consumeSanity(Configuration.dark);
+                sanity.consumeSanity(Mechanics.dark);
             }
         }
         syncSanity(player);
@@ -81,8 +81,8 @@ public class Utils {
 
     public static int itemMatched(ItemStack item) {
         int match = -1;
-        for (int i = 0; i < Configuration.food.length; i++) {
-            String[] parts = Configuration.food[i].split(";");
+        for (int i = 0; i < Mechanics.food.length; i++) {
+            String[] parts = Mechanics.food[i].split(";");
             String[] name = parts[0].split(":");
             if (name.length == 2) {
                 if (item.getItem().equals(Item.REGISTRY.getObject(new ResourceLocation(parts[0])))) {
@@ -106,8 +106,8 @@ public class Utils {
 
     public static int blockMatched(IBlockState block) {
         int match = -1;
-        for (int i = 0; i < Configuration.blocks.length; i++) {
-            String[] parts = Configuration.blocks[i].split(";");
+        for (int i = 0; i < Mechanics.blocks.length; i++) {
+            String[] parts = Mechanics.blocks[i].split(";");
             String[] name = parts[0].split(":");
             if (name.length == 2) {
                 if (block.getBlock().equals(Block.REGISTRY.getObject(new ResourceLocation(parts[0])))) {
@@ -143,7 +143,7 @@ public class Utils {
         BlockPos pos = new BlockPos(player);
         IBlockState state = player.world.getBlockState(pos);
         if (blockMatched(state) != -1) {
-            value = Double.parseDouble(Configuration.blocks[blockMatched(state)].split(";")[1].trim());
+            value = Double.parseDouble(Mechanics.blocks[blockMatched(state)].split(";")[1].trim());
         }
         return value;
     }
@@ -153,7 +153,7 @@ public class Utils {
         BlockPos pos = new BlockPos(player);
         IBlockState state = player.world.getBlockState(pos.up());
         if (blockMatched(state) != -1) {
-            value = Double.parseDouble(Configuration.blocks[blockMatched(state)].split(";")[1].trim());
+            value = Double.parseDouble(Mechanics.blocks[blockMatched(state)].split(";")[1].trim());
         }
         return value;
     }

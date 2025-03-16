@@ -1,7 +1,6 @@
 package com.origins_eternity.sanity.event;
 
 import baubles.api.BaublesApi;
-import com.origins_eternity.sanity.config.Configuration;
 import com.origins_eternity.sanity.content.armor.Armors;
 import com.origins_eternity.sanity.content.capability.Capabilities;
 import com.origins_eternity.sanity.content.capability.sanity.ISanity;
@@ -32,6 +31,7 @@ import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerChangedDimensio
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 import static com.origins_eternity.sanity.Sanity.MOD_ID;
+import static com.origins_eternity.sanity.config.Configuration.Mechanics;
 import static com.origins_eternity.sanity.content.capability.Capabilities.SANITY;
 import static com.origins_eternity.sanity.content.umbrella.Umbrellas.UMBRELLA;
 import static com.origins_eternity.sanity.utils.Utils.itemMatched;
@@ -55,7 +55,7 @@ public class CommonEvent {
             Capability<ISanity> capability = Capabilities.SANITY;
             ISanity origin = old.getCapability(capability, null);
             ISanity present = clone.getCapability(capability, null);
-            if (!event.isWasDeath() || Configuration.reset) {
+            if (!event.isWasDeath() || Mechanics.reset) {
                 capability.getStorage().readNBT(capability, present, null, capability.getStorage().writeNBT(capability, origin, null));
             }
         }
@@ -71,7 +71,7 @@ public class CommonEvent {
                 if (num == -1) {
                     sanity.recoverSanity(5.0);
                 } else {
-                    double value = Double.parseDouble(Configuration.food[num].split(";")[1]);
+                    double value = Double.parseDouble(Mechanics.food[num].split(";")[1]);
                     if (value > 0) {
                         sanity.recoverSanity(value);
                     } else {
@@ -101,7 +101,7 @@ public class CommonEvent {
             if (!player.isCreative()) {
                 double sleep = (player.world.getWorldTime() - time) / 12000.0;
                 ISanity sanity = player.getCapability(SANITY, null);
-                sanity.recoverSanity(Configuration.sleep * sleep);
+                sanity.recoverSanity(Mechanics.sleep * sleep);
             }
         }
     }
@@ -111,7 +111,7 @@ public class CommonEvent {
         if (event.getEntity() instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) event.getEntity();
             ISanity sanity = player.getCapability(SANITY, null);
-            sanity.consumeSanity(Configuration.lightning);
+            sanity.consumeSanity(Mechanics.lightning);
         }
     }
 
@@ -120,18 +120,18 @@ public class CommonEvent {
         if (event.getEntity() instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) event.getEntityLiving();
             ISanity sanity = player.getCapability(SANITY, null);
-            sanity.consumeSanity(Configuration.hurt * event.getAmount());
+            sanity.consumeSanity(Mechanics.hurt * event.getAmount());
         } else {
             if (event.getSource().getTrueSource() instanceof EntityPlayer) {
                 EntityPlayer player = (EntityPlayer) event.getSource().getTrueSource();
                 if (!player.isCreative()) {
                     ISanity sanity = player.getCapability(SANITY, null);
                     if (event.getEntity() instanceof EntityAnimal) {
-                        sanity.consumeSanity(Configuration.attackAnimal);
+                        sanity.consumeSanity(Mechanics.attackAnimal);
                     } else if (event.getEntity() instanceof EntityVillager) {
-                        sanity.consumeSanity(Configuration.attackVillager);
+                        sanity.consumeSanity(Mechanics.attackVillager);
                     } else if (event.getEntity() instanceof  EntityPlayer) {
-                        sanity.consumeSanity(Configuration.attackPlayer);
+                        sanity.consumeSanity(Mechanics.attackPlayer);
                     }
                 }
             }
@@ -157,7 +157,7 @@ public class CommonEvent {
             if (!player.world.isRemote) {
                 ISanity sanity = player.getCapability(SANITY, null);
                 if (sanity.getUp() == 0) {
-                    sanity.recoverSanity(Configuration.bred);
+                    sanity.recoverSanity(Mechanics.bred);
                 }
             }
         }
@@ -169,7 +169,7 @@ public class CommonEvent {
         EntityPlayer player = event.getEntityPlayer();
         if (!player.isCreative() && !player.world.isRemote) {
             ISanity sanity = player.getCapability(SANITY, null);
-            sanity.recoverSanity(Configuration.advancement);
+            sanity.recoverSanity(Mechanics.advancement);
         }
     }
 
@@ -178,7 +178,7 @@ public class CommonEvent {
         EntityPlayer player = event.player;
         if (!player.isCreative() && !player.world.isRemote) {
             ISanity sanity = player.getCapability(SANITY, null);
-            sanity.consumeSanity(Configuration.trip);
+            sanity.consumeSanity(Mechanics.trip);
         }
     }
 
@@ -189,13 +189,13 @@ public class CommonEvent {
                 EntityTameable entityTameable = (EntityTameable) event.getEntity();
                 if (entityTameable.isTamed() && entityTameable.getOwner() != null) {
                     ISanity sanity = entityTameable.getOwner().getCapability(SANITY, null);
-                    sanity.consumeSanity(Configuration.lost);
+                    sanity.consumeSanity(Mechanics.lost);
                 }
             } else if (event.getEntity() instanceof EntityMob && event.getSource().getTrueSource() instanceof EntityPlayer) {
                 EntityPlayer player = (EntityPlayer) event.getSource().getTrueSource();
                 ISanity sanity = player.getCapability(SANITY, null);
                 if (sanity.getUp() == 0) {
-                    sanity.recoverSanity(Configuration.killMob);
+                    sanity.recoverSanity(Mechanics.killMob);
                 }
             }
         }

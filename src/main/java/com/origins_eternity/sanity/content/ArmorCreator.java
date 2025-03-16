@@ -1,7 +1,6 @@
 package com.origins_eternity.sanity.content;
 
 import com.origins_eternity.sanity.Sanity;
-import com.origins_eternity.sanity.config.Configuration;
 import com.origins_eternity.sanity.content.capability.Capabilities;
 import com.origins_eternity.sanity.content.capability.sanity.ISanity;
 import net.minecraft.block.Block;
@@ -14,6 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
+import static com.origins_eternity.sanity.config.Configuration.Mechanics;
 import static com.origins_eternity.sanity.content.tab.CreativeTab.SANITY;
 import static com.origins_eternity.sanity.utils.Utils.checkHead;
 import static com.origins_eternity.sanity.utils.Utils.isWet;
@@ -33,7 +33,7 @@ public class ArmorCreator extends ItemArmor {
             ISanity sanity = player.getCapability(Capabilities.SANITY, null);
             if (player.getItemStackFromSlot(EntityEquipmentSlot.HEAD).getItem().equals(this)) {
                 if (sanity.getDown() == 0f) {
-                    sanity.recoverSanity(Configuration.garland);
+                    sanity.recoverSanity(Mechanics.garland);
                 }
                 if (isWet(player) || checkHead(player) < 0) {
                     if (player.ticksExisted % 20 == 0) {

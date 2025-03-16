@@ -1,6 +1,5 @@
 package com.origins_eternity.sanity.event;
 
-import com.origins_eternity.sanity.config.Configuration;
 import com.origins_eternity.sanity.content.capability.sanity.ISanity;
 import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.PositionedSoundRecord;
@@ -17,6 +16,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import scala.util.Random;
 
 import static com.origins_eternity.sanity.Sanity.MOD_ID;
+import static com.origins_eternity.sanity.config.Configuration.*;
 import static com.origins_eternity.sanity.content.capability.Capabilities.SANITY;
 import static com.origins_eternity.sanity.content.sound.Sounds.INSANITY;
 import static com.origins_eternity.sanity.utils.proxy.ClientProxy.mc;
@@ -27,7 +27,7 @@ public class ClientEvent {
 
     static int confusing;
     static int whisper;
-    public static int flash = Configuration.flash;
+    public static int flash = Overlay.flash;
 
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
@@ -38,8 +38,8 @@ public class ClientEvent {
             if (sanity.getSanity() <= 50f) {
                 confusing--;
                 if (confusing <= 0) {
-                    int number = rand.nextInt(Configuration.sounds.length);
-                    SoundEvent sound = SoundEvent.REGISTRY.getObject(new ResourceLocation(Configuration.sounds[number]));
+                    int number = rand.nextInt(Mechanics.sounds.length);
+                    SoundEvent sound = SoundEvent.REGISTRY.getObject(new ResourceLocation(Mechanics.sounds[number]));
                     if (sound != null) {
                         player.playSound(sound, 1f, 0.5f);
                     }
@@ -54,9 +54,9 @@ public class ClientEvent {
                     }
                 }
             }
-            if (Configuration.flash != -1) {
+            if (Overlay.flash != -1) {
                 if (sanity.getDown() >= 15 || sanity.getUp() >= 15) {
-                    flash = Configuration.flash * 20;
+                    flash = Overlay.flash * 20;
                 } else if (flash > 0) {
                     flash--;
                 }
@@ -79,21 +79,21 @@ public class ClientEvent {
         if (event.phase == TickEvent.Phase.END && player != null && OpenGlHelper.shadersSupported) {
             ISanity sanity = player.getCapability(SANITY, null);
             EntityRenderer renderer = mc().entityRenderer;
-            if (sanity.getSanity() <= 10f) {
+            if (sanity.getSanity() <= Shader.bits) {
                 if (!bits || !renderer.isShaderActive()) {
                     renderer.loadShader(new ResourceLocation(BITS));
                     bits = true;
                     deconverge = false;
                     notch = false;
                 }
-            } else if (sanity.getSanity() <= 40f) {
+            } else if (sanity.getSanity() <= Shader.notch) {
                 if (!notch || !renderer.isShaderActive()) {
                     renderer.loadShader(new ResourceLocation(NOTCH));
                     notch = true;
                     deconverge = false;
                     bits = false;
                 }
-            } else if (sanity.getSanity() <= 60f) {
+            } else if (sanity.getSanity() <= Shader.deconverge) {
                 if (!deconverge || !renderer.isShaderActive()) {
                     renderer.loadShader(new ResourceLocation(DECONVERGE));
                     deconverge = true;

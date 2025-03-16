@@ -5,18 +5,23 @@ itemGroup.sanity=Sanity: Prequel
 item.sanity.garland.name=Garland
 item.sanity.umbrella.name=Umbrella
 
+config.sanity.overlay=Overlay
+config.sanity.overlay.tooltip=Overlay Options
 config.sanity.blood=Blood Overlay
 config.sanity.blood.tooltip=Whether to enable the blood overlay.
 config.sanity.brain=Brain Overlay
 config.sanity.brain.tooltip=Whether to enable the brain overlay.
-config.sanity.reset=Reset sanity
-config.sanity.reset.tooltip=Whether to reset sanity after respawning.
 config.sanity.offx=Brain OffX
 config.sanity.offx.tooltip=Offset on x of the Brain. A positive number means a shift to the right.
 config.sanity.offy=Brain OffY
 config.sanity.offy.tooltip=Offset on y of the Brain. A positive number means a shift to the top.
 config.sanity.flash=Brain Flash Time
 config.sanity.flash.tooltip=How many seconds the overlay should be visible when sanity changed. (set this to -1 to disable)
+
+config.sanity.mechanics=Mechanics
+config.sanity.mechanics.tooltip=Mechanics Options
+config.sanity.reset=Reset sanity
+config.sanity.reset.tooltip=Whether to reset sanity after respawning.
 config.sanity.lightning=Lightning
 config.sanity.lightning.tooltip=The sanity to reduce when player is struck by lightning.
 config.sanity.animal=Attack Animal
@@ -61,13 +66,21 @@ config.sanity.garland=Garland
 config.sanity.garland.tooltip=The sanity to increase when player wear a garland. (per 0.5s)
 config.sanity.pet=Pet
 config.sanity.pet.tooltip=The sanity to increase when player stay with pets. (per 0.5s, within 5 blocks)
-
 config.sanity.food=Food
 config.sanity.food.tooltip=The sanity to decrease or increase after eating food which in this list. Player will gain 5 sanity after eating other foods. ('food;value')
 config.sanity.environment=Environment
 config.sanity.environment.tooltip=The sanity to decrease or increase when in blocks or liquids in this list. ('block;value', per 0.5s)
 config.sanity.sounds=Sounds
 config.sanity.sounds.tooltip=The list of sounds which will play randomly when sanity is low.
+
+config.sanity.shader=Shader
+config.sanity.shader.tooltip=Shader Options
+config.sanity.bits=Bits
+config.sanity.bits.tooltip=Enable bits shader when sanity ≤ this number. (set this to -1 to disable)
+config.sanity.notch=Notch
+config.sanity.notch.tooltip=Enable notch shader when sanity ≤ this number. (set this to -1 to disable)
+config.sanity.deconverge=Deconverge
+config.sanity.deconverge.tooltip=Enable deconverge shader when sanity ≤ this number. (set this to -1 to disable)
 
 commands.sanity.usage=/sanity <add|remove|set> [player] <value>
 

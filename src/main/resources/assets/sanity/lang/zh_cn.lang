@@ -5,18 +5,23 @@ itemGroup.sanity=理智：前传
 item.sanity.garland.name=花环
 item.sanity.umbrella.name=雨伞
 
+config.sanity.overlay=显示
+config.sanity.overlay.tooltip=显示配置
 config.sanity.blood=血液显示
 config.sanity.blood.tooltip=是否启用血液显示。
 config.sanity.brain=大脑显示
 config.sanity.brain.tooltip=是否启用大脑显示。
-config.sanity.reset=重置理智
-config.sanity.reset.tooltip=重生后是否重置理智值。
 config.sanity.offx=大脑水平偏移量
 config.sanity.offx.tooltip=大脑的水平偏移量。正数表示向右偏移。
 config.sanity.offy=大脑竖直偏移量
 config.sanity.offy.tooltip=大脑的竖直偏移量。正数表示向上偏移。
 config.sanity.flash=大脑暂留时间
 config.sanity.flash.tooltip=大脑在屏幕上的暂留秒数。（设置为-1以禁用）
+
+config.sanity.mechanics=机制
+config.sanity.mechanics.tooltip=机制配置
+config.sanity.reset=重置理智
+config.sanity.reset.tooltip=重生后是否重置理智值。
 config.sanity.lightning=闪电
 config.sanity.lightning.tooltip=当玩家被闪电击中时，理智降低的值。
 config.sanity.animal=攻击动物
@@ -61,13 +66,21 @@ config.sanity.garland=花环
 config.sanity.garland.tooltip=当玩家佩戴花环时，理智升高的值。（每0.5秒）
 config.sanity.pet=宠物
 config.sanity.pet.tooltip=当玩家在宠物旁边时，理智升高的值。（每0.5秒，5格范围内）
-
 config.sanity.food=食物
 config.sanity.food.tooltip=当玩家食用列表中的食物时，降低或升高的理智值。玩家吃下其他食物将会恢复5理智值。（"食物;数值"）
 config.sanity.environment=环境
 config.sanity.environment.tooltip=当玩家处于列表中的方块或流体时，降低或升高的理智值。
 config.sanity.sounds=声音
 config.sanity.sounds.tooltip=当玩家理智较低时，会随机播放列表中的声音。
+
+config.sanity.shader=着色器
+config.sanity.shader.tooltip=着色器配置
+config.sanity.bits=Bits
+config.sanity.bits.tooltip=当玩家理智≤此数值时，启用Bits着色器。（设置为-1以禁用）
+config.sanity.notch=Notch
+config.sanity.notch.tooltip=当玩家理智≤此数值时，启用Notch着色器。（设置为-1以禁用）
+config.sanity.deconverge=Deconverge
+config.sanity.deconverge.tooltip=当玩家理智≤此数值时，启用Deconverge着色器。（设置为-1以禁用）
 
 commands.sanity.usage=/sanity <add|remove|set> [玩家] <数值>
 
