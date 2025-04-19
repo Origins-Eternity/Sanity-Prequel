@@ -168,6 +168,11 @@ public class Configuration {
         @Config.Comment("The list of blocks or liquids which will decrease or increase sanity when player is in it. ('block;value', per 0.5s)")
         public String[] blocks = new String[]{"minecraft:web;-0.1", "minecraft:water;-0.1"};
 
+        @Config.Name("Entities")
+        @Config.LangKey("config.sanity.entities")
+        @Config.Comment("The list of entities which will decrease sanity when player attack it. ('entity;value')")
+        public String[] entities = new String[]{"minecraft:enderman;1.0"};
+
         @Config.Name("Sounds")
         @Config.LangKey("config.sanity.sounds")
         @Config.Comment("The list of sounds which will play randomly when sanity is low.")
@@ -224,7 +229,7 @@ public class Configuration {
         @Config.LangKey("config.sanity.deconverge")
         @Config.Comment("Enable deconverge shader when sanity ≤ this number. (set this to -1 to disable)")
         @Config.RangeInt(min = -1, max = 100)
-        public int deconverge = 10;
+        public int deconverge = 60;
     }
 
     @Mod.EventBusSubscriber(modid = MOD_ID)

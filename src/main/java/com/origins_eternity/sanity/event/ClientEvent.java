@@ -72,18 +72,23 @@ public class ClientEvent {
     private static final String NOTCH = "shaders/post/notch.json";
     private static final String BITS = "shaders/post/bits.json";
 
-    static boolean deconverge = false;
-    static boolean notch = false;
-    static boolean bits = false;
+    static boolean deconverge, notch, bits;
+
+    private static void clearShader(EntityRenderer renderer) {
+        renderer.stopUseShader();
+        deconverge = false;
+        notch = false;
+        bits = false;
+    }
 
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
     public static void onRenderTick(TickEvent.RenderTickEvent event) {
         EntityPlayer player = mc().player;
         if (event.phase == TickEvent.Phase.END && player != null && OpenGlHelper.shadersSupported) {
+            ISanity sanity = player.getCapability(SANITY, null);
+            EntityRenderer renderer = mc().entityRenderer;
             if (Arrays.stream(Mechanics.dimensions).anyMatch(num -> num == player.dimension)) {
-                ISanity sanity = player.getCapability(SANITY, null);
-                EntityRenderer renderer = mc().entityRenderer;
                 if (sanity.getSanity() <= Shader.bits) {
                     if (!bits || !renderer.isShaderActive()) {
                         renderer.loadShader(new ResourceLocation(BITS));
@@ -106,11 +111,10 @@ public class ClientEvent {
                         bits = false;
                     }
                 } else if (deconverge || notch || bits) {
-                    renderer.stopUseShader();
-                    deconverge = false;
-                    notch = false;
-                    bits = false;
+                    clearShader(renderer);
                 }
+            } else if (deconverge || notch || bits) {
+                clearShader(renderer);
             }
         }
     }

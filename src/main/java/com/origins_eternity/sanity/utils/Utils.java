@@ -6,6 +6,8 @@ import com.origins_eternity.sanity.content.capability.sanity.ISanity;
 import com.origins_eternity.sanity.message.SyncSanity;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityList;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
@@ -124,6 +126,18 @@ public class Utils {
                         break;
                     }
                 }
+            }
+        }
+        return match;
+    }
+
+    public static int entityMatched(Entity entity) {
+        int match = -1;
+        for (int i = 0; i < Mechanics.entities.length; i++) {
+            String[] parts = Mechanics.entities[i].split(";");
+            if (parts[0].equals(EntityList.getKey(entity).toString())) {
+                match = i;
+                break;
             }
         }
         return match;

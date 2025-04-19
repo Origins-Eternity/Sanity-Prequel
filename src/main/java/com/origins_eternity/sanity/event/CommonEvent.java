@@ -36,8 +36,7 @@ import static com.origins_eternity.sanity.Sanity.MOD_ID;
 import static com.origins_eternity.sanity.config.Configuration.Mechanics;
 import static com.origins_eternity.sanity.content.capability.Capabilities.SANITY;
 import static com.origins_eternity.sanity.content.umbrella.Umbrellas.UMBRELLA;
-import static com.origins_eternity.sanity.utils.Utils.itemMatched;
-import static com.origins_eternity.sanity.utils.Utils.tickPlayer;
+import static com.origins_eternity.sanity.utils.Utils.*;
 
 @Mod.EventBusSubscriber(modid = MOD_ID)
 public class CommonEvent {
@@ -139,7 +138,11 @@ public class CommonEvent {
                 if (Arrays.stream(Mechanics.dimensions).anyMatch(num -> num == player.dimension)) {
                     if (!player.isCreative()) {
                         ISanity sanity = player.getCapability(SANITY, null);
-                        if (event.getEntity() instanceof EntityAnimal) {
+                        int num = entityMatched(event.getEntity());
+                        if (num != -1) {
+                            double value = Double.parseDouble(Mechanics.entities[num].split(";")[1]);
+                            sanity.consumeSanity(value);
+                        } else if (event.getEntity() instanceof EntityAnimal) {
                             sanity.consumeSanity(Mechanics.attackAnimal);
                         } else if (event.getEntity() instanceof EntityVillager) {
                             sanity.consumeSanity(Mechanics.attackVillager);
