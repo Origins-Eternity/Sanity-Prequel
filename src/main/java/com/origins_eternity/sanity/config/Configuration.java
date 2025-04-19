@@ -172,6 +172,11 @@ public class Configuration {
         @Config.LangKey("config.sanity.sounds")
         @Config.Comment("The list of sounds which will play randomly when sanity is low.")
         public String[] sounds = new String[]{"entity.creeper.primed", "entity.tnt.primed", "entity.skeleton.ambient", "entity.skeleton.step", "entity.zombie.ambient", "entity.zombie.step", "entity.enderman.ambient", "entity.hostile.big_fall", "block.chest.open", "block.chest.close", "block.wooden_door.open", "block.wooden_trapdoor.open", "entity.wolf.growl"};
+
+        @Config.Name("Dimensions")
+        @Config.LangKey("config.sanity.dimensions")
+        @Config.Comment("The list of dimensions which will enable sanity.")
+        public int[] dimensions = new int[]{1, 0, -1};
     }
 
     public static class ConfigOverlay {

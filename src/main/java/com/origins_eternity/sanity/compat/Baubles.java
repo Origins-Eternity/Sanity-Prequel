@@ -23,6 +23,8 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
+import java.util.Arrays;
+
 import static com.origins_eternity.sanity.config.Configuration.Mechanics;
 import static com.origins_eternity.sanity.content.tab.CreativeTab.SANITY;
 import static com.origins_eternity.sanity.utils.Utils.checkHead;
@@ -63,7 +65,7 @@ public class Baubles extends ItemArmor implements IBauble {
     @Override
     public void onWornTick(ItemStack itemstack, EntityLivingBase entity) {
         EntityPlayer player = (EntityPlayer) entity;
-        if (player.ticksExisted % 10 == 0) {
+        if (player.ticksExisted % 10 == 0 && Arrays.stream(Mechanics.dimensions).anyMatch(num -> num == player.dimension)) {
             ISanity sanity = player.getCapability(Capabilities.SANITY, null);
             if (sanity.getDown() == 0f) {
                 sanity.recoverSanity(Mechanics.garland);
@@ -78,7 +80,7 @@ public class Baubles extends ItemArmor implements IBauble {
 
     @Override
     public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
-        if (player.ticksExisted % 10 == 0) {
+        if (player.ticksExisted % 10 == 0 && Arrays.stream(Mechanics.dimensions).anyMatch(num -> num == player.dimension)) {
             ISanity sanity = player.getCapability(Capabilities.SANITY, null);
             if (player.getItemStackFromSlot(EntityEquipmentSlot.HEAD).getItem().equals(this)) {
                 ItemStack bauble = BaublesApi.getBaublesHandler(player).getStackInSlot(4);

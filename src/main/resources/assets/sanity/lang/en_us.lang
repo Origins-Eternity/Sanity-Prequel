@@ -72,6 +72,8 @@ config.sanity.environment=Environment
 config.sanity.environment.tooltip=The sanity to decrease or increase when in blocks or liquids in this list. ('block;value', per 0.5s)
 config.sanity.sounds=Sounds
 config.sanity.sounds.tooltip=The list of sounds which will play randomly when sanity is low.
+config.sanity.dimensions=Dimensions
+config.sanity.dimensions.tooltip=The list of dimensions which will enable sanity.
 
 config.sanity.shader=Shader
 config.sanity.shader.tooltip=Shader Options
@@ -83,6 +85,7 @@ config.sanity.deconverge=Deconverge
 config.sanity.deconverge.tooltip=Enable deconverge shader when sanity ≤ this number. (set this to -1 to disable)
 
 commands.sanity.usage=/sanity <add|remove|set> [player] <value>
+commands.sanity.disabled=The sanity was disabled in this dimension!
 
 sanity.subtitle.insanity=Whispers
 sanity.subtitle.leaves_rustle=Garland rustles

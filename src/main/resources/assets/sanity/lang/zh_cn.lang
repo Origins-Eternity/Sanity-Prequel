@@ -72,6 +72,8 @@ config.sanity.environment=环境
 config.sanity.environment.tooltip=当玩家处于列表中的方块或流体时，降低或升高的理智值。
 config.sanity.sounds=声音
 config.sanity.sounds.tooltip=当玩家理智较低时，会随机播放列表中的声音。
+config.sanity.dimensions=维度
+config.sanity.dimensions.tooltip=当玩家处于列表中的维度时，理智会启用。
 
 config.sanity.shader=着色器
 config.sanity.shader.tooltip=着色器配置
@@ -83,6 +85,7 @@ config.sanity.deconverge=Deconverge
 config.sanity.deconverge.tooltip=当玩家理智≤此数值时，启用Deconverge着色器。（设置为-1以禁用）
 
 commands.sanity.usage=/sanity <add|remove|set> [玩家] <数值>
+commands.sanity.disabled=理智在此维度中被禁用！
 
 sanity.subtitle.insanity=低语
 sanity.subtitle.leaves_rustle=花环:摩擦

@@ -6,6 +6,10 @@ import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 
+import java.util.Arrays;
+
+import static com.origins_eternity.sanity.config.Configuration.Mechanics;
+
 public class Sanity implements ISanity {
     private float sanity = 100;
 
@@ -13,7 +17,7 @@ public class Sanity implements ISanity {
 
     private int up = 0;
 
-    private int flash = -1;
+    private int dimension = 0;
 
     @Override
     public void setSanity(double sanity) {
@@ -47,7 +51,7 @@ public class Sanity implements ISanity {
 
     @Override
     public void consumeSanity(double value) {
-        if (value >= 0) {
+        if (value >= 0 && Arrays.stream(Mechanics.dimensions).anyMatch(num -> num == dimension)) {
             if (sanity != 0f) {
                 if (value >= 1) {
                     setDown(21);
@@ -61,7 +65,7 @@ public class Sanity implements ISanity {
 
     @Override
     public void recoverSanity(double value) {
-        if (value >= 0) {
+        if (value >= 0 && Arrays.stream(Mechanics.dimensions).anyMatch(num -> num == dimension)) {
             if (sanity != 100f) {
                 if (value >= 1) {
                     setUp(21);

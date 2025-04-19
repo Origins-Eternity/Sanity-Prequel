@@ -8,10 +8,9 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
+
+import static com.origins_eternity.sanity.config.Configuration.Mechanics;
 
 public class SanityCommand extends CommandBase {
     private static final String name = "sanity";
@@ -37,24 +36,28 @@ public class SanityCommand extends CommandBase {
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
         if (args.length == 2 || args.length == 3) {
             EntityPlayerMP player = args.length == 2 ? getCommandSenderAsPlayer(sender) : getPlayer(server, sender, args[1]);
-            Scanner scanner = args.length == 2 ? new Scanner(args[1]) : new Scanner(args[2]);
-            if (!scanner.hasNextDouble()) {
-                throw new NumberInvalidException("commands.generic.num.invalid", scanner.next());
+            if (Arrays.stream(Mechanics.dimensions).noneMatch(num -> num == player.dimension)) {
+                throw new CommandException("commands.sanity.disabled");
             } else {
-                ISanity sanity = player.getCapability(Capabilities.SANITY, null);
-                double value = scanner.nextDouble();
-                switch (args[0]) {
-                    case "add":
-                        sanity.recoverSanity(value);
-                        break;
-                    case "remove":
-                        sanity.consumeSanity(value);
-                        break;
-                    case "set":
-                        sanity.setSanity(value);
-                        break;
-                    default:
-                        throw new WrongUsageException("commands.sanity.usage");
+                Scanner scanner = args.length == 2 ? new Scanner(args[1]) : new Scanner(args[2]);
+                if (!scanner.hasNextDouble()) {
+                    throw new NumberInvalidException("commands.generic.num.invalid", scanner.next());
+                } else {
+                    ISanity sanity = player.getCapability(Capabilities.SANITY, null);
+                    double value = scanner.nextDouble();
+                    switch (args[0]) {
+                        case "add":
+                            sanity.recoverSanity(value);
+                            break;
+                        case "remove":
+                            sanity.consumeSanity(value);
+                            break;
+                        case "set":
+                            sanity.setSanity(value);
+                            break;
+                        default:
+                            throw new WrongUsageException("commands.sanity.usage");
+                    }
                 }
             }
         } else {
