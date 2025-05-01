@@ -210,7 +210,7 @@ public class CommonEvent {
         if (!event.getEntity().world.isRemote) {
             if (event.getEntity() instanceof EntityTameable) {
                 EntityTameable entityTameable = (EntityTameable) event.getEntity();
-                if (entityTameable.isTamed() && entityTameable.getOwner() != null) {
+                if (entityTameable.isTamed() && entityTameable.getOwner() != null && entityTameable.getOwner() instanceof EntityPlayer) {
                     EntityPlayer player = (EntityPlayer) entityTameable.getOwner();
                     if (Arrays.stream(Mechanics.dimensions).anyMatch(num -> num == player.dimension)) {
                         ISanity sanity = player.getCapability(SANITY, null);
