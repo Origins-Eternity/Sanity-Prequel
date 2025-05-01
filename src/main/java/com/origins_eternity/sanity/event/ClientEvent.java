@@ -68,17 +68,21 @@ public class ClientEvent {
         }
     }
 
-    private static final String DECONVERGE = "shaders/post/deconverge.json";
-    private static final String NOTCH = "shaders/post/notch.json";
-    private static final String BITS = "shaders/post/bits.json";
+    private static final String LEVEL1 = "shaders/post/" + Shader.level1.split(";")[0];
+    private static final String LEVEL2 = "shaders/post/" + Shader.level2.split(";")[0];
+    private static final String LEVEL3 = "shaders/post/" + Shader.level3.split(";")[0];
 
-    static boolean deconverge, notch, bits;
+    private static final int num1 = Integer.parseInt(Shader.level1.split(";")[1]);
+    private static final int num2 = Integer.parseInt(Shader.level2.split(";")[1]);
+    private static final int num3 = Integer.parseInt(Shader.level3.split(";")[1]);
+
+    static boolean level1, level2, level3;
 
     private static void clearShader(EntityRenderer renderer) {
         renderer.stopUseShader();
-        deconverge = false;
-        notch = false;
-        bits = false;
+        level1 = false;
+        level2 = false;
+        level3 = false;
     }
 
     @SideOnly(Side.CLIENT)
@@ -89,31 +93,31 @@ public class ClientEvent {
             ISanity sanity = player.getCapability(SANITY, null);
             EntityRenderer renderer = mc().entityRenderer;
             if (Arrays.stream(Mechanics.dimensions).anyMatch(num -> num == player.dimension)) {
-                if (sanity.getSanity() <= Shader.bits) {
-                    if (!bits || !renderer.isShaderActive()) {
-                        renderer.loadShader(new ResourceLocation(BITS));
-                        bits = true;
-                        deconverge = false;
-                        notch = false;
+                if (sanity.getSanity() <= num3) {
+                    if (!level3 || !renderer.isShaderActive()) {
+                        renderer.loadShader(new ResourceLocation(LEVEL3));
+                        level3 = true;
+                        level1 = false;
+                        level2 = false;
                     }
-                } else if (sanity.getSanity() <= Shader.notch) {
-                    if (!notch || !renderer.isShaderActive()) {
-                        renderer.loadShader(new ResourceLocation(NOTCH));
-                        notch = true;
-                        deconverge = false;
-                        bits = false;
+                } else if (sanity.getSanity() <= num2) {
+                    if (!level2 || !renderer.isShaderActive()) {
+                        renderer.loadShader(new ResourceLocation(LEVEL2));
+                        level2 = true;
+                        level1 = false;
+                        level3 = false;
                     }
-                } else if (sanity.getSanity() <= Shader.deconverge) {
-                    if (!deconverge || !renderer.isShaderActive()) {
-                        renderer.loadShader(new ResourceLocation(DECONVERGE));
-                        deconverge = true;
-                        notch = false;
-                        bits = false;
+                } else if (sanity.getSanity() <= num1) {
+                    if (!level1 || !renderer.isShaderActive()) {
+                        renderer.loadShader(new ResourceLocation(LEVEL1));
+                        level1 = true;
+                        level2 = false;
+                        level3 = false;
                     }
-                } else if (deconverge || notch || bits) {
+                } else if (level1 || level2 || level3) {
                     clearShader(renderer);
                 }
-            } else if (deconverge || notch || bits) {
+            } else if (level1 || level2 || level3) {
                 clearShader(renderer);
             }
         }

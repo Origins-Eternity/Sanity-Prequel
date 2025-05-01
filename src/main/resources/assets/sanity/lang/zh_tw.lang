@@ -79,12 +79,12 @@ config.sanity.dimensions.tooltip=當玩家處於清單中的維度時，理智�
 
 config.sanity.shader=著色器
 config.sanity.shader.tooltip=著色器配置
-config.sanity.bits=Bits
-config.sanity.bits.tooltip=當玩家理智≤此數值時，啟用Bits著色器。（設置為-1以禁用）
-config.sanity.notch=Notch
-config.sanity.notch.tooltip=當玩家理智≤此數值時，啟用Notch著色器。（設置為-1以禁用）
-config.sanity.deconverge=Deconverge
-config.sanity.deconverge.tooltip=當玩家理智≤此數值時，啟用Deconverge著色器。（設置為-1以禁用）
+config.sanity.level1=一階段
+config.sanity.level1.tooltip=設置一階段著色器並在理智值小於設定值時啟用。（“著色器; 數值“）
+config.sanity.level2=二階段
+config.sanity.level2.tooltip=設置二階段著色器並在理智值小於設定值時啟用。（“著色器; 數值“）
+config.sanity.level3=三階段
+config.sanity.level3.tooltip=設置三階段著色器並在理智值小於設定值時啟用。（“著色器; 數值“）
 
 commands.sanity.usage=/sanity <add|remove|set> [玩家] <数值>
 commands.sanity.disabled=理智在此維度中被禁用！

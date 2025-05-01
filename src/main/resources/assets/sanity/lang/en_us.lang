@@ -79,12 +79,12 @@ config.sanity.dimensions.tooltip=The list of dimensions which will enable sanity
 
 config.sanity.shader=Shader
 config.sanity.shader.tooltip=Shader Options
-config.sanity.bits=Bits
-config.sanity.bits.tooltip=Enable bits shader when sanity ≤ this number. (set this to -1 to disable)
-config.sanity.notch=Notch
-config.sanity.notch.tooltip=Enable notch shader when sanity ≤ this number. (set this to -1 to disable)
-config.sanity.deconverge=Deconverge
-config.sanity.deconverge.tooltip=Enable deconverge shader when sanity ≤ this number. (set this to -1 to disable)
+config.sanity.level1=Level1
+config.sanity.level1.tooltip=Set level1 shader and enable when sanity is lower than the value. ('shader;value')
+config.sanity.level2=Level2
+config.sanity.level2.tooltip=Set level2 shader and enable when sanity is lower than the value. ('shader;value')
+config.sanity.level3=Level3
+config.sanity.level3.tooltip=Set level3 shader and enable when sanity is lower than the value. ('shader;value')
 
 commands.sanity.usage=/sanity <add|remove|set> [player] <value>
 commands.sanity.disabled=The sanity was disabled in this dimension!

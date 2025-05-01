@@ -213,23 +213,20 @@ public class Configuration {
     }
 
     public static class ConfigShader {
-        @Config.Name("Bits")
-        @Config.LangKey("config.sanity.bits")
-        @Config.Comment("Enable bits shader when sanity ≤ this number. (set this to -1 to disable)")
-        @Config.RangeInt(min = -1, max = 100)
-        public int bits = 10;
+        @Config.Name("Level1")
+        @Config.LangKey("config.sanity.level1")
+        @Config.Comment("Set level1 shader and enable when sanity is lower than the value. ('shader;value')")
+        public String level1 = "deconverge.json;60";
 
-        @Config.Name("Notch")
-        @Config.LangKey("config.sanity.notch")
-        @Config.Comment("Enable notch shader when sanity ≤ this number. (set this to -1 to disable)")
-        @Config.RangeInt(min = -1, max = 100)
-        public int notch = 40;
+        @Config.Name("Level2")
+        @Config.LangKey("config.sanity.level2")
+        @Config.Comment("Set level2 shader and enable when sanity is lower than the value. ('shader;value')")
+        public String level2 = "notch.json;40";
 
-        @Config.Name("Deconverge")
-        @Config.LangKey("config.sanity.deconverge")
-        @Config.Comment("Enable deconverge shader when sanity ≤ this number. (set this to -1 to disable)")
-        @Config.RangeInt(min = -1, max = 100)
-        public int deconverge = 60;
+        @Config.Name("Level3")
+        @Config.LangKey("config.sanity.level3")
+        @Config.Comment("Set level3 shader and enable when sanity is lower than the value. ('shader;value')")
+        public String level3 = "bits.json;10";
     }
 
     @Mod.EventBusSubscriber(modid = MOD_ID)
