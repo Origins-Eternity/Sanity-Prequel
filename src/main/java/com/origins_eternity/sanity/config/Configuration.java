@@ -214,16 +214,19 @@ public class Configuration {
 
     public static class ConfigShader {
         @Config.Name("Level1")
+        @Config.RequiresMcRestart
         @Config.LangKey("config.sanity.level1")
         @Config.Comment("Set level1 shader and enable when sanity is lower than the value. ('shader;value')")
         public String level1 = "deconverge.json;60";
 
         @Config.Name("Level2")
+        @Config.RequiresMcRestart
         @Config.LangKey("config.sanity.level2")
         @Config.Comment("Set level2 shader and enable when sanity is lower than the value. ('shader;value')")
         public String level2 = "notch.json;40";
 
         @Config.Name("Level3")
+        @Config.RequiresMcRestart
         @Config.LangKey("config.sanity.level3")
         @Config.Comment("Set level3 shader and enable when sanity is lower than the value. ('shader;value')")
         public String level3 = "bits.json;10";
