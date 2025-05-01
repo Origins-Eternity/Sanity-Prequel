@@ -30,8 +30,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerChangedDimensionEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
-import java.util.Arrays;
-
 import static com.origins_eternity.sanity.Sanity.MOD_ID;
 import static com.origins_eternity.sanity.config.Configuration.Mechanics;
 import static com.origins_eternity.sanity.content.capability.Capabilities.SANITY;
@@ -63,22 +61,20 @@ public class CommonEvent {
     }
 
     @SubscribeEvent
-    public static void LivingEntityUseItem(LivingEntityUseItemEvent.Finish event){
+    public static void LivingEntityUseItem(LivingEntityUseItemEvent.Finish event) {
         if (event.getEntityLiving() instanceof EntityPlayerMP) {
             EntityPlayerMP player = (EntityPlayerMP) event.getEntityLiving();
-            if (Arrays.stream(Mechanics.dimensions).anyMatch(num -> num == player.dimension)) {
-                if ((!player.isCreative()) && (event.getItem().getItem() instanceof ItemFood)) {
-                    ISanity sanity = player.getCapability(SANITY, null);
-                    int num = itemMatched(event.getItem());
-                    if (num == -1) {
-                        sanity.recoverSanity(5.0);
+            if ((!player.isCreative()) && (event.getItem().getItem() instanceof ItemFood)) {
+                ISanity sanity = player.getCapability(SANITY, null);
+                int num = itemMatched(event.getItem());
+                if (num == -1) {
+                    sanity.recoverSanity(5.0);
+                } else {
+                    double value = Double.parseDouble(Mechanics.food[num].split(";")[1]);
+                    if (value > 0) {
+                        sanity.recoverSanity(value);
                     } else {
-                        double value = Double.parseDouble(Mechanics.food[num].split(";")[1]);
-                        if (value > 0) {
-                            sanity.recoverSanity(value);
-                        } else {
-                            sanity.consumeSanity(-value);
-                        }
+                        sanity.consumeSanity(-value);
                     }
                 }
             }
@@ -88,27 +84,23 @@ public class CommonEvent {
     static long time;
 
     @SubscribeEvent
-    public static void onPlayerSleepInBed(PlayerSleepInBedEvent event){
-        if(!event.getEntityPlayer().world.isRemote) {
+    public static void onPlayerSleepInBed(PlayerSleepInBedEvent event) {
+        if (!event.getEntityPlayer().world.isRemote) {
             EntityPlayer player = event.getEntityPlayer();
-            if (Arrays.stream(Mechanics.dimensions).anyMatch(num -> num == player.dimension)) {
-                if (!player.isCreative()) {
-                    time = player.world.getWorldTime();
-                }
+            if (!player.isCreative()) {
+                time = player.world.getWorldTime();
             }
         }
     }
 
     @SubscribeEvent
     public static void onPlayerWakeUp(PlayerWakeUpEvent event) {
-        if(!event.getEntityPlayer().world.isRemote) {
+        if (!event.getEntityPlayer().world.isRemote) {
             EntityPlayer player = event.getEntityPlayer();
-            if (Arrays.stream(Mechanics.dimensions).anyMatch(num -> num == player.dimension)) {
-                if (!player.isCreative()) {
-                    double sleep = (player.world.getWorldTime() - time) / 12000.0;
-                    ISanity sanity = player.getCapability(SANITY, null);
-                    sanity.recoverSanity(Mechanics.sleep * sleep);
-                }
+            if (!player.isCreative()) {
+                double sleep = (player.world.getWorldTime() - time) / 12000.0;
+                ISanity sanity = player.getCapability(SANITY, null);
+                sanity.recoverSanity(Mechanics.sleep * sleep);
             }
         }
     }
@@ -117,10 +109,8 @@ public class CommonEvent {
     public static void onEntityStruckByLightning(EntityStruckByLightningEvent event) {
         if (event.getEntity() instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) event.getEntity();
-            if (Arrays.stream(Mechanics.dimensions).anyMatch(num -> num == player.dimension)) {
             ISanity sanity = player.getCapability(SANITY, null);
             sanity.consumeSanity(Mechanics.lightning);
-            }
         }
     }
 
@@ -128,27 +118,23 @@ public class CommonEvent {
     public static void onLivingHurt(LivingHurtEvent event) {
         if (event.getEntity() instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) event.getEntityLiving();
-            if (Arrays.stream(Mechanics.dimensions).anyMatch(num -> num == player.dimension)) {
-                ISanity sanity = player.getCapability(SANITY, null);
-                sanity.consumeSanity(Mechanics.hurt * event.getAmount());
-            }
+            ISanity sanity = player.getCapability(SANITY, null);
+            sanity.consumeSanity(Mechanics.hurt * event.getAmount());
         } else {
             if (event.getSource().getTrueSource() instanceof EntityPlayer) {
                 EntityPlayer player = (EntityPlayer) event.getSource().getTrueSource();
-                if (Arrays.stream(Mechanics.dimensions).anyMatch(num -> num == player.dimension)) {
-                    if (!player.isCreative()) {
-                        ISanity sanity = player.getCapability(SANITY, null);
-                        int num = entityMatched(event.getEntity());
-                        if (num != -1) {
-                            double value = Double.parseDouble(Mechanics.entities[num].split(";")[1]);
-                            sanity.consumeSanity(value);
-                        } else if (event.getEntity() instanceof EntityAnimal) {
-                            sanity.consumeSanity(Mechanics.attackAnimal);
-                        } else if (event.getEntity() instanceof EntityVillager) {
-                            sanity.consumeSanity(Mechanics.attackVillager);
-                        } else if (event.getEntity() instanceof EntityPlayer) {
-                            sanity.consumeSanity(Mechanics.attackPlayer);
-                        }
+                if (!player.isCreative()) {
+                    ISanity sanity = player.getCapability(SANITY, null);
+                    int num = entityMatched(event.getEntity());
+                    if (num != -1) {
+                        double value = Double.parseDouble(Mechanics.entities[num].split(";")[1]);
+                        sanity.consumeSanity(value);
+                    } else if (event.getEntity() instanceof EntityAnimal) {
+                        sanity.consumeSanity(Mechanics.attackAnimal);
+                    } else if (event.getEntity() instanceof EntityVillager) {
+                        sanity.consumeSanity(Mechanics.attackVillager);
+                    } else if (event.getEntity() instanceof EntityPlayer) {
+                        sanity.consumeSanity(Mechanics.attackPlayer);
                     }
                 }
             }
@@ -158,11 +144,9 @@ public class CommonEvent {
     @SubscribeEvent
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
         EntityPlayer player = event.player;
-        if (Arrays.stream(Mechanics.dimensions).anyMatch(num -> num == player.dimension)) {
-            if ((!player.isSpectator()) && (!player.isCreative())) {
-                if (player.ticksExisted % 10 == 0 && !player.world.isRemote) {
-                    tickPlayer(player);
-                }
+        if ((!player.isSpectator()) && (!player.isCreative())) {
+            if (player.ticksExisted % 10 == 0 && !player.world.isRemote) {
+                tickPlayer(player);
             }
         }
     }
@@ -171,12 +155,10 @@ public class CommonEvent {
     public static void onBabyEntitySpawn(BabyEntitySpawnEvent event) {
         if (event.getCausedByPlayer() != null) {
             EntityPlayer player = event.getCausedByPlayer();
-            if (Arrays.stream(Mechanics.dimensions).anyMatch(num -> num == player.dimension)) {
-                if (!player.world.isRemote) {
-                    ISanity sanity = player.getCapability(SANITY, null);
-                    if (sanity.getUp() == 0) {
-                        sanity.recoverSanity(Mechanics.bred);
-                    }
+            if (!player.world.isRemote) {
+                ISanity sanity = player.getCapability(SANITY, null);
+                if (sanity.getUp() == 0) {
+                    sanity.recoverSanity(Mechanics.bred);
                 }
             }
         }
@@ -186,25 +168,21 @@ public class CommonEvent {
     public static void onAdvancement(AdvancementEvent event) {
         if (event.getAdvancement().getDisplay() == null || !event.getAdvancement().getDisplay().shouldAnnounceToChat()) return;
         EntityPlayer player = event.getEntityPlayer();
-        if (Arrays.stream(Mechanics.dimensions).anyMatch(num -> num == player.dimension)) {
-            if (!player.isCreative() && !player.world.isRemote) {
-                ISanity sanity = player.getCapability(SANITY, null);
-                sanity.recoverSanity(Mechanics.advancement);
-            }
+        if (!player.isCreative() && !player.world.isRemote) {
+            ISanity sanity = player.getCapability(SANITY, null);
+            sanity.recoverSanity(Mechanics.advancement);
         }
     }
 
     @SubscribeEvent
     public static void onPlayerChangedDimension(PlayerChangedDimensionEvent event) {
         EntityPlayer player = event.player;
-        if (Arrays.stream(Mechanics.dimensions).anyMatch(num -> num == player.dimension)) {
-            if (!player.isCreative() && !player.world.isRemote) {
-                ISanity sanity = player.getCapability(SANITY, null);
-                sanity.consumeSanity(Mechanics.trip);
-            }
+        if (!player.isCreative() && !player.world.isRemote) {
+            ISanity sanity = player.getCapability(SANITY, null);
+            sanity.consumeSanity(Mechanics.trip);
         }
     }
-
+    
     @SubscribeEvent
     public static void onLivingDeath(LivingDeathEvent event) {
         if (!event.getEntity().world.isRemote) {
@@ -212,18 +190,14 @@ public class CommonEvent {
                 EntityTameable entityTameable = (EntityTameable) event.getEntity();
                 if (entityTameable.isTamed() && entityTameable.getOwner() != null && entityTameable.getOwner() instanceof EntityPlayer) {
                     EntityPlayer player = (EntityPlayer) entityTameable.getOwner();
-                    if (Arrays.stream(Mechanics.dimensions).anyMatch(num -> num == player.dimension)) {
-                        ISanity sanity = player.getCapability(SANITY, null);
-                        sanity.consumeSanity(Mechanics.lost);
-                    }
+                    ISanity sanity = player.getCapability(SANITY, null);
+                    sanity.consumeSanity(Mechanics.lost);
                 }
             } else if (event.getEntity() instanceof EntityMob && event.getSource().getTrueSource() instanceof EntityPlayer) {
                 EntityPlayer player = (EntityPlayer) event.getSource().getTrueSource();
-                if (Arrays.stream(Mechanics.dimensions).anyMatch(num -> num == player.dimension)) {
-                    ISanity sanity = player.getCapability(SANITY, null);
-                    if (sanity.getUp() == 0) {
-                        sanity.recoverSanity(Mechanics.killMob);
-                    }
+                ISanity sanity = player.getCapability(SANITY, null);
+                if (sanity.getUp() == 0) {
+                    sanity.recoverSanity(Mechanics.killMob);
                 }
             }
         }

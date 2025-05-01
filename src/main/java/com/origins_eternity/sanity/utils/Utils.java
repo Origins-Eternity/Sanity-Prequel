@@ -23,6 +23,8 @@ import net.minecraftforge.fml.common.Loader;
 import toughasnails.api.TANCapabilities;
 import toughasnails.api.stat.capability.IThirst;
 
+import java.util.Arrays;
+
 import static com.origins_eternity.sanity.Sanity.packetHandler;
 import static com.origins_eternity.sanity.config.Configuration.Mechanics;
 import static com.origins_eternity.sanity.content.capability.Capabilities.SANITY;
@@ -38,6 +40,7 @@ public class Utils {
 
     public static void tickPlayer(EntityPlayer player) {
         ISanity sanity = player.getCapability(SANITY, null);
+        sanity.setEnable(Arrays.stream(Mechanics.dimensions).anyMatch(num -> num == player.dimension));
         if (sanity.getDown() > 0) {
             sanity.setDown(sanity.getDown() - 1);
         }

@@ -15,8 +15,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import scala.util.Random;
 
-import java.util.Arrays;
-
 import static com.origins_eternity.sanity.Sanity.MOD_ID;
 import static com.origins_eternity.sanity.config.Configuration.*;
 import static com.origins_eternity.sanity.content.capability.Capabilities.SANITY;
@@ -36,8 +34,8 @@ public class ClientEvent {
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
         EntityPlayer player = event.player;
         if (!player.isCreative() && !player.isSpectator() && player == mc().player) {
-            if (Arrays.stream(Mechanics.dimensions).anyMatch(num -> num == player.dimension)) {
-                ISanity sanity = player.getCapability(SANITY, null);
+            ISanity sanity = player.getCapability(SANITY, null);
+            if (sanity.getEnable()) {
                 if (sanity.getSanity() <= 50f) {
                     confusing--;
                     if (confusing <= 0) {
@@ -92,7 +90,7 @@ public class ClientEvent {
         if (event.phase == TickEvent.Phase.END && player != null && OpenGlHelper.shadersSupported) {
             ISanity sanity = player.getCapability(SANITY, null);
             EntityRenderer renderer = mc().entityRenderer;
-            if (Arrays.stream(Mechanics.dimensions).anyMatch(num -> num == player.dimension)) {
+            if (sanity.getEnable()) {
                 if (sanity.getSanity() <= num3) {
                     if (!level3 || !renderer.isShaderActive()) {
                         renderer.loadShader(new ResourceLocation(LEVEL3));

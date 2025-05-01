@@ -13,8 +13,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
-import java.util.Arrays;
-
 import static com.origins_eternity.sanity.config.Configuration.Mechanics;
 import static com.origins_eternity.sanity.content.tab.CreativeTab.SANITY;
 import static com.origins_eternity.sanity.utils.Utils.checkHead;
@@ -31,7 +29,7 @@ public class ArmorCreator extends ItemArmor {
 
     @Override
     public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
-        if (player.ticksExisted % 10 == 0 && Arrays.stream(Mechanics.dimensions).anyMatch(num -> num == player.dimension)) {
+        if (player.ticksExisted % 10 == 0) {
             ISanity sanity = player.getCapability(Capabilities.SANITY, null);
             if (player.getItemStackFromSlot(EntityEquipmentSlot.HEAD).getItem().equals(this)) {
                 if (sanity.getDown() == 0f) {

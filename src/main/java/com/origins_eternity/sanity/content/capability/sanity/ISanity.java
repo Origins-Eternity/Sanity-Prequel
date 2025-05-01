@@ -13,6 +13,10 @@ public interface ISanity {
 
     int getUp();
 
+    void setEnable(boolean enable);
+
+    boolean getEnable();
+
     void consumeSanity(double value);
 
     void recoverSanity(double value);
