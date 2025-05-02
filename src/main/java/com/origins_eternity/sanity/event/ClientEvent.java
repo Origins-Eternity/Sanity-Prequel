@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
@@ -19,6 +20,7 @@ import static com.origins_eternity.sanity.Sanity.MOD_ID;
 import static com.origins_eternity.sanity.config.Configuration.*;
 import static com.origins_eternity.sanity.content.capability.Capabilities.SANITY;
 import static com.origins_eternity.sanity.content.sound.Sounds.INSANITY;
+import static com.origins_eternity.sanity.utils.Utils.isMorphine;
 import static com.origins_eternity.sanity.utils.proxy.ClientProxy.mc;
 
 @Mod.EventBusSubscriber(modid = MOD_ID)
@@ -35,32 +37,31 @@ public class ClientEvent {
         EntityPlayer player = event.player;
         if (!player.isCreative() && !player.isSpectator() && player == mc().player) {
             ISanity sanity = player.getCapability(SANITY, null);
-            if (sanity.getEnable()) {
-                if (sanity.getSanity() <= 50f) {
-                    confusing--;
-                    if (confusing <= 0) {
-                        int number = rand.nextInt(Mechanics.sounds.length);
-                        SoundEvent sound = SoundEvent.REGISTRY.getObject(new ResourceLocation(Mechanics.sounds[number]));
-                        if (sound != null) {
-                            player.playSound(sound, 1f, 0.5f);
-                        }
-                        confusing = rand.nextInt(600) + 800;
+            if (!sanity.getEnable() || (Loader.isModLoaded("firstaid") && isMorphine(player))) return;
+            if (sanity.getSanity() <= 50f) {
+                confusing--;
+                if (confusing <= 0) {
+                    int number = rand.nextInt(Mechanics.sounds.length);
+                    SoundEvent sound = SoundEvent.REGISTRY.getObject(new ResourceLocation(Mechanics.sounds[number]));
+                    if (sound != null) {
+                        player.playSound(sound, 1f, 0.5f);
                     }
-                    if (sanity.getSanity() <= 45f) {
-                        whisper--;
-                        ISound insanity = PositionedSoundRecord.getMasterRecord(INSANITY, 1f);
-                        if (whisper <= 0) {
-                            mc().getSoundHandler().playSound(insanity);
-                            whisper = 680;
-                        }
+                    confusing = rand.nextInt(600) + 800;
+                }
+                if (sanity.getSanity() <= 45f) {
+                    whisper--;
+                    ISound insanity = PositionedSoundRecord.getMasterRecord(INSANITY, 1f);
+                    if (whisper <= 0) {
+                        mc().getSoundHandler().playSound(insanity);
+                        whisper = 680;
                     }
                 }
-                if (Overlay.flash != -1) {
-                    if (sanity.getDown() >= 15 || sanity.getUp() >= 15) {
-                        flash = Overlay.flash * 20;
-                    } else if (flash > 0) {
-                        flash--;
-                    }
+            }
+            if (Overlay.flash != -1) {
+                if (sanity.getDown() >= 15 || sanity.getUp() >= 15) {
+                    flash = Overlay.flash * 20;
+                } else if (flash > 0) {
+                    flash--;
                 }
             }
         }
@@ -90,30 +91,30 @@ public class ClientEvent {
         if (event.phase == TickEvent.Phase.END && player != null && OpenGlHelper.shadersSupported) {
             ISanity sanity = player.getCapability(SANITY, null);
             EntityRenderer renderer = mc().entityRenderer;
-            if (sanity.getEnable()) {
-                if (sanity.getSanity() <= num3) {
-                    if (!level3 || !renderer.isShaderActive()) {
-                        renderer.loadShader(new ResourceLocation(LEVEL3));
-                        level3 = true;
-                        level1 = false;
-                        level2 = false;
-                    }
-                } else if (sanity.getSanity() <= num2) {
-                    if (!level2 || !renderer.isShaderActive()) {
-                        renderer.loadShader(new ResourceLocation(LEVEL2));
-                        level2 = true;
-                        level1 = false;
-                        level3 = false;
-                    }
-                } else if (sanity.getSanity() <= num1) {
-                    if (!level1 || !renderer.isShaderActive()) {
-                        renderer.loadShader(new ResourceLocation(LEVEL1));
-                        level1 = true;
-                        level2 = false;
-                        level3 = false;
-                    }
-                } else if (level1 || level2 || level3) {
+            if (!sanity.getEnable() || (Loader.isModLoaded("firstaid") && isMorphine(player))) {
+                if (level1 || level2 || level3) {
                     clearShader(renderer);
+                }
+            } else if (sanity.getSanity() <= num3) {
+                if (!level3 || !renderer.isShaderActive()) {
+                    renderer.loadShader(new ResourceLocation(LEVEL3));
+                    level3 = true;
+                    level1 = false;
+                    level2 = false;
+                }
+            } else if (sanity.getSanity() <= num2) {
+                if (!level2 || !renderer.isShaderActive()) {
+                    renderer.loadShader(new ResourceLocation(LEVEL2));
+                    level2 = true;
+                    level1 = false;
+                    level3 = false;
+                }
+            } else if (sanity.getSanity() <= num1) {
+                if (!level1 || !renderer.isShaderActive()) {
+                    renderer.loadShader(new ResourceLocation(LEVEL1));
+                    level1 = true;
+                    level2 = false;
+                    level3 = false;
                 }
             } else if (level1 || level2 || level3) {
                 clearShader(renderer);

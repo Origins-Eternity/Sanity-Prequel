@@ -15,11 +15,13 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.Optional;
 import toughasnails.api.TANCapabilities;
 import toughasnails.api.stat.capability.IThirst;
 
@@ -216,5 +218,17 @@ public class Utils {
             }
         }
         return thirst;
+    }
+
+    @Optional.Method(modid = "firstaid")
+    public static boolean isMorphine(EntityPlayer player) {
+        boolean morphine = false;
+        for (PotionEffect effect : player.getActivePotionEffects()) {
+            if (effect.getEffectName().equals("item.morphine.name")) {
+                morphine = true;
+                break;
+            }
+        }
+        return morphine;
     }
 }

@@ -30,7 +30,7 @@ public class Configuration {
         @Config.Name("Reset Sanity")
         @Config.LangKey("config.sanity.reset")
         @Config.Comment("Whether to reset sanity after respawning.")
-        public boolean reset = false;
+        public boolean reset = true;
 
         @Config.Name("Attack Animal")
         @Config.LangKey("config.sanity.animal")
