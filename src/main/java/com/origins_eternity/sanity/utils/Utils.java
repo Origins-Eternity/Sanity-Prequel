@@ -40,53 +40,47 @@ public class Utils {
         packetHandler.sendTo(message, (EntityPlayerMP) player);
     }
 
-    public static void tickPlayer(EntityPlayer player) {
-        ISanity sanity = player.getCapability(SANITY, null);
-        sanity.setEnable(canEnable(player));
-        if (sanity.getDown() > 0) {
-            sanity.setDown(sanity.getDown() - 1);
-        }
-        if (sanity.getUp() > 0) {
-            sanity.setUp(sanity.getUp() - 1);
-        }
+    public static double tickPlayer(EntityPlayer player) {
+        double value = 0;
         if (isWet(player)) {
-            sanity.consumeSanity(Mechanics.rain);
+            value -= Mechanics.rain;
         }
         if (player.getFoodStats().getFoodLevel() < 6) {
-            sanity.consumeSanity(Mechanics.hunger);
+            value -= Mechanics.hunger;
         }
         if (isThirst(player)) {
-            sanity.consumeSanity(Mechanics.thirst);
+            value -= Mechanics.thirst;
         }
         if (player.getAir() < 90) {
-            sanity.consumeSanity(Mechanics.choking);
+            value -= Mechanics.choking;
         }
         if (player.fallDistance > 4f) {
-            sanity.consumeSanity(player.fallDistance * Mechanics.fall);
+            value -= player.fallDistance * Mechanics.fall;
         }
-        if (checkFeet(player) != 0 || checkHead(player) != 0) {
-            double value = (checkFeet(player) + checkHead(player)) / 2.0;
-            if (value > 0) {
-                sanity.recoverSanity(value);
-            } else {
-                sanity.consumeSanity(-value);
-            }
+        if (checkFeet(player) != 0) {
+            value += checkFeet(player);
+        }
+        if (checkHead(player) != 0) {
+            value += checkHead(player);
         }
         if (withMob(player)) {
-            sanity.consumeSanity(Mechanics.mob);
+            value -= Mechanics.mob;
         }
-        if (withPet(player) && sanity.getDown() == 0f) {
-            sanity.recoverSanity(Mechanics.pet);
+        if (withPet(player)) {
+            value += Mechanics.pet;
         }
         if (player.world.getLight(new BlockPos(player), true) < 4) {
             if (!player.isPotionActive(MobEffects.NIGHT_VISION)) {
-                sanity.consumeSanity(Mechanics.dark);
+                value -= Mechanics.dark;
             }
         }
-        syncSanity(player);
+        if (checkArmor(player) != 0) {
+            value += checkArmor(player);
+        }
+        return value;
     }
 
-    public static int itemMatched(ItemStack item) {
+    public static int stackMatched(ItemStack item) {
         int match = -1;
         for (int i = 0; i < Mechanics.food.length; i++) {
             String[] parts = Mechanics.food[i].split(";");
@@ -148,6 +142,20 @@ public class Utils {
         return match;
     }
 
+    public static double checkArmor(EntityPlayer player) {
+        double value = 0;
+        for (ItemStack armor : player.getArmorInventoryList()) {
+            for (int i = 0; i < Mechanics.equipment.length; i++) {
+                String[] parts = Mechanics.equipment[i].split(";");
+                if (armor.getItem().equals(Item.REGISTRY.getObject(new ResourceLocation(parts[0])))) {
+                    value += Double.parseDouble(parts[1]);
+                    break;
+                }
+            }
+        }
+        return value;
+    }
+
     public static boolean isWet(EntityPlayer player) {
         BlockPos.PooledMutableBlockPos blockpos$pooledmutableblockpos = BlockPos.PooledMutableBlockPos.retain(player.posX, player.posY, player.posZ);
         if (player.world.isRainingAt(blockpos$pooledmutableblockpos) || player.world.isRainingAt(blockpos$pooledmutableblockpos.setPos(player.posX, player.posY + (double)player.height, player.posZ))) {
@@ -175,6 +183,10 @@ public class Utils {
             value = Double.parseDouble(Mechanics.blocks[blockMatched(state)].split(";")[1].trim());
         }
         return value;
+    }
+
+    public static boolean canEnable(EntityPlayer player) {
+        return Mechanics.blacklist ? Arrays.stream(Mechanics.dimensions).noneMatch(num -> num == player.dimension) : Arrays.stream(Mechanics.dimensions).anyMatch(num -> num == player.dimension);
     }
 
     private static boolean withPet(EntityPlayer player) {
@@ -218,10 +230,6 @@ public class Utils {
             }
         }
         return thirst;
-    }
-
-    public static boolean canEnable(EntityPlayer player) {
-        return Mechanics.blacklist ? Arrays.stream(Mechanics.dimensions).noneMatch(num -> num == player.dimension) : Arrays.stream(Mechanics.dimensions).anyMatch(num -> num == player.dimension);
     }
 
     @Optional.Method(modid = "firstaid")
