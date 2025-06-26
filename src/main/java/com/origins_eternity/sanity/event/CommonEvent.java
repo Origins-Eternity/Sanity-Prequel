@@ -66,7 +66,7 @@ public class CommonEvent {
             EntityPlayerMP player = (EntityPlayerMP) event.getEntityLiving();
             if ((!player.isCreative()) && (event.getItem().getItem() instanceof ItemFood)) {
                 ISanity sanity = player.getCapability(SANITY, null);
-                int num = itemMatched(event.getItem());
+                int num = stackMatched(event.getItem());
                 if (num == -1) {
                     sanity.recoverSanity(Mechanics.eat);
                 } else {
@@ -146,7 +146,21 @@ public class CommonEvent {
         EntityPlayer player = event.player;
         if ((!player.isSpectator()) && (!player.isCreative())) {
             if (player.ticksExisted % 10 == 0 && !player.world.isRemote) {
-                tickPlayer(player);
+                ISanity sanity = player.getCapability(SANITY, null);
+                sanity.setEnable(canEnable(player));
+                if (sanity.getDown() > 0) {
+                    sanity.setDown(sanity.getDown() - 1);
+                }
+                if (sanity.getUp() > 0) {
+                    sanity.setUp(sanity.getUp() - 1);
+                }
+                double value = tickPlayer(player);
+                if (value > 0) {
+                    sanity.recoverSanity(value);
+                } else if (value < 0) {
+                    sanity.consumeSanity(-value);
+                }
+                syncSanity(player);
             }
         }
     }

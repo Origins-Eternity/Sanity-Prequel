@@ -4,7 +4,7 @@ plugins {
 
 
 group = 'com.origins_eternity'
-version = '1.2.8'
+version = '1.2.9'
 
 java {
     archivesBaseName = 'sanity'
