@@ -68,7 +68,7 @@ public class CommonEvent {
                 ISanity sanity = player.getCapability(SANITY, null);
                 int num = itemMatched(event.getItem());
                 if (num == -1) {
-                    sanity.recoverSanity(5.0);
+                    sanity.recoverSanity(Mechanics.eat);
                 } else {
                     double value = Double.parseDouble(Mechanics.food[num].split(";")[1]);
                     if (value > 0) {

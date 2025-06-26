@@ -42,7 +42,7 @@ public class Utils {
 
     public static void tickPlayer(EntityPlayer player) {
         ISanity sanity = player.getCapability(SANITY, null);
-        sanity.setEnable(Arrays.stream(Mechanics.dimensions).anyMatch(num -> num == player.dimension));
+        sanity.setEnable(canEnable(player));
         if (sanity.getDown() > 0) {
             sanity.setDown(sanity.getDown() - 1);
         }
@@ -218,6 +218,10 @@ public class Utils {
             }
         }
         return thirst;
+    }
+
+    public static boolean canEnable(EntityPlayer player) {
+        return Mechanics.blacklist ? Arrays.stream(Mechanics.dimensions).noneMatch(num -> num == player.dimension) : Arrays.stream(Mechanics.dimensions).anyMatch(num -> num == player.dimension);
     }
 
     @Optional.Method(modid = "firstaid")

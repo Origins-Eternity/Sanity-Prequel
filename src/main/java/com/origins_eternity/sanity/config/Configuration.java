@@ -116,6 +116,12 @@ public class Configuration {
         @Config.RangeDouble(min = 0.0, max = 100.0)
         public double killMob = 2.5;
 
+        @Config.Name("Eat")
+        @Config.LangKey("config.sanity.eat")
+        @Config.Comment("The sanity to increase when player eat food that isn't in the list.")
+        @Config.RangeDouble(min = 0.0, max = 100.0)
+        public double eat = 5.0;
+
         @Config.Name("Quest")
         @Config.LangKey("config.sanity.quest")
         @Config.Comment("The sanity to increase when player complete a quest. (only support FTB Quests)")
@@ -182,6 +188,11 @@ public class Configuration {
         @Config.LangKey("config.sanity.dimensions")
         @Config.Comment("The list of dimensions which will enable sanity.")
         public int[] dimensions = new int[]{1, 0, -1};
+
+        @Config.Name("Blacklist")
+        @Config.LangKey("config.sanity.blacklist")
+        @Config.Comment("Make the list of dimensions blacklist.")
+        public boolean blacklist = false;
     }
 
     public static class ConfigOverlay {

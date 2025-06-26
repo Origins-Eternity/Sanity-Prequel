@@ -9,13 +9,11 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-import java.util.Arrays;
-
 import static com.origins_eternity.sanity.Sanity.MOD_ID;
-import static com.origins_eternity.sanity.config.Configuration.Mechanics;
 import static com.origins_eternity.sanity.config.Configuration.Overlay;
 import static com.origins_eternity.sanity.content.capability.Capabilities.SANITY;
 import static com.origins_eternity.sanity.event.ClientEvent.flash;
+import static com.origins_eternity.sanity.utils.Utils.canEnable;
 import static com.origins_eternity.sanity.utils.Utils.isMorphine;
 import static com.origins_eternity.sanity.utils.proxy.ClientProxy.mc;
 
@@ -28,7 +26,7 @@ public class Overlay extends Gui {
         if (event.getType() == RenderGameOverlayEvent.ElementType.ALL) {
             EntityPlayerSP player = mc().player;
             if (Loader.isModLoaded("firstaid") && isMorphine(player)) return;
-            if (Arrays.stream(Mechanics.dimensions).anyMatch(num -> num == player.dimension)) {
+            if (canEnable(player)) {
                 if (!player.isCreative() && !player.isSpectator()) {
                     int posX = event.getResolution().getScaledWidth();
                     int posY = event.getResolution().getScaledHeight();
