@@ -21,27 +21,27 @@
 
 ![This is an image](https://s21.ax1x.com/2025/01/18/pEkiLJU.png)
 ### Decrease Sanity
-- **Attack animals, villagers and other players.**  
-- **Eating bad foods such as carrion, raw meat, etc. (support custom configurations)**  
-- **Struck by lightning.**  
-- **Hunger.**  
-- **Thirst. (support Tough As Nails and SimpleDifficulty)**  
-- **Get hurt.**  
-- **Rain.**  
-- **Dark. (Only work when player doesn't have night vision effect)**  
-- **Around mobs. (within 8 blocks)**  
+- **Attack animals, villagers and other players.**
+- **Eating bad foods such as carrion, raw meat, etc. (support custom configurations)**
+- **Struck by lightning.**
+- **Hunger.**
+- **Thirst. (support Tough As Nails and SimpleDifficulty)**
+- **Get hurt.**
+- **Rain.**
+- **Dark. (Only work when player doesn't have night vision effect)**
+- **Around mobs. (within 8 blocks)**
 - **Choking.**
-- **Change dimensions.**  
-- **Falling.**  
-- **Lost pets.**  
+- **Change dimensions.**
+- **Falling.**
+- **Lost pets.**
 - **Trapped in blocks like web and water. (support custom configurations)**
-### Increase Sanity    
-- **Sleep.**  
-- **Eating healthy foods.**  
-- **Wearing garland.**  
-- **Gain advancements.**  
-- **Compelete quests. (only support FTB Quests)**  
-- **Stay with pets. (within 5 blocks)**  
+### Increase Sanity
+- **Sleep.**
+- **Eating healthy foods.**
+- **Wearing garland.**
+- **Gain advancements.**
+- **Compelete quests. (only support FTB Quests)**
+- **Stay with pets. (within 5 blocks)**
 - **Kill mobs.**
 ### Commands
 **Using commands need permission level 2. (support tab completion)**
