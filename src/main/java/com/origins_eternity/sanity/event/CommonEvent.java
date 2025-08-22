@@ -1,6 +1,7 @@
 package com.origins_eternity.sanity.event;
 
 import baubles.api.BaublesApi;
+import com.origins_eternity.sanity.compat.thaumcraft.ThaumcraftWarp;
 import com.origins_eternity.sanity.content.armor.Armors;
 import com.origins_eternity.sanity.content.capability.Capabilities;
 import com.origins_eternity.sanity.content.capability.sanity.ISanity;
@@ -38,6 +39,10 @@ import static com.origins_eternity.sanity.utils.Utils.*;
 
 @Mod.EventBusSubscriber(modid = MOD_ID)
 public class CommonEvent {
+
+
+
+
     @SubscribeEvent
     public static void onAttachCapability(AttachCapabilitiesEvent<Entity> event) {
         Entity entity = event.getObject();
@@ -148,6 +153,9 @@ public class CommonEvent {
             if (player.ticksExisted % 10 == 0 && !player.world.isRemote) {
                 ISanity sanity = player.getCapability(SANITY, null);
                 sanity.setEnable(canEnable(player));
+                if (Loader.isModLoaded("thaumcraft")) {
+                    ThaumcraftWarp.syncWarpFromSanity(player, sanity);
+                }
                 if (sanity.getDown() > 0) {
                     sanity.setDown(sanity.getDown() - 1);
                 }
