@@ -20,8 +20,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.fml.common.Loader;
-import net.minecraftforge.fml.common.Optional;
 import toughasnails.api.TANCapabilities;
 import toughasnails.api.stat.capability.IThirst;
 
@@ -57,18 +57,6 @@ public class Utils {
         if (player.fallDistance > 4f) {
             value -= player.fallDistance * Mechanics.fall;
         }
-        if (checkFeet(player) != 0) {
-            value += checkFeet(player);
-        }
-        if (checkHead(player) != 0) {
-            value += checkHead(player);
-        }
-        if (withMob(player)) {
-            value -= Mechanics.mob;
-        }
-        if (withPet(player)) {
-            value += Mechanics.pet;
-        }
         if (player.world.getLight(new BlockPos(player), true) < 4) {
             if (!player.isPotionActive(MobEffects.NIGHT_VISION)) {
                 value -= Mechanics.dark;
@@ -77,7 +65,7 @@ public class Utils {
         if (checkArmor(player) != 0) {
             value += checkArmor(player);
         }
-        return value;
+        return value + (checkHead(player) + checkFeet(player) + withCreature(player));
     }
 
     public static int stackMatched(ItemStack item) {
@@ -185,34 +173,39 @@ public class Utils {
         return value;
     }
 
-    public static boolean canEnable(EntityPlayer player) {
-        return Mechanics.blacklist ? Arrays.stream(Mechanics.dimensions).noneMatch(num -> num == player.dimension) : Arrays.stream(Mechanics.dimensions).anyMatch(num -> num == player.dimension);
-    }
-
-    private static boolean withPet(EntityPlayer player) {
-        boolean pet = false;
+    private static double withCreature(EntityPlayer player) {
+        double value = 0;
         AxisAlignedBB box = player.getEntityBoundingBox().grow(5, 3, 5);
         for (EntityTameable entity: player.world.getEntitiesWithinAABB(EntityTameable.class, box)) {
             if (entity != null) {
                 if (entity.isTamed() && entity.isOwner(player)) {
-                    pet = true;
+                    value += Mechanics.pet;
                     break;
                 }
             }
         }
-        return pet;
-    }
-
-    private static boolean withMob(EntityPlayer player) {
-        boolean mob = false;
-        AxisAlignedBB box = player.getEntityBoundingBox().grow(8, 5, 8);
         for (EntityMob entity: player.world.getEntitiesWithinAABB(EntityMob.class, box)) {
             if (entity != null) {
-                mob = true;
+                value -= Mechanics.mob;
                 break;
             }
         }
-        return mob;
+        for (EntityPlayer entity: player.world.getEntitiesWithinAABB(EntityPlayer.class, box)) {
+            if (!(entity instanceof FakePlayer) && entity != player) {
+                ISanity sanity = entity.getCapability(SANITY, null);
+                if (sanity.getSanity() >= 50) {
+                    value += Mechanics.normal;
+                } else {
+                    value -= Mechanics.abnormal;
+                }
+                break;
+            }
+        }
+        return value;
+    }
+
+    public static boolean canEnable(EntityPlayer player) {
+        return Mechanics.blacklist ? Arrays.stream(Mechanics.dimensions).noneMatch(num -> num == player.dimension) : Arrays.stream(Mechanics.dimensions).anyMatch(num -> num == player.dimension);
     }
 
     private static boolean isThirst(EntityPlayer player) {
@@ -232,7 +225,6 @@ public class Utils {
         return thirst;
     }
 
-    @Optional.Method(modid = "firstaid")
     public static boolean isMorphine(EntityPlayer player) {
         boolean morphine = false;
         for (PotionEffect effect : player.getActivePotionEffects()) {

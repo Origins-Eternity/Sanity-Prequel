@@ -1,6 +1,10 @@
 package com.origins_eternity.sanity.content.capability.sanity;
 
 public interface ISanity {
+    void setMax(int sanity);
+
+    int getMax();
+
     void setSanity(double sanity);
 
     float getSanity();

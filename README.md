@@ -1,5 +1,3 @@
-![This is an image](https://s21.ax1x.com/2025/01/15/pEiWBsx.png)
-
 [![Discord](https://img.shields.io/discord/1321045735055163402?logo=discord&color=949af1)](https://discord.gg/JdrzWQvT3v)
 [![This is an image](https://cf.way2muchnoise.eu/versions/1134090.svg)](https://www.curseforge.com/minecraft/mc-mods/sanity-prequel/files)
 [![This is an image](https://cf.way2muchnoise.eu/full_1134090_downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/sanity-prequel)
@@ -12,6 +10,8 @@
 ### Umbrella
 **Holding an umbrella can prevent player from decreasing sanity and damaging garland by rain. Umbrella has 120 durability, which will damage from lightning, fire, explosion. And break or attack can also damage it.**
 ![This is an image](https://s21.ax1x.com/2025/02/05/pEeKjN8.png)
+### Potion
+**Add composure potion effect, which can recover 1 sanity every `50 >> amplifier` ticks. Brew any small flowers with an swiftness potion.**
 ### Effects
 - **Sanity ≤ 60, at the edges of things, red, green, and blue seem to be separated in your eyes.**
 - **Sanity ≤ 50, players will experience auditory hallucinations. (support custom sound list)**
@@ -21,27 +21,29 @@
 
 ![This is an image](https://s21.ax1x.com/2025/01/18/pEkiLJU.png)
 ### Decrease Sanity
-- **Attack animals, villagers and other players.**
-- **Eating bad foods such as carrion, raw meat, etc. (support custom configurations)**
-- **Struck by lightning.**
-- **Hunger.**
-- **Thirst. (support Tough As Nails and SimpleDifficulty)**
-- **Get hurt.**
-- **Rain.**
-- **Dark. (Only work when player doesn't have night vision effect)**
-- **Around mobs. (within 8 blocks)**
+- **Attack animals, villagers and other players.**  
+- **Eating bad foods such as carrion, raw meat, etc. (support custom configurations)**  
+- **Struck by lightning.**  
+- **Hunger.**  
+- **Thirst. (support Tough As Nails and SimpleDifficulty)**  
+- **Get hurt.**  
+- **Rain.**  
+- **Dark. (Only work when player doesn't have night vision effect)**  
+- **Around mobs. (within 5 blocks)**  
+- **Around players with sanity < 50. (within 5 blocks)**  
 - **Choking.**
-- **Change dimensions.**
-- **Falling.**
-- **Lost pets.**
+- **Change dimensions.**  
+- **Falling.**  
+- **Lost pets.**  
 - **Trapped in blocks like web and water. (support custom configurations)**
-### Increase Sanity
-- **Sleep.**
-- **Eating healthy foods.**
-- **Wearing garland.**
-- **Gain advancements.**
-- **Compelete quests. (only support FTB Quests)**
-- **Stay with pets. (within 5 blocks)**
+### Increase Sanity    
+- **Sleep.**  
+- **Eating healthy foods.**  
+- **Wearing garland.**  
+- **Gain advancements.**  
+- **Compelete quests. (only support FTB Quests)**  
+- **Stay with pets. (within 5 blocks)**  
+- **Around players with sanity ≥ 50. (within 5 blocks)**  
 - **Kill mobs.**
 ### Commands
 **Using commands need permission level 2. (support tab completion)**

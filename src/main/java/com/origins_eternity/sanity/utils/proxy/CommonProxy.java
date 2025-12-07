@@ -14,6 +14,7 @@ import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.relauncher.Side;
 
 import static com.origins_eternity.sanity.Sanity.packetHandler;
+import static com.origins_eternity.sanity.content.potion.Potions.registerRecipes;
 
 public class CommonProxy {
     public void preInit(FMLPreInitializationEvent event) {
@@ -25,6 +26,7 @@ public class CommonProxy {
         if (Loader.isModLoaded("ftbquests")) {
             MinecraftForge.EVENT_BUS.register(FTBQuests.class);
         }
+        registerRecipes();
     }
 
     public void postInit(FMLPostInitializationEvent event) {

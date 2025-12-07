@@ -7,6 +7,8 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 
 public class Sanity implements ISanity {
+    private int max = 100;
+
     private float sanity = 100;
 
     private int down = 0;
@@ -14,6 +16,16 @@ public class Sanity implements ISanity {
     private int up = 0;
 
     private boolean enable = true;
+
+    @Override
+    public void setMax(int max) {
+        this.max = max;
+    }
+
+    @Override
+    public int getMax() {
+        return max;
+    }
 
     @Override
     public void setSanity(double sanity) {
@@ -58,7 +70,7 @@ public class Sanity implements ISanity {
     @Override
     public void consumeSanity(double value) {
         if (value >= 0 && enable) {
-            if (sanity != 0f) {
+            if (sanity > 0f) {
                 if (value >= 1) {
                     setDown(21);
                 } else if (value > 0) {
@@ -72,13 +84,13 @@ public class Sanity implements ISanity {
     @Override
     public void recoverSanity(double value) {
         if (value >= 0 && enable) {
-            if (sanity != 100f) {
+            if (sanity < max) {
                 if (value >= 1) {
                     setUp(21);
                 } else if (value > 0) {
                     setUp(15);
                 }
-                sanity = Math.min(sanity + (float) value, 100);
+                sanity = Math.min(sanity + (float) value, max);
             }
         }
     }
@@ -120,6 +132,7 @@ public class Sanity implements ISanity {
         @Override
         public NBTBase writeNBT(Capability<ISanity> capability, ISanity instance, EnumFacing side) {
             NBTTagCompound compound = new NBTTagCompound();
+            compound.setInteger("Max", instance.getMax());
             compound.setFloat("Sanity", instance.getSanity());
             compound.setInteger("Down", instance.getDown());
             compound.setInteger("Up", instance.getUp());
@@ -131,6 +144,7 @@ public class Sanity implements ISanity {
         public void readNBT(Capability<ISanity> capability, ISanity instance, EnumFacing side, NBTBase nbt) {
             if (nbt instanceof NBTTagCompound) {
                 NBTTagCompound compound = (NBTTagCompound) nbt;
+                instance.setMax(compound.getInteger("Max"));
                 instance.setSanity(compound.getFloat("Sanity"));
                 instance.setDown(compound.getInteger("Down"));
                 instance.setUp(compound.getInteger("Up"));

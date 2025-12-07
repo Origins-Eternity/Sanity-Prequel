@@ -82,19 +82,19 @@ public class Configuration {
 
         @Config.Name("Hunger")
         @Config.LangKey("config.sanity.hunger")
-        @Config.Comment("The sanity to decrease when player's foodLevel is low. (per 0.5s)")
+        @Config.Comment("The sanity to decrease when player's foodLevel < 6. (per 0.5s)")
         @Config.RangeDouble(min = 0.0, max = 100.0)
         public double hunger = 0.1;
 
         @Config.Name("Thirst")
         @Config.LangKey("config.sanity.thirst")
-        @Config.Comment("The sanity to decrease when player's thirstLevel is low. (per 0.5s, support ToughAsNails and SimpleDifficulty)")
+        @Config.Comment("The sanity to decrease when player's thirstLevel < 6. (per 0.5s, support ToughAsNails and SimpleDifficulty)")
         @Config.RangeDouble(min = 0.0, max = 100.0)
         public double thirst = 0.1;
 
         @Config.Name("Choking")
         @Config.LangKey("config.sanity.choking")
-        @Config.Comment("The sanity to decrease when player's air is low.(per 0.5s)")
+        @Config.Comment("The sanity to decrease when player's air < 90. (per 0.5s)")
         @Config.RangeDouble(min = 0.0, max = 100.0)
         public double choking = 0.1;
 
@@ -108,7 +108,13 @@ public class Configuration {
         @Config.LangKey("config.sanity.mob")
         @Config.Comment("The sanity to decrease when mobs are around player. (per 0.5s, within 8 blocks)")
         @Config.RangeDouble(min = 0.0, max = 100.0)
-        public double mob = 0.1;
+        public double mob = 0.2;
+
+        @Config.Name("Abnormal Player")
+        @Config.LangKey("config.sanity.abnormal")
+        @Config.Comment("The sanity to decrease when players are around a player with sanity < 50. (per 0.5s, within 5 blocks)")
+        @Config.RangeDouble(min = 0.0, max = 100.0)
+        public double abnormal = 0.2;
 
         @Config.Name("Kill Mob")
         @Config.LangKey("config.sanity.kill")
@@ -157,6 +163,12 @@ public class Configuration {
         @Config.Comment("The sanity to increase when players stay with pets. (per 0.5s, within 5 blocks)")
         @Config.RangeDouble(min = 0.0, max = 100.0)
         public double pet = 0.2;
+
+        @Config.Name("Normal Player")
+        @Config.LangKey("config.sanity.normal")
+        @Config.Comment("The sanity to increase when players are around a player with sanity ≥ 50. (per 0.5s, within 5 blocks)")
+        @Config.RangeDouble(min = 0.0, max = 100.0)
+        public double normal = 0.1;
 
         @Config.Name("Lost")
         @Config.LangKey("config.sanity.lost")

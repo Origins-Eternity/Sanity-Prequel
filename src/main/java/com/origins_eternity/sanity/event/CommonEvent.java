@@ -1,7 +1,6 @@
 package com.origins_eternity.sanity.event;
 
 import baubles.api.BaublesApi;
-import com.origins_eternity.sanity.compat.thaumcraft.ThaumcraftWarp;
 import com.origins_eternity.sanity.content.armor.Armors;
 import com.origins_eternity.sanity.content.capability.Capabilities;
 import com.origins_eternity.sanity.content.capability.sanity.ISanity;
@@ -32,6 +31,7 @@ import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerChangedDimensio
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 import static com.origins_eternity.sanity.Sanity.MOD_ID;
+import static com.origins_eternity.sanity.compat.Thaumcraft.getWarp;
 import static com.origins_eternity.sanity.config.Configuration.Mechanics;
 import static com.origins_eternity.sanity.content.capability.Capabilities.SANITY;
 import static com.origins_eternity.sanity.content.umbrella.Umbrellas.UMBRELLA;
@@ -39,10 +39,6 @@ import static com.origins_eternity.sanity.utils.Utils.*;
 
 @Mod.EventBusSubscriber(modid = MOD_ID)
 public class CommonEvent {
-
-
-
-
     @SubscribeEvent
     public static void onAttachCapability(AttachCapabilitiesEvent<Entity> event) {
         Entity entity = event.getObject();
@@ -154,7 +150,10 @@ public class CommonEvent {
                 ISanity sanity = player.getCapability(SANITY, null);
                 sanity.setEnable(canEnable(player));
                 if (Loader.isModLoaded("thaumcraft")) {
-                    ThaumcraftWarp.syncWarpFromSanity(player, sanity);
+                    sanity.setMax(100 - getWarp(player));
+                    if (sanity.getSanity() > sanity.getMax()) {
+                        sanity.setSanity(sanity.getMax());
+                    }
                 }
                 if (sanity.getDown() > 0) {
                     sanity.setDown(sanity.getDown() - 1);
