@@ -18,7 +18,6 @@
 - **Sanity ≤ 45, whispers can be heard.**
 - **Sanity ≤ 40, there are a grid of small dots lies in your eyes. The world looks washed out...**
 - **Sanity ≤ 10, game's graphics are even more distorted, with details barely legible.**
-
 ![This is an image](https://s21.ax1x.com/2025/01/18/pEkiLJU.png)
 ### Decrease Sanity
 - **Attack animals, villagers and other players.**  
@@ -63,5 +62,7 @@ events.onBlockHarvestDrops(function(event as BlockHarvestDropsEvent) {
 });
 ```
 **This *example* script makes any small flowers drop a dead bush when broken by a player with sanity of 10 or less.**
+### Thaumcraft 6
+**Warp in [Thaumcraft 6](https://ftbwiki.org/Thaumcraft_6) can affect player's max sanity. `max = 100 - warp` (permanent value and normal value, no more than 50)**
 ## About
 **Only the codebase has been open source under the Apache License 2.0, you can use, modify the code to port, distribute this mod under the license. Sound effects retain their respective [license](https://www.zapsplat.com/license-type/standard-license). All rights reserved for all other assets. And there are currently no plans to make a mod like this for a new Minecraft version.**
