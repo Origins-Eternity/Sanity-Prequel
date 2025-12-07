@@ -16,7 +16,7 @@ import static com.origins_eternity.sanity.utils.proxy.ClientProxy.*;
 public class Overlay extends Gui {
     @SubscribeEvent
     public void onRenderGameOverlay(RenderGameOverlayEvent.Post event) {
-        if (event.getType() == RenderGameOverlayEvent.ElementType.HEALTH) {
+        if (event.getType() == RenderGameOverlayEvent.ElementType.EXPERIENCE) {
             EntityPlayerSP player = mc().player;
             if (canEnable(player)) {
                 if (!player.isCreative() && !player.isSpectator()) {
