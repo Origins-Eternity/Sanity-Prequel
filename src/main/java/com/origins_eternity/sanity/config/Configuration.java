@@ -77,43 +77,43 @@ public class Configuration {
         @Config.Name("Rain")
         @Config.LangKey("config.sanity.rain")
         @Config.Comment("The sanity to decrease when players get wet by rain. (per 0.5s)")
-        @Config.RangeDouble(min = 0.0, max = 100.0)
+        @Config.RangeDouble(min = 0.0, max = 0.5)
         public double rain = 0.1;
 
         @Config.Name("Hunger")
         @Config.LangKey("config.sanity.hunger")
         @Config.Comment("The sanity to decrease when player's foodLevel < 6. (per 0.5s)")
-        @Config.RangeDouble(min = 0.0, max = 100.0)
+        @Config.RangeDouble(min = 0.0, max = 0.5)
         public double hunger = 0.1;
 
         @Config.Name("Thirst")
         @Config.LangKey("config.sanity.thirst")
         @Config.Comment("The sanity to decrease when player's thirstLevel < 6. (per 0.5s, support ToughAsNails and SimpleDifficulty)")
-        @Config.RangeDouble(min = 0.0, max = 100.0)
+        @Config.RangeDouble(min = 0.0, max = 0.5)
         public double thirst = 0.1;
 
         @Config.Name("Choking")
         @Config.LangKey("config.sanity.choking")
         @Config.Comment("The sanity to decrease when player's air < 90. (per 0.5s)")
-        @Config.RangeDouble(min = 0.0, max = 100.0)
+        @Config.RangeDouble(min = 0.0, max = 0.5)
         public double choking = 0.1;
 
         @Config.Name("Dark")
         @Config.LangKey("config.sanity.dark")
         @Config.Comment("The sanity to decrease when players are in dark. (per 0.5s)")
-        @Config.RangeDouble(min = 0.0, max = 100.0)
+        @Config.RangeDouble(min = 0.0, max = 0.5)
         public double dark = 0.1;
 
         @Config.Name("Mob")
         @Config.LangKey("config.sanity.mob")
         @Config.Comment("The sanity to decrease when mobs are around player. (per 0.5s, within 8 blocks)")
-        @Config.RangeDouble(min = 0.0, max = 100.0)
+        @Config.RangeDouble(min = 0.0, max = 0.5)
         public double mob = 0.2;
 
         @Config.Name("Abnormal Player")
         @Config.LangKey("config.sanity.abnormal")
         @Config.Comment("The sanity to decrease when players are around a player with sanity < 50. (per 0.5s, within 5 blocks)")
-        @Config.RangeDouble(min = 0.0, max = 100.0)
+        @Config.RangeDouble(min = 0.0, max = 0.5)
         public double abnormal = 0.2;
 
         @Config.Name("Kill Mob")
@@ -155,19 +155,19 @@ public class Configuration {
         @Config.Name("Garland")
         @Config.LangKey("config.sanity.garland")
         @Config.Comment("The sanity to increase when players wear a garland. (per 0.5s)")
-        @Config.RangeDouble(min = 0.0, max = 100.0)
+        @Config.RangeDouble(min = 0.0, max = 0.5)
         public double garland = 0.2;
 
         @Config.Name("Pet")
         @Config.LangKey("config.sanity.pet")
         @Config.Comment("The sanity to increase when players stay with pets. (per 0.5s, within 5 blocks)")
-        @Config.RangeDouble(min = 0.0, max = 100.0)
+        @Config.RangeDouble(min = 0.0, max = 0.5)
         public double pet = 0.2;
 
         @Config.Name("Normal Player")
         @Config.LangKey("config.sanity.normal")
         @Config.Comment("The sanity to increase when players are around a player with sanity ≥ 50. (per 0.5s, within 5 blocks)")
-        @Config.RangeDouble(min = 0.0, max = 100.0)
+        @Config.RangeDouble(min = 0.0, max = 0.5)
         public double normal = 0.1;
 
         @Config.Name("Lost")
@@ -188,8 +188,8 @@ public class Configuration {
 
         @Config.Name("Entities")
         @Config.LangKey("config.sanity.entities")
-        @Config.Comment("The list of entities which will decrease sanity when players attack it. ('entity;value')")
-        public String[] entities = new String[]{"minecraft:enderman;1.0"};
+        @Config.Comment("The list of entities which will decrease or increase sanity when players stay with it. ('entity;value', per 0.5s, within 5 blocks)")
+        public String[] entities = new String[]{"minecraft:zombie_pigman;0.0"};
         
         @Config.Name("Equipment")
         @Config.LangKey("config.sanity.equipment")

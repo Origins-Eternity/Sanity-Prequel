@@ -24,6 +24,7 @@ public class Overlay extends Gui {
                     int posY = event.getResolution().getScaledHeight();
                     GlStateManager.enableBlend();
                     GlStateManager.pushMatrix();
+                    GlStateManager.color(1.0F, 1.0F, 1.0F);
                     if (Overlay.blood) {
                         drawBlood(player, posX, posY);
                     }

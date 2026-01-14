@@ -8,6 +8,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
@@ -19,6 +20,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.fml.common.Loader;
@@ -65,7 +67,7 @@ public class Utils {
         if (checkArmor(player) != 0) {
             value += checkArmor(player);
         }
-        return value + (checkHead(player) + checkFeet(player) + withCreature(player));
+        return value + checkBody(player) + withCreature(player);
     }
 
     public static int stackMatched(ItemStack item) {
@@ -122,7 +124,8 @@ public class Utils {
         int match = -1;
         for (int i = 0; i < Mechanics.entities.length; i++) {
             String[] parts = Mechanics.entities[i].split(";");
-            if (parts[0].equals(EntityList.getKey(entity).toString())) {
+            ResourceLocation name = EntityList.getKey(entity);
+            if (name != null && parts[0].equals(name.toString())) {
                 match = i;
                 break;
             }
@@ -153,55 +156,49 @@ public class Utils {
         return false;
     }
 
-    public static double checkFeet(EntityPlayer player) {
+    public static double checkBody(EntityPlayer player) {
         double value = 0;
-        BlockPos pos = new BlockPos(player);
-        IBlockState state = player.world.getBlockState(pos);
-        if (blockMatched(state) != -1) {
-            value = Double.parseDouble(Mechanics.blocks[blockMatched(state)].split(";")[1].trim());
-        }
-        return value;
-    }
-
-    public static double checkHead(EntityPlayer player) {
-        double value = 0;
-        BlockPos pos = new BlockPos(player);
-        IBlockState state = player.world.getBlockState(pos.up());
-        if (blockMatched(state) != -1) {
-            value = Double.parseDouble(Mechanics.blocks[blockMatched(state)].split(";")[1].trim());
-        }
+        BlockPos foot = new BlockPos(player);
+        BlockPos head = new BlockPos(player).up();
+        IBlockState down = player.world.getBlockState(foot);
+        IBlockState up = player.world.getBlockState(head);
+        int matchDown = blockMatched(down);
+        int matchUp = blockMatched(up);
+        value += matchDown != -1 ? Double.parseDouble(Mechanics.blocks[matchDown].split(";")[1].trim()) : 0;
+        value += matchUp != -1 ? Double.parseDouble(Mechanics.blocks[matchUp].split(";")[1].trim()) : 0;
         return value;
     }
 
     private static double withCreature(EntityPlayer player) {
         double value = 0;
         AxisAlignedBB box = player.getEntityBoundingBox().grow(5, 3, 5);
-        for (EntityTameable entity: player.world.getEntitiesWithinAABB(EntityTameable.class, box)) {
+        for (EntityLivingBase entity: player.world.getEntitiesWithinAABB(EntityLivingBase.class, box)) {
             if (entity != null) {
-                if (entity.isTamed() && entity.isOwner(player)) {
-                    value += Mechanics.pet;
-                    break;
+                int num = entityMatched(entity);
+                if (num != -1) {
+                    value += Double.parseDouble(Mechanics.entities[num].split(";")[1]);
+                    player.sendMessage(new TextComponentString(String.valueOf(value)));
+                    continue;
+                }
+                if (entity instanceof EntityTameable) {
+                    EntityTameable pet = (EntityTameable) entity;
+                    value += pet.isTamed() && pet.isOwner(player) ? Mechanics.pet : 0;
+                    player.sendMessage(new TextComponentString(String.valueOf(value)));
+                    continue;
+                }
+                if (entity instanceof EntityMob) {
+                    value -= Mechanics.mob;
+                    player.sendMessage(new TextComponentString(String.valueOf(value)));
+                    continue;
+                }
+                if (entity instanceof EntityPlayer && !(entity instanceof FakePlayer) && entity != player) {
+                    ISanity sanity = entity.getCapability(SANITY, null);
+                    value += sanity.getSanity() >= 50 ? Mechanics.normal : -Mechanics.abnormal;
+                    player.sendMessage(new TextComponentString(String.valueOf(value)));
                 }
             }
         }
-        for (EntityMob entity: player.world.getEntitiesWithinAABB(EntityMob.class, box)) {
-            if (entity != null) {
-                value -= Mechanics.mob;
-                break;
-            }
-        }
-        for (EntityPlayer entity: player.world.getEntitiesWithinAABB(EntityPlayer.class, box)) {
-            if (!(entity instanceof FakePlayer) && entity != player) {
-                ISanity sanity = entity.getCapability(SANITY, null);
-                if (sanity.getSanity() >= 50) {
-                    value += Mechanics.normal;
-                } else {
-                    value -= Mechanics.abnormal;
-                }
-                break;
-            }
-        }
-        return value;
+        return Math.max(Math.min(value, 0.5), -0.5);
     }
 
     public static boolean canEnable(EntityPlayer player) {
@@ -209,30 +206,23 @@ public class Utils {
     }
 
     private static boolean isThirst(EntityPlayer player) {
-        boolean thirst = false;
         if (Loader.isModLoaded("toughasnails")) {
             IThirst thirstStats = player.getCapability(TANCapabilities.THIRST, null);
-            if (thirstStats.getThirst() < 6) {
-                thirst = true;
-            }
+            return thirstStats.getThirst() < 6;
         }
         if (Loader.isModLoaded("simpledifficulty")) {
             IThirstCapability thirstStats1 = player.getCapability(SDCapabilities.THIRST, null);
-            if (thirstStats1.getThirstLevel() < 6) {
-                thirst = true;
-            }
+            return thirstStats1.getThirstLevel() < 6;
         }
-        return thirst;
+        return false;
     }
 
     public static boolean isMorphine(EntityPlayer player) {
-        boolean morphine = false;
         for (PotionEffect effect : player.getActivePotionEffects()) {
             if (effect.getEffectName().equals("item.morphine.name")) {
-                morphine = true;
-                break;
+                return true;
             }
         }
-        return morphine;
+        return false;
     }
 }

@@ -126,11 +126,7 @@ public class CommonEvent {
                 EntityPlayer player = (EntityPlayer) event.getSource().getTrueSource();
                 if (!player.isCreative()) {
                     ISanity sanity = player.getCapability(SANITY, null);
-                    int num = entityMatched(event.getEntity());
-                    if (num != -1) {
-                        double value = Double.parseDouble(Mechanics.entities[num].split(";")[1]);
-                        sanity.consumeSanity(value);
-                    } else if (event.getEntity() instanceof EntityAnimal) {
+                    if (event.getEntity() instanceof EntityAnimal) {
                         sanity.consumeSanity(Mechanics.attackAnimal);
                     } else if (event.getEntity() instanceof EntityVillager) {
                         sanity.consumeSanity(Mechanics.attackVillager);
