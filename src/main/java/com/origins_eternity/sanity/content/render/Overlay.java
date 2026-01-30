@@ -28,7 +28,8 @@ public class Overlay extends Gui {
                     if (Overlay.blood) {
                         drawBlood(player, posX, posY);
                     }
-                    posX = posX / 2 - 130 + Overlay.offX;
+                    int x = Overlay.position.equals("left") ? -130 : 97;
+                    posX = posX / 2 + x + Overlay.offX;
                     posY = posY - 29 - Overlay.offY;
                     if (Overlay.brain) {
                         drawBrain(player, posX, posY);
