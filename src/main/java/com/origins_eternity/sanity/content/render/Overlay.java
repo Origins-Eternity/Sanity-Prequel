@@ -4,6 +4,7 @@ import com.origins_eternity.sanity.content.capability.sanity.ISanity;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.util.EnumHandSide;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -28,7 +29,7 @@ public class Overlay extends Gui {
                     if (Overlay.blood) {
                         drawBlood(player, posX, posY);
                     }
-                    int x = Overlay.position.equals("left") ? -130 : 97;
+                    int x = player.getPrimaryHand() == EnumHandSide.LEFT ? -130 : 97;
                     posX = posX / 2 + x + Overlay.offX;
                     posY = posY - 29 - Overlay.offY;
                     if (Overlay.brain) {
