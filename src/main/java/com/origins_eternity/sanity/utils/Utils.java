@@ -22,7 +22,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.fml.common.Loader;
@@ -178,24 +177,20 @@ public class Utils {
                 int num = entityMatched(entity);
                 if (num != -1) {
                     value += Double.parseDouble(Mechanics.entities[num].split(";")[1]);
-                    player.sendMessage(new TextComponentString(String.valueOf(value)));
                     continue;
                 }
                 if (entity instanceof EntityTameable) {
                     EntityTameable pet = (EntityTameable) entity;
                     value += pet.isTamed() && pet.isOwner(player) ? Mechanics.pet : 0;
-                    player.sendMessage(new TextComponentString(String.valueOf(value)));
                     continue;
                 }
                 if (entity instanceof EntityMob) {
                     value -= Mechanics.mob;
-                    player.sendMessage(new TextComponentString(String.valueOf(value)));
                     continue;
                 }
                 if (entity instanceof EntityPlayer && !(entity instanceof FakePlayer) && entity != player) {
                     ISanity sanity = entity.getCapability(SANITY, null);
                     value += sanity.getSanity() >= 50 ? Mechanics.normal : -Mechanics.abnormal;
-                    player.sendMessage(new TextComponentString(String.valueOf(value)));
                 }
             }
         }
