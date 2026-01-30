@@ -184,7 +184,7 @@ public class Configuration {
         @Config.Name("Environment")
         @Config.LangKey("config.sanity.environment")
         @Config.Comment("The list of blocks or liquids which will decrease or increase sanity when players are in it. ('block;value', per 0.5s)")
-        public String[] blocks = new String[]{"minecraft:web;-0.1", "minecraft:water;-0.1"};
+        public String[] blocks = new String[]{"minecraft:web;-0.1"};
 
         @Config.Name("Entities")
         @Config.LangKey("config.sanity.entities")
@@ -241,6 +241,11 @@ public class Configuration {
     }
 
     public static class ConfigShader {
+        @Config.Name("Shader Effects")
+        @Config.LangKey("config.sanity.effect")
+        @Config.Comment("Whether to enable the shader effects.")
+        public boolean effect = true;
+
         @Config.Name("Level1")
         @Config.RequiresMcRestart
         @Config.LangKey("config.sanity.level1")

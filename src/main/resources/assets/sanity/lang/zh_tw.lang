@@ -94,12 +94,14 @@ config.sanity.blacklist.tooltip=反轉維度白名單。
 
 config.sanity.shader=著色器
 config.sanity.shader.tooltip=著色器配置
+config.sanity.effect=著色器效果
+config.sanity.effect.tooltip=是否啟用著色器效果。
 config.sanity.level1=一階段
-config.sanity.level1.tooltip=設置一階段著色器並在理智值小於設定值時啟用。（“著色器; 數值“）
+config.sanity.level1.tooltip=設置一階段著色器並在理智值小於設定值時啟用。（“著色器;數值“）
 config.sanity.level2=二階段
-config.sanity.level2.tooltip=設置二階段著色器並在理智值小於設定值時啟用。（“著色器; 數值“）
+config.sanity.level2.tooltip=設置二階段著色器並在理智值小於設定值時啟用。（“著色器;數值“）
 config.sanity.level3=三階段
-config.sanity.level3.tooltip=設置三階段著色器並在理智值小於設定值時啟用。（“著色器; 數值“）
+config.sanity.level3.tooltip=設置三階段著色器並在理智值小於設定值時啟用。（“著色器;數值“）
 
 commands.sanity.usage=/sanity <add|remove|set> [玩家] <数值>
 commands.sanity.disabled=理智在此維度中被禁用！

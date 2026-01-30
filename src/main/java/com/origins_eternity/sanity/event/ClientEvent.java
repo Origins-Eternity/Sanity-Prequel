@@ -75,50 +75,40 @@ public class ClientEvent {
     private static final int num2 = Integer.parseInt(Shader.level2.split(";")[1]);
     private static final int num3 = Integer.parseInt(Shader.level3.split(";")[1]);
 
-    static boolean level1, level2, level3;
-
-    private static void clearShader(EntityRenderer renderer) {
-        renderer.stopUseShader();
-        level1 = false;
-        level2 = false;
-        level3 = false;
-    }
-
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
     public static void onRenderTick(TickEvent.RenderTickEvent event) {
         EntityPlayer player = mc().player;
-        if (event.phase == TickEvent.Phase.END && player != null && OpenGlHelper.shadersSupported) {
+        if (Shader.effect && event.phase == TickEvent.Phase.END && player != null && OpenGlHelper.shadersSupported) {
             ISanity sanity = player.getCapability(SANITY, null);
             EntityRenderer renderer = mc().entityRenderer;
             if (!sanity.getEnable() || (Loader.isModLoaded("firstaid") && isMorphine(player))) {
-                if (level1 || level2 || level3) {
-                    clearShader(renderer);
-                }
+                clearShader(renderer);
             } else if (sanity.getSanity() <= num3) {
-                if (!level3 || !renderer.isShaderActive()) {
-                    renderer.loadShader(new ResourceLocation(LEVEL3));
-                    level3 = true;
-                    level1 = false;
-                    level2 = false;
-                }
+                useShader(renderer, LEVEL3);
             } else if (sanity.getSanity() <= num2) {
-                if (!level2 || !renderer.isShaderActive()) {
-                    renderer.loadShader(new ResourceLocation(LEVEL2));
-                    level2 = true;
-                    level1 = false;
-                    level3 = false;
-                }
+                useShader(renderer, LEVEL2);
             } else if (sanity.getSanity() <= num1) {
-                if (!level1 || !renderer.isShaderActive()) {
-                    renderer.loadShader(new ResourceLocation(LEVEL1));
-                    level1 = true;
-                    level2 = false;
-                    level3 = false;
-                }
-            } else if (level1 || level2 || level3) {
+                useShader(renderer, LEVEL1);
+            } else {
                 clearShader(renderer);
             }
+        }
+    }
+
+    private static String current = "default";
+
+    private static void clearShader(EntityRenderer renderer) {
+        if (!current.equals("default")) {
+            renderer.stopUseShader();
+            current = "default";
+        }
+    }
+
+    private static void useShader(EntityRenderer renderer, String name) {
+        if (!current.equals(name)) {
+            renderer.loadShader(new ResourceLocation(name));
+            current = name;
         }
     }
 }

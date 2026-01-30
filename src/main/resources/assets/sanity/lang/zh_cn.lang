@@ -94,6 +94,8 @@ config.sanity.blacklist.tooltip=反转维度白名单。
 
 config.sanity.shader=着色器
 config.sanity.shader.tooltip=着色器配置
+config.sanity.effect=着色器效果
+config.sanity.effect.tooltip=是否启用着色器效果。
 config.sanity.level1=一阶段
 config.sanity.level1.tooltip=设置一阶段着色器并在理智值小于设定值时启用。（"着色器;数值"）
 config.sanity.level2=二阶段

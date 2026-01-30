@@ -13,6 +13,7 @@ import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -20,6 +21,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.FakePlayer;
@@ -56,18 +58,17 @@ public class Utils {
         if (player.getAir() < 90) {
             value -= Mechanics.choking;
         }
-        if (player.fallDistance > 4f) {
-            value -= player.fallDistance * Mechanics.fall;
+        if (player.fallDistance > 4f && !player.isElytraFlying()) {
+            if (!player.isPotionActive(MobEffects.JUMP_BOOST)) {
+                value -= player.fallDistance * Mechanics.fall;
+            }
         }
         if (player.world.getLight(new BlockPos(player), true) < 4) {
             if (!player.isPotionActive(MobEffects.NIGHT_VISION)) {
                 value -= Mechanics.dark;
             }
         }
-        if (checkArmor(player) != 0) {
-            value += checkArmor(player);
-        }
-        return value + checkBody(player) + withCreature(player);
+        return value + checkArmor(player) + checkBody(player) + withCreature(player);
     }
 
     public static int stackMatched(ItemStack item) {
@@ -149,11 +150,11 @@ public class Utils {
 
     public static boolean isWet(EntityPlayer player) {
         BlockPos.PooledMutableBlockPos blockpos$pooledmutableblockpos = BlockPos.PooledMutableBlockPos.retain(player.posX, player.posY, player.posZ);
-        if (player.world.isRainingAt(blockpos$pooledmutableblockpos) || player.world.isRainingAt(blockpos$pooledmutableblockpos.setPos(player.posX, player.posY + (double)player.height, player.posZ))) {
+        if (player.world.isRainingAt(blockpos$pooledmutableblockpos) || player.world.isRainingAt(blockpos$pooledmutableblockpos.setPos(player.posX, player.posY + (double) player.height, player.posZ))) {
             blockpos$pooledmutableblockpos.release();
             return !player.getHeldItemMainhand().getItem().equals(UMBRELLA) && !player.getHeldItemOffhand().getItem().equals(UMBRELLA);
         }
-        return false;
+        return player.world.getBlockState(new BlockPos(player).up()).getBlock().equals(Blocks.WATER);
     }
 
     public static double checkBody(EntityPlayer player) {
@@ -198,7 +199,7 @@ public class Utils {
                 }
             }
         }
-        return Math.max(Math.min(value, 0.5), -0.5);
+        return MathHelper.clamp(value, -0.5, 0.5);
     }
 
     public static boolean canEnable(EntityPlayer player) {

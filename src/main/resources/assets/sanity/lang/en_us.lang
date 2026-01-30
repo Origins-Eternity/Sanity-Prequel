@@ -94,6 +94,8 @@ config.sanity.blacklist.tooltip=Make the list of dimensions blacklist.
 
 config.sanity.shader=Shader
 config.sanity.shader.tooltip=Shader Options
+config.sanity.effect=Shader Effects
+config.sanity.effect.tooltip=Whether to enable the shader effects.
 config.sanity.level1=Level1
 config.sanity.level1.tooltip=Set level1 shader and enable when sanity is lower than the value. ('shader;value')
 config.sanity.level2=Level2
