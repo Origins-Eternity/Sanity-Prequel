@@ -25,11 +25,12 @@ public class Overlay extends Gui {
                     int posY = event.getResolution().getScaledHeight();
                     GlStateManager.enableBlend();
                     GlStateManager.pushMatrix();
-                    GlStateManager.color(1.0F, 1.0F, 1.0F);
                     if (Overlay.blood) {
                         drawBlood(player, posX, posY);
                     }
-                    int x = player.getPrimaryHand() == EnumHandSide.LEFT ? -130 : 97;
+                    GlStateManager.color(1.0F, 1.0F, 1.0F);
+                    int x = ((player.getPrimaryHand() == EnumHandSide.RIGHT && player.getHeldItemOffhand().isEmpty())
+                            || (player.getPrimaryHand() == EnumHandSide.LEFT && !player.getHeldItemOffhand().isEmpty())) ? -130 : 97;
                     posX = posX / 2 + x + Overlay.offX;
                     posY = posY - 29 - Overlay.offY;
                     if (Overlay.brain) {
@@ -43,19 +44,17 @@ public class Overlay extends Gui {
         }
     }
 
+    static boolean start = false;
+    float alpha = 0;
+
     private void drawBlood(EntityPlayerSP player, int posX, int posY) {
         ISanity sanity = player.getCapability(SANITY, null);
-        if (sanity.getSanity() <= 60f) {
+        start = (sanity.getSanity() <= 60f && sanity.getDown() > 0);
+        if (start) {
             mc().getTextureManager().bindTexture(blood);
-            if (sanity.getDown() > 0) {
-                if (player.ticksExisted % 24 < 12) {
-                    GlStateManager.color(1.0f, 1.0f, 1.0f, player.ticksExisted % 24 / 30f + 0.2f);
-                } else {
-                    GlStateManager.color(1.0f, 1.0f, 1.0f, (24 - player.ticksExisted % 24) / 30f + 0.2f);
-                }
-                drawScaledCustomSizeModalRect(0, 0, 0, 0, 100, 58, posX, posY, 100, 58);
-                GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
-            }
+            GlStateManager.color(1.0f, 1.0f, 1.0f, alpha);
+            drawScaledCustomSizeModalRect(0, 0, 0, 0, 100, 58, posX, posY, 100, 58);
+            alpha += 0.03f;
         }
     }
 

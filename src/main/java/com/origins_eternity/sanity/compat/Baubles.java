@@ -4,12 +4,15 @@ import baubles.api.BaubleType;
 import baubles.api.BaublesApi;
 import baubles.api.IBauble;
 import baubles.api.cap.IBaublesItemHandler;
-import com.origins_eternity.sanity.Sanity;
+import baubles.api.render.IRenderBauble;
 import com.origins_eternity.sanity.content.capability.Capabilities;
 import com.origins_eternity.sanity.content.capability.sanity.ISanity;
 import com.origins_eternity.sanity.content.sound.Sounds;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFlower;
+import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -22,15 +25,20 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
+import static com.origins_eternity.sanity.Sanity.MOD_ID;
 import static com.origins_eternity.sanity.config.Configuration.Mechanics;
 import static com.origins_eternity.sanity.content.tab.CreativeTab.SANITY;
 import static com.origins_eternity.sanity.utils.Utils.isWet;
+import static com.origins_eternity.sanity.utils.proxy.ClientProxy.mc;
 
-public class Baubles extends ItemArmor implements IBauble {
+public class Baubles extends ItemArmor implements IBauble, IRenderBauble {
+
     public Baubles(ArmorMaterial material, int renderIndex, EntityEquipmentSlot equipmentSlot, String name, int maxdamage) {
         super(material, renderIndex, equipmentSlot);
-        setTranslationKey(Sanity.MOD_ID + "." + name.toLowerCase());
+        setTranslationKey(MOD_ID + "." + name.toLowerCase());
         setRegistryName(name.toLowerCase());
         setMaxDamage(maxdamage);
         setNoRepair();
@@ -44,10 +52,11 @@ public class Baubles extends ItemArmor implements IBauble {
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
-        if(!world.isRemote) {
+        if (!world.isRemote) {
             IBaublesItemHandler baubles = BaublesApi.getBaublesHandler(player);
-            if ((baubles.getStackInSlot(4) == null || baubles.getStackInSlot(4).isEmpty()) && baubles.isItemValidForSlot(4, player.getHeldItem(hand), player)) {
-                baubles.setStackInSlot(4, player.getHeldItem(hand).copy());
+            int slot = BaubleType.HEAD.getValidSlots()[0];
+            if ((baubles.getStackInSlot(slot) == null || baubles.getStackInSlot(slot).isEmpty()) && baubles.isItemValidForSlot(slot, player.getHeldItem(hand), player)) {
+                baubles.setStackInSlot(slot, player.getHeldItem(hand).copy());
                 if (!player.capabilities.isCreativeMode) {
                     player.inventory.setInventorySlotContents(player.inventory.currentItem, ItemStack.EMPTY);
                 }
@@ -107,5 +116,34 @@ public class Baubles extends ItemArmor implements IBauble {
     @Override
     public EnumRarity getRarity(ItemStack ItemStack) {
         return EnumRarity.COMMON;
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public ModelBiped getArmorModel(EntityLivingBase entity, ItemStack stack, EntityEquipmentSlot slot, ModelBiped defaultModel) {
+        if (slot == EntityEquipmentSlot.HEAD) {
+            return new ModelBiped(1.0F);
+        }
+        return null;
+    }
+
+    @Override
+    public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
+        return MOD_ID + ":textures/models/armor/flower_layer_1.png";
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, baubles.api.render.IRenderBauble.RenderType type, float partialTicks) {
+        if (type == baubles.api.render.IRenderBauble.RenderType.HEAD) {
+            ModelBiped armorModel = getArmorModel(player, stack, EntityEquipmentSlot.HEAD, null);
+            if (armorModel != null && player.getItemStackFromSlot(EntityEquipmentSlot.HEAD).isEmpty()) {
+                GlStateManager.pushMatrix();
+                GlStateManager.rotate(-90.0F, 0.0F, 1.0F, 0.0F);
+                mc().getTextureManager().bindTexture(new ResourceLocation(getArmorTexture(stack, player, EntityEquipmentSlot.HEAD, null)));
+                armorModel.bipedHead.render(0.0625F);
+                GlStateManager.popMatrix();
+            }
+        }
     }
 }
