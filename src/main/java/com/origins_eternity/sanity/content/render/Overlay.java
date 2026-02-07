@@ -44,17 +44,23 @@ public class Overlay extends Gui {
         }
     }
 
-    static boolean start = false;
-    float alpha = 0;
+    boolean start = false;
+    int startTicks = 0;
+    float alpha = 0f;
 
     private void drawBlood(EntityPlayerSP player, int posX, int posY) {
         ISanity sanity = player.getCapability(SANITY, null);
-        start = (sanity.getSanity() <= 60f && sanity.getDown() > 0);
-        if (start) {
-            mc().getTextureManager().bindTexture(blood);
+        mc().getTextureManager().bindTexture(blood);
+        if ((sanity.getSanity() <= 60f && sanity.getDown() > 0) || alpha > 0.01f) {
+            if (!start) {
+                startTicks = player.ticksExisted;
+                start = true;
+            }
+            alpha = (float) Math.abs(Math.sin((player.ticksExisted - startTicks) * 0.1f));
             GlStateManager.color(1.0f, 1.0f, 1.0f, alpha);
             drawScaledCustomSizeModalRect(0, 0, 0, 0, 100, 58, posX, posY, 100, 58);
-            alpha += 0.03f;
+        } else {
+            start = false;
         }
     }
 
