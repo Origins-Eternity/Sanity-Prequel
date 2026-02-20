@@ -3,7 +3,9 @@ package com.origins_eternity.sanity.utils;
 import com.charles445.simpledifficulty.api.SDCapabilities;
 import com.charles445.simpledifficulty.api.thirst.IThirstCapability;
 import com.origins_eternity.sanity.content.capability.sanity.ISanity;
+import com.origins_eternity.sanity.content.potion.Potions;
 import com.origins_eternity.sanity.message.SyncSanity;
+import ichttt.mods.firstaid.common.EventHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -17,7 +19,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -28,12 +29,10 @@ import net.minecraftforge.fml.common.Loader;
 import toughasnails.api.TANCapabilities;
 import toughasnails.api.stat.capability.IThirst;
 
-import java.util.Arrays;
-
 import static com.origins_eternity.sanity.Sanity.packetHandler;
 import static com.origins_eternity.sanity.config.Configuration.Mechanics;
 import static com.origins_eternity.sanity.content.capability.Capabilities.SANITY;
-import static com.origins_eternity.sanity.content.umbrella.Umbrellas.UMBRELLA;
+import static com.origins_eternity.sanity.content.tool.Umbrella.UMBRELLA;
 
 public class Utils {
     public static void syncSanity(EntityPlayer player) {
@@ -197,10 +196,6 @@ public class Utils {
         return MathHelper.clamp(value, -0.5, 0.5);
     }
 
-    public static boolean canEnable(EntityPlayer player) {
-        return Mechanics.blacklist ? Arrays.stream(Mechanics.dimensions).noneMatch(num -> num == player.dimension) : Arrays.stream(Mechanics.dimensions).anyMatch(num -> num == player.dimension);
-    }
-
     private static boolean isThirst(EntityPlayer player) {
         if (Loader.isModLoaded("toughasnails")) {
             IThirst thirstStats = player.getCapability(TANCapabilities.THIRST, null);
@@ -213,12 +208,7 @@ public class Utils {
         return false;
     }
 
-    public static boolean isMorphine(EntityPlayer player) {
-        for (PotionEffect effect : player.getActivePotionEffects()) {
-            if (effect.getEffectName().equals("item.morphine.name")) {
-                return true;
-            }
-        }
-        return false;
+    public static boolean isAwake(EntityPlayer player) {
+        return player.isPotionActive(Potions.Composure) || (Loader.isModLoaded("firstaid") && player.isPotionActive(EventHandler.MORPHINE));
     }
 }

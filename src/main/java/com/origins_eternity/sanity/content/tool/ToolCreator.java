@@ -1,4 +1,4 @@
-package com.origins_eternity.sanity.content;
+package com.origins_eternity.sanity.content.tool;
 
 import com.origins_eternity.sanity.Sanity;
 import net.minecraft.block.state.IBlockState;
@@ -13,8 +13,8 @@ import java.util.Collections;
 
 import static com.origins_eternity.sanity.content.tab.CreativeTab.SANITY;
 
-public class UmbrellaCreator extends ItemTool {
-    public UmbrellaCreator(ToolMaterial material, String name, int maxdamage) {
+public class ToolCreator extends ItemTool {
+    public ToolCreator(ToolMaterial material, String name, int maxdamage) {
         super(0f, -3.5f, material, Collections.emptySet());
         setTranslationKey(Sanity.MOD_ID + "." + name.toLowerCase());
         setRegistryName(name.toLowerCase());

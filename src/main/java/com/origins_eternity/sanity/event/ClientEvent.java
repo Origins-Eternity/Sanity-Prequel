@@ -8,7 +8,6 @@ import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
-import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
@@ -20,7 +19,7 @@ import static com.origins_eternity.sanity.Sanity.MOD_ID;
 import static com.origins_eternity.sanity.config.Configuration.*;
 import static com.origins_eternity.sanity.content.capability.Capabilities.SANITY;
 import static com.origins_eternity.sanity.content.sound.Sounds.INSANITY;
-import static com.origins_eternity.sanity.utils.Utils.isMorphine;
+import static com.origins_eternity.sanity.utils.Utils.isAwake;
 import static com.origins_eternity.sanity.utils.proxy.ClientProxy.mc;
 
 @Mod.EventBusSubscriber(modid = MOD_ID)
@@ -37,7 +36,7 @@ public class ClientEvent {
         EntityPlayer player = event.player;
         if (!player.isCreative() && !player.isSpectator() && player == mc().player) {
             ISanity sanity = player.getCapability(SANITY, null);
-            if (!sanity.getEnable() || (Loader.isModLoaded("firstaid") && isMorphine(player))) return;
+            if (!sanity.getEnable() || isAwake(player)) return;
             if (sanity.getSanity() <= 50f) {
                 confusing--;
                 if (confusing <= 0) {
@@ -82,7 +81,7 @@ public class ClientEvent {
         if (Shader.effect && event.phase == TickEvent.Phase.END && player != null && OpenGlHelper.shadersSupported) {
             ISanity sanity = player.getCapability(SANITY, null);
             EntityRenderer renderer = mc().entityRenderer;
-            if (!sanity.getEnable() || (Loader.isModLoaded("firstaid") && isMorphine(player))) {
+            if (!sanity.getEnable() || isAwake(player)) {
                 clearShader(renderer);
             } else if (sanity.getSanity() <= num3) {
                 useShader(renderer, LEVEL3);

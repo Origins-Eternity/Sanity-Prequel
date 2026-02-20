@@ -11,7 +11,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import static com.origins_eternity.sanity.config.Configuration.Overlay;
 import static com.origins_eternity.sanity.content.capability.Capabilities.SANITY;
 import static com.origins_eternity.sanity.event.ClientEvent.flash;
-import static com.origins_eternity.sanity.utils.Utils.canEnable;
 import static com.origins_eternity.sanity.utils.proxy.ClientProxy.*;
 
 public class Overlay extends Gui {
@@ -19,27 +18,25 @@ public class Overlay extends Gui {
     public void onRenderGameOverlay(RenderGameOverlayEvent.Post event) {
         if (event.getType() == RenderGameOverlayEvent.ElementType.EXPERIENCE) {
             EntityPlayerSP player = mc().player;
-            if (canEnable(player)) {
-                if (!player.isCreative() && !player.isSpectator()) {
-                    int posX = event.getResolution().getScaledWidth();
-                    int posY = event.getResolution().getScaledHeight();
-                    GlStateManager.enableBlend();
-                    GlStateManager.pushMatrix();
-                    if (Overlay.blood) {
-                        drawBlood(player, posX, posY);
-                    }
-                    GlStateManager.color(1.0F, 1.0F, 1.0F);
-                    int x = ((player.getPrimaryHand() == EnumHandSide.RIGHT && player.getHeldItemOffhand().isEmpty())
-                            || (player.getPrimaryHand() == EnumHandSide.LEFT && !player.getHeldItemOffhand().isEmpty())) ? -130 : 97;
-                    posX = posX / 2 + x + Overlay.offX;
-                    posY = posY - 29 - Overlay.offY;
-                    if (Overlay.brain) {
-                        drawBrain(player, posX, posY);
-                    }
-                    GlStateManager.popMatrix();
-                    mc().getTextureManager().bindTexture(Gui.ICONS);
-                    GlStateManager.disableBlend();
+            if (!player.isCreative() && !player.isSpectator()) {
+                int posX = event.getResolution().getScaledWidth();
+                int posY = event.getResolution().getScaledHeight();
+                GlStateManager.enableBlend();
+                GlStateManager.pushMatrix();
+                if (Overlay.blood) {
+                    drawBlood(player, posX, posY);
                 }
+                GlStateManager.color(1.0F, 1.0F, 1.0F);
+                int x = ((player.getPrimaryHand() == EnumHandSide.RIGHT && player.getHeldItemOffhand().isEmpty())
+                        || (player.getPrimaryHand() == EnumHandSide.LEFT && !player.getHeldItemOffhand().isEmpty())) ? -130 : 97;
+                posX = posX / 2 + x + Overlay.offX;
+                posY = posY - 29 - Overlay.offY;
+                if (Overlay.brain) {
+                    drawBrain(player, posX, posY);
+                }
+                GlStateManager.popMatrix();
+                mc().getTextureManager().bindTexture(Gui.ICONS);
+                GlStateManager.disableBlend();
             }
         }
     }

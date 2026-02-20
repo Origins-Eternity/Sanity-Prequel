@@ -11,9 +11,11 @@ import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 
-@Mod(modid = "sanity", name = "Sanity: Prequel", version = "1.3.3")
+@Mod(modid = Sanity.MOD_ID, name = Sanity.MOD_NAME, version = Sanity.VERSION, dependencies = "required-after:baubles@[1.5.2,);")
 public class Sanity {
 	public static final String MOD_ID = "sanity";
+	public static final String MOD_NAME = "Sanity: Prequel";
+	public static final String VERSION = "1.3.3";
 	
 	@SidedProxy(clientSide = "com.origins_eternity.sanity.utils.proxy.ClientProxy", serverSide = "com.origins_eternity.sanity.utils.proxy.CommonProxy")
 	public static CommonProxy proxy;

@@ -1,7 +1,8 @@
 package com.origins_eternity.sanity.event;
 
+import baubles.api.BaubleType;
 import baubles.api.BaublesApi;
-import com.origins_eternity.sanity.content.armor.Armors;
+import com.origins_eternity.sanity.content.armor.Garland;
 import com.origins_eternity.sanity.content.capability.Capabilities;
 import com.origins_eternity.sanity.content.capability.sanity.ISanity;
 import com.origins_eternity.sanity.content.capability.sanity.Sanity;
@@ -30,11 +31,12 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerChangedDimensionEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
+import java.util.Arrays;
+
 import static com.origins_eternity.sanity.Sanity.MOD_ID;
 import static com.origins_eternity.sanity.compat.Thaumcraft.getWarp;
 import static com.origins_eternity.sanity.config.Configuration.Mechanics;
 import static com.origins_eternity.sanity.content.capability.Capabilities.SANITY;
-import static com.origins_eternity.sanity.content.umbrella.Umbrellas.UMBRELLA;
 import static com.origins_eternity.sanity.utils.Utils.*;
 
 @Mod.EventBusSubscriber(modid = MOD_ID)
@@ -144,7 +146,6 @@ public class CommonEvent {
         if ((!player.isSpectator()) && (!player.isCreative())) {
             if (player.ticksExisted % 10 == 0 && !player.world.isRemote) {
                 ISanity sanity = player.getCapability(SANITY, null);
-                sanity.setEnable(canEnable(player));
                 if (Loader.isModLoaded("thaumcraft")) {
                     sanity.setMax(100 - getWarp(player));
                     if (sanity.getSanity() > sanity.getMax()) {
@@ -196,6 +197,7 @@ public class CommonEvent {
         EntityPlayer player = event.player;
         if (!player.isCreative() && !player.world.isRemote) {
             ISanity sanity = player.getCapability(SANITY, null);
+            sanity.setEnable(Mechanics.blacklist ? Arrays.stream(Mechanics.dimensions).noneMatch(num -> num == player.dimension) : Arrays.stream(Mechanics.dimensions).anyMatch(num -> num == player.dimension));
             sanity.consumeSanity(Mechanics.trip);
         }
     }
@@ -234,17 +236,11 @@ public class CommonEvent {
                     damage = 10;
                 }
                 if (damage != 0) {
-                    if (player.getItemStackFromSlot(EntityEquipmentSlot.HEAD).getItem().getRegistryName().equals(new ResourceLocation("sanity:garland"))) {
+                    if (player.getItemStackFromSlot(EntityEquipmentSlot.HEAD).getItem().equals(Garland.GARLAND)) {
                         player.getItemStackFromSlot(EntityEquipmentSlot.HEAD).damageItem(damage, player);
                     }
-                    if (Loader.isModLoaded("baubles") && BaublesApi.getBaublesHandler(player).getStackInSlot(4).getItem().equals(Armors.GARLAND)) {
-                        BaublesApi.getBaublesHandler(player).getStackInSlot(4).damageItem(damage, player);
-                    }
-                    if (player.getHeldItemMainhand().getItem().equals(UMBRELLA)) {
-                        player.getHeldItemMainhand().damageItem(damage, player);
-                    }
-                    if (player.getHeldItemOffhand().getItem().equals(UMBRELLA)) {
-                        player.getHeldItemOffhand().damageItem(damage, player);
+                    if (BaublesApi.getBaublesHandler(player).getStackInSlot(BaubleType.HEAD.getValidSlots()[0]).getItem().equals(Garland.GARLAND)) {
+                        BaublesApi.getBaublesHandler(player).getStackInSlot(BaubleType.HEAD.getValidSlots()[0]).damageItem(damage, player);
                     }
                 }
             }

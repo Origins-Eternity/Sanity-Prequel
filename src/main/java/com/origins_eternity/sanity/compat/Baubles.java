@@ -52,20 +52,21 @@ public class Baubles extends ItemArmor implements IBauble, IRenderBauble {
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
-        if (!world.isRemote) {
-            IBaublesItemHandler baubles = BaublesApi.getBaublesHandler(player);
-            int slot = BaubleType.HEAD.getValidSlots()[0];
-            if ((baubles.getStackInSlot(slot) == null || baubles.getStackInSlot(slot).isEmpty()) && baubles.isItemValidForSlot(slot, player.getHeldItem(hand), player)) {
-                baubles.setStackInSlot(slot, player.getHeldItem(hand).copy());
-                if (!player.capabilities.isCreativeMode) {
-                    player.inventory.setInventorySlotContents(player.inventory.currentItem, ItemStack.EMPTY);
-                }
-                onEquipped(player.getHeldItem(hand), player);
-            }
+        ItemStack stack = player.getHeldItem(hand);
+        IBaublesItemHandler baubles = BaublesApi.getBaublesHandler(player);
+        int slot = BaubleType.HEAD.getValidSlots()[0];
+        if (baubles.getStackInSlot(slot).isEmpty()) {
+            baubles.setStackInSlot(slot, stack.copy());
+            stack.setCount(0);
+            onEquipped(player.getHeldItem(hand), player);
+        } else if (player.getItemStackFromSlot(EntityEquipmentSlot.HEAD).isEmpty()) {
+            player.setItemStackToSlot(EntityEquipmentSlot.HEAD, stack.copy());
+            stack.setCount(0);
         } else {
-            player.playSound(Sounds.FLOWERS_EQUIP, .75F, 2f);
+            return new ActionResult<>(EnumActionResult.FAIL, stack);
         }
-        return new ActionResult<>(EnumActionResult.SUCCESS, player.getHeldItem(hand));
+        player.playSound(Sounds.FLOWERS_EQUIP, .75F, 2f);
+        return new ActionResult<>(EnumActionResult.SUCCESS, stack);
     }
 
     @Override
@@ -73,7 +74,7 @@ public class Baubles extends ItemArmor implements IBauble, IRenderBauble {
         EntityPlayer player = (EntityPlayer) entity;
         if (player.ticksExisted % 10 == 0) {
             ISanity sanity = player.getCapability(Capabilities.SANITY, null);
-            if (sanity.getDown() == 0f) {
+            if (sanity.getDown() == 0f && !player.getItemStackFromSlot(EntityEquipmentSlot.HEAD).getItem().equals(this)) {
                 sanity.recoverSanity(Mechanics.garland);
             }
             if (isWet(player)) {
@@ -88,18 +89,15 @@ public class Baubles extends ItemArmor implements IBauble, IRenderBauble {
     public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
         if (player.ticksExisted % 10 == 0) {
             ISanity sanity = player.getCapability(Capabilities.SANITY, null);
-            if (player.getItemStackFromSlot(EntityEquipmentSlot.HEAD).getItem().equals(this)) {
-                ItemStack bauble = BaublesApi.getBaublesHandler(player).getStackInSlot(4);
-                if (sanity.getDown() == 0f && !bauble.getItem().equals(this)) {
-                    sanity.recoverSanity(Mechanics.garland);
-                }
-                if (isWet(player)) {
-                    if (player.ticksExisted % 20 == 0) {
-                        stack.damageItem(1, player);
-                    }
-                }
-                super.onArmorTick(world, player, stack);
+            if (sanity.getDown() == 0f) {
+                sanity.recoverSanity(Mechanics.garland);
             }
+            if (isWet(player)) {
+                if (player.ticksExisted % 20 == 0) {
+                    stack.damageItem(1, player);
+                }
+            }
+            super.onArmorTick(world, player, stack);
         }
     }
 
