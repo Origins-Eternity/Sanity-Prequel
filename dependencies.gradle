@@ -1,0 +1,10 @@
+dependencies {
+    minecraft "net.minecraftforge:forge:${minecraftVersion}-${forgeVersion}"
+
+    compileOnly "curse.maven:ftbquests-289412:3156637"
+    compileOnly "curse.maven:ftblib-237167:2985811"
+    compileOnly "curse.maven:toughasnails-246391:2710969"
+    compileOnly "curse.maven:simpledifficulty-360779:3613814"
+    compileOnly "curse.maven:crafttweaker-239197:6061762"
+    compileOnly "curse.maven:thaumcraft-223628:2628773"
+}
