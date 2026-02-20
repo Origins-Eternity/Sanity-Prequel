@@ -30,9 +30,7 @@ public class ContentRegister {
 
     @SubscribeEvent
     public static void registerPotionTypes(RegistryEvent.Register<PotionType> event) {
-        event.getRegistry().register(Composure_Potion);
-        event.getRegistry().register(Long_Composure_Potion);
-        event.getRegistry().register(Strong_Composure_Potion);
+        event.getRegistry().registerAll(Composure_Potion, Long_Composure_Potion, Strong_Composure_Potion);
     }
 
     @SubscribeEvent

@@ -11,7 +11,7 @@ import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 
-@Mod(modid = "sanity", name = "Sanity: Prequel", version = "1.3.2")
+@Mod(modid = "sanity", name = "Sanity: Prequel", version = "1.3.3")
 public class Sanity {
 	public static final String MOD_ID = "sanity";
 	
