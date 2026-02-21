@@ -21,10 +21,10 @@ public class Configuration {
     @Config.LangKey("config.sanity.overlay")
     public static ConfigOverlay Overlay = new ConfigOverlay();
 
-    @Config.Name("Shader")
-    @Config.Comment("Shader Options")
-    @Config.LangKey("config.sanity.shader")
-    public static ConfigShader Shader = new ConfigShader();
+    @Config.Name("Effects")
+    @Config.Comment("Effects Options")
+    @Config.LangKey("config.sanity.effects")
+    public static ConfigEffect Effect = new ConfigEffect();
 
     public static class ConfigMechanics {
         @Config.Name("Reset Sanity")
@@ -195,11 +195,6 @@ public class Configuration {
         @Config.LangKey("config.sanity.equipment")
         @Config.Comment("The list of equipment which will decrease or increase sanity when players wear it. ('equipment;value', per 0.5s)")
         public String[] equipment = new String[]{"minecraft:pumpkin;-0.1"};
-        
-        @Config.Name("Sounds")
-        @Config.LangKey("config.sanity.sounds")
-        @Config.Comment("The list of sounds which will play randomly when sanity is low.")
-        public String[] sounds = new String[]{"entity.creeper.primed", "entity.tnt.primed", "entity.skeleton.ambient", "entity.skeleton.step", "entity.zombie.ambient", "entity.zombie.step", "entity.enderman.ambient", "entity.hostile.big_fall", "block.chest.open", "block.chest.close", "block.wooden_door.open", "block.wooden_trapdoor.open", "entity.wolf.growl"};
 
         @Config.Name("Dimensions")
         @Config.LangKey("config.sanity.dimensions")
@@ -213,24 +208,19 @@ public class Configuration {
     }
 
     public static class ConfigOverlay {
-        @Config.Name("Blood Overlay")
-        @Config.LangKey("config.sanity.blood")
-        @Config.Comment("Whether to enable the blood overlay or not.")
-        public boolean blood = true;
-
         @Config.Name("Brain Overlay")
         @Config.LangKey("config.sanity.brain")
         @Config.Comment("Whether to enable the brain overlay or not.")
         public boolean brain = true;
 
-        @Config.Name("Brain OffX")
+        @Config.Name("Brain Overlay OffX")
         @Config.LangKey("config.sanity.offx")
-        @Config.Comment("Offset on x of the Brain. A positive number means a shift to the right.")
+        @Config.Comment("Offset on x of the brain overlay. A positive number means a shift to the right.")
         public int offX = 0;
 
-        @Config.Name("Brain OffY")
+        @Config.Name("Brain Overlay OffY")
         @Config.LangKey("config.sanity.offy")
-        @Config.Comment("Offset on y of the Brain. A positive number means a shift to the top.")
+        @Config.Comment("Offset on y of the brain overlay. A positive number means a shift to the top.")
         public int offY = 0;
 
         @Config.Name("Hand Check")
@@ -238,18 +228,29 @@ public class Configuration {
         @Config.Comment("Whether to mirror the position of brain overlay to the other side automatically based on the status of the hands.")
         public boolean check = true;
 
-        @Config.Name("Brain Flash Time")
+        @Config.Name("Brain Overlay Flash Time")
         @Config.LangKey("config.sanity.flash")
-        @Config.Comment("How many seconds the brain should be visible when sanity changed. (set this to -1 to disable)")
+        @Config.Comment("How many seconds the brain overlay should be visible when sanity changed. (set this to -1 to disable)")
         @Config.RangeInt(min = -1, max = 30)
         public int flash = -1;
+
+        @Config.Name("Brain Overlay Shake")
+        @Config.LangKey("config.sanity.shake")
+        @Config.Comment("Make brain overlay shake on screen when sanity is lower than the value. (set this to -1 to disable)")
+        @Config.RangeInt(min = -1, max = 100)
+        public int shake = 60;
+
+        @Config.Name("Blood Overlay")
+        @Config.LangKey("config.sanity.blood")
+        @Config.Comment("Enable blood overlay when sanity is lower than the value. (set this to -1 to disable)")
+        public int blood = 60;
     }
 
-    public static class ConfigShader {
+    public static class ConfigEffect {
         @Config.Name("Shader Effects")
-        @Config.LangKey("config.sanity.effect")
+        @Config.LangKey("config.sanity.shader")
         @Config.Comment("Whether to enable the shader effects.")
-        public boolean effect = true;
+        public boolean shader = true;
 
         @Config.Name("Level1")
         @Config.RequiresMcRestart
@@ -268,6 +269,21 @@ public class Configuration {
         @Config.LangKey("config.sanity.level3")
         @Config.Comment("Set level3 shader and enable when sanity is lower than the value. ('shader;value')")
         public String level3 = "bits.json;10";
+
+        @Config.Name("Sound Effects")
+        @Config.LangKey("config.sanity.sound")
+        @Config.Comment("Play random sounds when sanity is lower than the value. (set this to -1 to disable)")
+        public int sound = 50;
+
+        @Config.Name("Random Sounds")
+        @Config.LangKey("config.sanity.sounds")
+        @Config.Comment("The list of sounds which will play randomly when sanity is low.")
+        public String[] sounds = new String[]{"entity.creeper.primed", "entity.tnt.primed", "entity.skeleton.ambient", "entity.skeleton.step", "entity.zombie.ambient", "entity.zombie.step", "entity.enderman.ambient", "entity.hostile.big_fall", "block.chest.open", "block.chest.close", "block.wooden_door.open", "block.wooden_trapdoor.open", "entity.wolf.growl"};
+
+        @Config.Name("Whisper Effects")
+        @Config.LangKey("config.sanity.whisper")
+        @Config.Comment("Play whispering when sanity is lower than the value. (set this to -1 to disable)")
+        public int whisper = 45;
     }
 
     @Mod.EventBusSubscriber(modid = MOD_ID)

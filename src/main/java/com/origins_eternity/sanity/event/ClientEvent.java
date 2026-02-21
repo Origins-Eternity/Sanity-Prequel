@@ -16,7 +16,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import scala.util.Random;
 
 import static com.origins_eternity.sanity.Sanity.MOD_ID;
-import static com.origins_eternity.sanity.config.Configuration.*;
+import static com.origins_eternity.sanity.config.Configuration.Effect;
+import static com.origins_eternity.sanity.config.Configuration.Overlay;
 import static com.origins_eternity.sanity.content.capability.Capabilities.SANITY;
 import static com.origins_eternity.sanity.content.sound.Sounds.INSANITY;
 import static com.origins_eternity.sanity.utils.Utils.isAwake;
@@ -26,7 +27,7 @@ import static com.origins_eternity.sanity.utils.proxy.ClientProxy.mc;
 public class ClientEvent {
     private static final Random rand = new Random();
 
-    static int confusing;
+    static int sound;
     static int whisper;
     public static int flash = Overlay.flash;
 
@@ -37,23 +38,23 @@ public class ClientEvent {
         if (!player.isCreative() && !player.isSpectator() && player == mc().player) {
             ISanity sanity = player.getCapability(SANITY, null);
             if (!sanity.getEnable() || isAwake(player)) return;
-            if (sanity.getSanity() <= 50f) {
-                confusing--;
-                if (confusing <= 0) {
-                    int number = rand.nextInt(Mechanics.sounds.length);
-                    SoundEvent sound = SoundEvent.REGISTRY.getObject(new ResourceLocation(Mechanics.sounds[number]));
-                    if (sound != null) {
-                        player.playSound(sound, 1f, 0.5f);
+            if (sanity.getSanity() < Effect.sound) {
+                sound--;
+                if (sound <= 0) {
+                    int number = rand.nextInt(Effect.sounds.length);
+                    SoundEvent sounds = SoundEvent.REGISTRY.getObject(new ResourceLocation(Effect.sounds[number]));
+                    if (sounds != null) {
+                        player.playSound(sounds, 1f, 0.5f);
                     }
-                    confusing = rand.nextInt(600) + 800;
+                    sound = rand.nextInt(600) + 800;
                 }
-                if (sanity.getSanity() <= 45f) {
-                    whisper--;
-                    ISound insanity = PositionedSoundRecord.getMasterRecord(INSANITY, 1f);
-                    if (whisper <= 0) {
-                        mc().getSoundHandler().playSound(insanity);
-                        whisper = 680;
-                    }
+            }
+            if (sanity.getSanity() < Effect.whisper) {
+                whisper--;
+                ISound insanity = PositionedSoundRecord.getMasterRecord(INSANITY, 1f);
+                if (whisper <= 0) {
+                    mc().getSoundHandler().playSound(insanity);
+                    whisper = 680;
                 }
             }
             if (Overlay.flash != -1) {
@@ -66,29 +67,29 @@ public class ClientEvent {
         }
     }
 
-    private static final String LEVEL1 = "shaders/post/" + Shader.level1.split(";")[0];
-    private static final String LEVEL2 = "shaders/post/" + Shader.level2.split(";")[0];
-    private static final String LEVEL3 = "shaders/post/" + Shader.level3.split(";")[0];
+    private static final String LEVEL1 = "shaders/post/" + Effect.level1.split(";")[0];
+    private static final String LEVEL2 = "shaders/post/" + Effect.level2.split(";")[0];
+    private static final String LEVEL3 = "shaders/post/" + Effect.level3.split(";")[0];
 
-    private static final int num1 = Integer.parseInt(Shader.level1.split(";")[1]);
-    private static final int num2 = Integer.parseInt(Shader.level2.split(";")[1]);
-    private static final int num3 = Integer.parseInt(Shader.level3.split(";")[1]);
+    private static final int num1 = Integer.parseInt(Effect.level1.split(";")[1]);
+    private static final int num2 = Integer.parseInt(Effect.level2.split(";")[1]);
+    private static final int num3 = Integer.parseInt(Effect.level3.split(";")[1]);
 
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
     public static void onRenderTick(TickEvent.RenderTickEvent event) {
         EntityPlayer player = mc().player;
-        if (Shader.effect && event.phase == TickEvent.Phase.END && player != null && OpenGlHelper.shadersSupported) {
+        if (Effect.shader && event.phase == TickEvent.Phase.END && player != null && OpenGlHelper.shadersSupported) {
             ISanity sanity = player.getCapability(SANITY, null);
             EntityRenderer renderer = mc().entityRenderer;
             if (!sanity.getEnable() || isAwake(player)) {
                 clearShader(renderer);
             } else if (sanity.getSanity() <= num3) {
-                useShader(renderer, LEVEL3);
+                useEffect(renderer, LEVEL3);
             } else if (sanity.getSanity() <= num2) {
-                useShader(renderer, LEVEL2);
+                useEffect(renderer, LEVEL2);
             } else if (sanity.getSanity() <= num1) {
-                useShader(renderer, LEVEL1);
+                useEffect(renderer, LEVEL1);
             } else {
                 clearShader(renderer);
             }
@@ -104,7 +105,7 @@ public class ClientEvent {
         }
     }
 
-    private static void useShader(EntityRenderer renderer, String name) {
+    private static void useEffect(EntityRenderer renderer, String name) {
         if (!current.equals(name)) {
             renderer.loadShader(new ResourceLocation(name));
             current = name;

@@ -23,10 +23,8 @@ public class Overlay extends Gui {
                 int posY = event.getResolution().getScaledHeight();
                 GlStateManager.enableBlend();
                 GlStateManager.pushMatrix();
-                if (Overlay.blood) {
-                    drawBlood(player, posX, posY);
-                }
                 GlStateManager.color(1.0F, 1.0F, 1.0F);
+                drawBlood(player, posX, posY);
                 int offX = ((player.getPrimaryHand() == EnumHandSide.RIGHT && !player.getHeldItemOffhand().isEmpty())
                         || (player.getPrimaryHand() == EnumHandSide.LEFT && player.getHeldItemOffhand().isEmpty())) && Overlay.check ? 97 - Overlay.offX : -130 + Overlay.offX;
                 posX = posX / 2 + offX;
@@ -48,7 +46,7 @@ public class Overlay extends Gui {
     private void drawBlood(EntityPlayerSP player, int posX, int posY) {
         ISanity sanity = player.getCapability(SANITY, null);
         mc().getTextureManager().bindTexture(blood);
-        if ((sanity.getSanity() <= 60f && sanity.getDown() > 0) || alpha > 0.01f) {
+        if ((sanity.getSanity() < Overlay.blood && sanity.getDown() > 0) || alpha > 0.01f) {
             if (!start) {
                 startTicks = player.ticksExisted;
                 start = true;
@@ -65,7 +63,7 @@ public class Overlay extends Gui {
         ISanity sanity = player.getCapability(SANITY, null);
         if (flash > 0 || Overlay.flash == -1) {
             mc().getTextureManager().bindTexture(hud);
-            if (sanity.getSanity() < 40f) {
+            if (sanity.getSanity() < Overlay.shake) {
                 posY += player.ticksExisted % 2;
             }
             if ((sanity.getDown() > 15 || sanity.getUp() > 15) && player.ticksExisted % 10 < 5) {
