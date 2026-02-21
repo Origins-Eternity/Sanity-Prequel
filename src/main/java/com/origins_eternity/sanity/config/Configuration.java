@@ -205,6 +205,29 @@ public class Configuration {
         @Config.LangKey("config.sanity.blacklist")
         @Config.Comment("Whether to make the list of dimensions blacklist or not.")
         public boolean blacklist = false;
+
+        @Config.Name("Food Spoiling")
+        @Config.LangKey("config.sanity.foodspoiling")
+        @Config.Comment("Whether to enable food spoiling affecting sanity.")
+        public boolean foodSpoiling = true;
+
+        @Config.Name("Food Spoiling Penalty")
+        @Config.LangKey("config.sanity.foodspoiling_penalty")
+        @Config.Comment("The sanity to decrease based on food spoilage percentage. (0.0-1.0 means 0%-100% spoiled)")
+        @Config.RangeDouble(min = 0.0, max = 50.0)
+        public double foodSpoilingPenalty = 10.0;
+
+        @Config.Name("Food Spoiling Warning Threshold")
+        @Config.LangKey("config.sanity.foodspoiling_warning")
+        @Config.Comment("The spoilage percentage threshold to start decreasing sanity. (0.0-1.0 means 0%-100% spoiled)")
+        @Config.RangeDouble(min = 0.0, max = 1.0)
+        public double foodSpoilingWarningThreshold = 0.5;
+
+        @Config.Name("Food Spoiling Check Interval")
+        @Config.LangKey("config.sanity.foodspoiling_interval")
+        @Config.Comment("How often to check food spoilage in player inventory. (in ticks, 20 ticks = 1 second)")
+        @Config.RangeInt(min = 20, max = 1200)
+        public int foodSpoilingCheckInterval = 200;
     }
 
     public static class ConfigOverlay {

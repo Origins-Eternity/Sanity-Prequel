@@ -6,6 +6,7 @@ import com.origins_eternity.sanity.content.armor.Garland;
 import com.origins_eternity.sanity.content.capability.Capabilities;
 import com.origins_eternity.sanity.content.capability.sanity.ISanity;
 import com.origins_eternity.sanity.content.capability.sanity.Sanity;
+import com.origins_eternity.sanity.compat.FoodSpoiling;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntityAnimal;
@@ -71,7 +72,19 @@ public class CommonEvent {
                 ISanity sanity = player.getCapability(SANITY, null);
                 int num = stackMatched(event.getItem());
                 if (num == -1) {
-                    sanity.recoverSanity(Mechanics.eat);
+                    double sanityChange = Mechanics.eat;
+                    if (Mechanics.foodSpoiling && Loader.isModLoaded("foodspoiling")) {
+                        double spoilage = FoodSpoiling.getSpoilagePercentage(event.getItem(), player.world.getTotalWorldTime());
+                        if (spoilage > Mechanics.foodSpoilingWarningThreshold) {
+                            double penalty = spoilage * Mechanics.foodSpoilingPenalty;
+                            sanityChange = Math.max(0, sanityChange - penalty);
+                        }
+                    }
+                    if (sanityChange > 0) {
+                        sanity.recoverSanity(sanityChange);
+                    } else {
+                        sanity.consumeSanity(-sanityChange);
+                    }
                 } else {
                     double value = Double.parseDouble(Mechanics.food[num].split(";")[1]);
                     if (value > 0) {
@@ -165,6 +178,19 @@ public class CommonEvent {
                     sanity.consumeSanity(-value);
                 }
                 syncSanity(player);
+            }
+            if (Mechanics.foodSpoiling && Loader.isModLoaded("foodspoiling") && 
+                player.ticksExisted % Mechanics.foodSpoilingCheckInterval == 0 && !player.world.isRemote) {
+                ISanity sanity = player.getCapability(SANITY, null);
+                double averageSpoilage = FoodSpoiling.calculateSanityPenalty(player);
+                if (averageSpoilage >= Mechanics.foodSpoilingWarningThreshold) {
+                    double penalty = (averageSpoilage - Mechanics.foodSpoilingWarningThreshold) * 
+                                    Mechanics.foodSpoilingPenalty;
+                    if (penalty > 0) {
+                        sanity.consumeSanity(penalty);
+                        syncSanity(player);
+                    }
+                }
             }
         }
     }
