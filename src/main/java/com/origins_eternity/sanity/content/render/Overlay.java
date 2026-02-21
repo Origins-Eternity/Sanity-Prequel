@@ -27,9 +27,9 @@ public class Overlay extends Gui {
                     drawBlood(player, posX, posY);
                 }
                 GlStateManager.color(1.0F, 1.0F, 1.0F);
-                int x = ((player.getPrimaryHand() == EnumHandSide.RIGHT && player.getHeldItemOffhand().isEmpty())
-                        || (player.getPrimaryHand() == EnumHandSide.LEFT && !player.getHeldItemOffhand().isEmpty())) ? -130 : 97;
-                posX = posX / 2 + x + Overlay.offX;
+                int offX = ((player.getPrimaryHand() == EnumHandSide.RIGHT && !player.getHeldItemOffhand().isEmpty())
+                        || (player.getPrimaryHand() == EnumHandSide.LEFT && player.getHeldItemOffhand().isEmpty())) && Overlay.check ? 97 - Overlay.offX : -130 + Overlay.offX;
+                posX = posX / 2 + offX;
                 posY = posY - 29 - Overlay.offY;
                 if (Overlay.brain) {
                     drawBrain(player, posX, posY);

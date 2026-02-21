@@ -208,19 +208,19 @@ public class Configuration {
 
         @Config.Name("Blacklist")
         @Config.LangKey("config.sanity.blacklist")
-        @Config.Comment("Make the list of dimensions blacklist.")
+        @Config.Comment("Whether to make the list of dimensions blacklist or not.")
         public boolean blacklist = false;
     }
 
     public static class ConfigOverlay {
         @Config.Name("Blood Overlay")
         @Config.LangKey("config.sanity.blood")
-        @Config.Comment("Whether to enable the blood overlay.")
+        @Config.Comment("Whether to enable the blood overlay or not.")
         public boolean blood = true;
 
         @Config.Name("Brain Overlay")
         @Config.LangKey("config.sanity.brain")
-        @Config.Comment("Whether to enable the brain overlay.")
+        @Config.Comment("Whether to enable the brain overlay or not.")
         public boolean brain = true;
 
         @Config.Name("Brain OffX")
@@ -232,6 +232,11 @@ public class Configuration {
         @Config.LangKey("config.sanity.offy")
         @Config.Comment("Offset on y of the Brain. A positive number means a shift to the top.")
         public int offY = 0;
+
+        @Config.Name("Hand Check")
+        @Config.LangKey("config.sanity.check")
+        @Config.Comment("Whether to mirror the position of brain overlay to the other side automatically based on the status of the hands.")
+        public boolean check = true;
 
         @Config.Name("Brain Flash Time")
         @Config.LangKey("config.sanity.flash")

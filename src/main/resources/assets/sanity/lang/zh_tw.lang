@@ -20,6 +20,8 @@ config.sanity.offx=大腦水準偏移量
 config.sanity.offx.tooltip=大腦的水準偏移量。正數表示向右偏移。
 config.sanity.offy=大腦豎直偏移量
 config.sanity.offy.tooltip=大腦的豎直偏移量。正數表示向上偏移。
+config.sanity.check=副手檢測
+config.sanity.check.tooltip=是否根據主副手狀態自動將大腦顯示位置鏡像到另一側。
 config.sanity.flash=大腦暫留時間
 config.sanity.flash.tooltip=大腦在螢幕上的暫留秒數。（設定為-1以禁用）
 

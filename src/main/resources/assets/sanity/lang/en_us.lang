@@ -13,13 +13,15 @@ lingering_potion.effect.composure=Composure Lingering Potion
 config.sanity.overlay=Overlay
 config.sanity.overlay.tooltip=Overlay Options
 config.sanity.blood=Blood Overlay
-config.sanity.blood.tooltip=Whether to enable the blood overlay.
+config.sanity.blood.tooltip=Whether to enable the blood overlay or not.
 config.sanity.brain=Brain Overlay
-config.sanity.brain.tooltip=Whether to enable the brain overlay.
+config.sanity.brain.tooltip=Whether to enable the brain overlay or not.
 config.sanity.offx=Brain OffX
 config.sanity.offx.tooltip=Offset on x of the Brain. A positive number means a shift to the right.
 config.sanity.offy=Brain OffY
 config.sanity.offy.tooltip=Offset on y of the Brain. A positive number means a shift to the top.
+config.sanity.check=Hand Check
+config.sanity.check.tooltip=Whether to mirror the position of brain overlay to the other side automatically based on the status of the hands.
 config.sanity.flash=Brain Flash Time
 config.sanity.flash.tooltip=How many seconds the overlay should be visible when sanity changed. (set this to -1 to disable)
 
@@ -90,7 +92,7 @@ config.sanity.sounds.tooltip=The list of sounds which will play randomly when sa
 config.sanity.dimensions=Dimensions Whitelist
 config.sanity.dimensions.tooltip=The list of dimensions which will enable sanity.
 config.sanity.blacklist=Dimensions Blacklist
-config.sanity.blacklist.tooltip=Make the list of dimensions blacklist.
+config.sanity.blacklist.tooltip=Whether to make the list of dimensions blacklist or not.
 
 config.sanity.shader=Shader
 config.sanity.shader.tooltip=Shader Options
