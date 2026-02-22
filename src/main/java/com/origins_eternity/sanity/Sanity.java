@@ -11,7 +11,7 @@ import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 
-@Mod(modid = Sanity.MOD_ID, name = Sanity.MOD_NAME, version = Sanity.VERSION, dependencies = "required-after:baubles@[1.5.2,);")
+@Mod(modid = Sanity.MOD_ID, name = Sanity.MOD_NAME, version = Sanity.VERSION, dependencies = "required-after:baubles@[1.5.2,);after:foodspoiling@[1.0.5,);")
 public class Sanity {
 	public static final String MOD_ID = "sanity";
 	public static final String MOD_NAME = "Sanity: Prequel";

@@ -70,66 +70,58 @@ public class Utils {
     }
 
     public static int stackMatched(ItemStack item) {
-        int match = -1;
         for (int i = 0; i < Mechanics.food.length; i++) {
             String[] parts = Mechanics.food[i].split(";");
             String[] name = parts[0].split(":");
             if (name.length == 2) {
                 if (item.getItem().equals(Item.REGISTRY.getObject(new ResourceLocation(parts[0])))) {
                     if (item.getMetadata() == 0) {
-                        match = i;
-                        break;
+                        return i;
                     }
                 }
             } else if (name.length == 3) {
                 ResourceLocation location = new ResourceLocation(name[0], name[1]);
                 if (item.getItem().equals(Item.REGISTRY.getObject(location))) {
                     if (item.getMetadata() == Integer.parseInt(name[2])) {
-                        match = i;
-                        break;
+                        return i;
                     }
                 }
             }
         }
-        return match;
+        return -1;
     }
 
     public static int blockMatched(IBlockState block) {
-        int match = -1;
         for (int i = 0; i < Mechanics.blocks.length; i++) {
             String[] parts = Mechanics.blocks[i].split(";");
             String[] name = parts[0].split(":");
             if (name.length == 2) {
                 if (block.getBlock().equals(Block.REGISTRY.getObject(new ResourceLocation(parts[0])))) {
                     if (block.getBlock().getMetaFromState(block) == 0) {
-                        match = i;
-                        break;
+                        return i;
                     }
                 }
             } else if (name.length == 3) {
                 ResourceLocation location = new ResourceLocation(name[0], name[1]);
                 if (block.getBlock().equals(Block.REGISTRY.getObject(location))) {
                     if (block.getBlock().getMetaFromState(block) == Integer.parseInt(name[2])) {
-                        match = i;
-                        break;
+                        return i;
                     }
                 }
             }
         }
-        return match;
+        return -1;
     }
 
     public static int entityMatched(Entity entity) {
-        int match = -1;
         for (int i = 0; i < Mechanics.entities.length; i++) {
             String[] parts = Mechanics.entities[i].split(";");
             ResourceLocation name = EntityList.getKey(entity);
             if (name != null && parts[0].equals(name.toString())) {
-                match = i;
-                break;
+                return i;
             }
         }
-        return match;
+        return -1;
     }
 
     public static double checkArmor(EntityPlayer player) {

@@ -1,6 +1,7 @@
 package com.origins_eternity.sanity.utils.proxy;
 
 import com.origins_eternity.sanity.compat.FTBQuests;
+import com.origins_eternity.sanity.compat.FoodSpoiling;
 import com.origins_eternity.sanity.content.capability.Capabilities;
 import com.origins_eternity.sanity.content.command.SanityCommand;
 import com.origins_eternity.sanity.message.SyncSanity;
@@ -25,6 +26,9 @@ public class CommonProxy {
         Capabilities.registerCapability(CapabilityManager.INSTANCE);
         if (Loader.isModLoaded("ftbquests")) {
             MinecraftForge.EVENT_BUS.register(FTBQuests.class);
+        }
+        if (Loader.isModLoaded("foodspoiling")) {
+            MinecraftForge.EVENT_BUS.register(FoodSpoiling.class);
         }
         registerPotionRecipes();
     }
