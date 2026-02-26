@@ -110,7 +110,7 @@ config.sanity.sounds.tooltip=当玩家理智较低时，会被随机播放的声
 config.sanity.ghost=鬼魂效果
 config.sanity.ghost.tooltip=当玩家理智值小于设定值时，随机生成列表中的鬼魂（虚假的怪物）。（设置为-1以禁用）
 config.sanity.ghosts=随机鬼魂
-config.sanity.ghosts.tooltip=当玩家理智较低时，会在玩家半径范围内随机生成的鬼魂列表。（"鬼魂;半径"）
+config.sanity.ghosts.tooltip=当玩家理智较低时，会在玩家半径范围内随机生成的鬼魂列表。（"鬼魂;最小半径;最大半径"）
 config.sanity.whisper=低语效果
 config.sanity.whisper.tooltip=当理智值小于设定值时，播放低语声。（设置为-1以禁用）
 

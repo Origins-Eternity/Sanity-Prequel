@@ -282,8 +282,8 @@ public class Configuration {
 
         @Config.Name("Random Ghosts")
         @Config.LangKey("config.sanity.ghosts")
-        @Config.Comment("The list of ghosts which will spawn within the radius of the player randomly when sanity is low. ('ghost;radius')")
-        public String[] ghosts = new String[]{"minecraft:creeper;5", "minecraft:skeleton;5", "minecraft:creeper;5", "minecraft:zombie;5", "minecraft:enderman;5"};
+        @Config.Comment("The list of ghosts which will spawn within the radius of the player randomly when sanity is low. ('ghost;min_radius;max_radius')")
+        public String[] ghosts = new String[]{"minecraft:creeper;1;5", "minecraft:skeleton;1;5", "minecraft:creeper;1;5", "minecraft:zombie;1;5", "minecraft:enderman;1;5"};
 
         @Config.Name("Whisper Effects")
         @Config.LangKey("config.sanity.whisper")

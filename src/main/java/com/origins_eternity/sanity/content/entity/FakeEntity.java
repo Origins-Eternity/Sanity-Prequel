@@ -1,9 +1,12 @@
 package com.origins_eternity.sanity.content.entity;
 
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -16,7 +19,7 @@ import static com.origins_eternity.sanity.utils.proxy.ClientProxy.mc;
 public class FakeEntity extends EntityLiving {
     private final EntityLivingBase living;
     private static int nextClientId = Integer.MIN_VALUE / 2;
-    private final float offsetYaw;
+    private float offsetYaw;
 
     public FakeEntity(World world, Entity entity) {
         super(world);
@@ -47,10 +50,15 @@ public class FakeEntity extends EntityLiving {
 
     @Override
     public void onUpdate() {
-        if (world.isRemote && mc().player != null) {
-            double dx = mc().player.posX - posX;
-            double dz = mc().player.posZ - posZ;
-            float targetYaw = (float) (Math.toDegrees(Math.atan2(dz, dx))) - 90f;
+        if (world.isRemote) {
+            EntityPlayerSP player = mc().player;
+            if (player == null) return;
+            double dx = player.posX - posX;
+            double dy = player.posY + player.getEyeHeight() - posY - this.getEyeHeight();
+            double dz = player.posZ - posZ;
+            double distance = Math.sqrt(dx * dx + dz * dz);
+            float headPitch = (float) MathHelper.clamp(-Math.toDegrees(Math.atan2(dy, distance)), -50, 50);
+            float headYaw = (float) MathHelper.clamp(MathHelper.wrapDegrees(Math.toDegrees(Math.atan2(dz, dx)) - 90f - offsetYaw), -75, 75) + offsetYaw;
             living.posX = posX;
             living.posY = posY;
             living.posZ = posZ;
@@ -58,14 +66,15 @@ public class FakeEntity extends EntityLiving {
             living.prevPosY = prevPosY;
             living.prevPosZ = prevPosZ;
             living.rotationYaw = offsetYaw;
-            living.rotationPitch = rotationPitch;
-            living.rotationYawHead = targetYaw;
+            living.rotationPitch = headPitch;
+            living.rotationYawHead = headYaw;
             living.renderYawOffset = offsetYaw;
             living.prevRotationYaw = rotationYaw;
-            living.prevRotationPitch = rotationPitch;
-            living.prevRotationYawHead = targetYaw;
+            living.prevRotationPitch = headPitch;
+            living.prevRotationYawHead = headYaw;
             living.prevRenderYawOffset = offsetYaw;
             if (ticksExisted > 5 * 20) this.setDead();
+            if (ticksExisted % 25 == 0) offsetYaw = headYaw;
         }
     }
 
