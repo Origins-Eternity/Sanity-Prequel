@@ -55,13 +55,13 @@ public class Baubles extends ItemArmor implements IBauble, IRenderBauble {
         ItemStack stack = player.getHeldItem(hand);
         IBaublesItemHandler baubles = BaublesApi.getBaublesHandler(player);
         int slot = BaubleType.HEAD.getValidSlots()[0];
-        if (baubles.getStackInSlot(slot).isEmpty()) {
+        if (player.getItemStackFromSlot(EntityEquipmentSlot.HEAD).isEmpty()) {
+            player.setItemStackToSlot(EntityEquipmentSlot.HEAD, stack.copy());
+            stack.setCount(0);
+        } else if (baubles.getStackInSlot(slot).isEmpty()) {
             baubles.setStackInSlot(slot, stack.copy());
             stack.setCount(0);
             onEquipped(player.getHeldItem(hand), player);
-        } else if (player.getItemStackFromSlot(EntityEquipmentSlot.HEAD).isEmpty()) {
-            player.setItemStackToSlot(EntityEquipmentSlot.HEAD, stack.copy());
-            stack.setCount(0);
         } else {
             return new ActionResult<>(EnumActionResult.FAIL, stack);
         }
