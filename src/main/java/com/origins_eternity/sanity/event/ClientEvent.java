@@ -133,27 +133,28 @@ public class ClientEvent {
     }
 
     private static void update(ISanity sanity) {
+        double current = sanity.getSanity();
         if (value == -1) {
-            value = sanity.getSanity();
+            value = current;
             return;
         }
         if (up > -1) up--;
         if (down > -1) down--;
         if (glow > -1) glow--;
         if (flash > 0) flash--;
-        if (sanity.getSanity() != value) {
-            if (sanity.getSanity() < value && down <= 1) {
+        if (current != value) {
+            if (current < value && down <= 1) {
                 down = 59;
-            } else if (sanity.getSanity() > value && up <= 1) {
+            } else if (current > value && up <= 1) {
                 up = 59;
             }
-            if (Math.abs(sanity.getSanity() - value) >= 1.0 && glow <= 1) {
+            if (Math.abs(current - value) >= 1.0 && glow <= 1) {
                 glow = 29;
             }
             if (Overlay.flash != -1) {
                 flash = Overlay.flash * 20;
             }
-            value = sanity.getSanity();
+            value = current;
         }
     }
 

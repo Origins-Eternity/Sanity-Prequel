@@ -154,9 +154,9 @@ public class Configuration {
 
         @Config.Name("Garland")
         @Config.LangKey("config.sanity.garland")
-        @Config.Comment("The sanity to increase when players wear a garland. (per 0.5s)")
-        @Config.RangeDouble(min = 0.0, max = 0.5)
-        public double garland = 0.2;
+        @Config.Comment("The sanity to increase when players wear a garland. (per seconds)")
+        @Config.RangeDouble(min = 0.0, max = 1.0)
+        public double garland = 0.5;
 
         @Config.Name("Pet")
         @Config.LangKey("config.sanity.pet")

@@ -160,9 +160,11 @@ public class CommonEvent {
                 } else if (value < 0) {
                     sanity.consumeSanity(-value);
                 }
+                if (sanity.getCoolDown() > 0) {
+                    sanity.coolDown();
+                }
                 syncSanity(player);
             }
-            sanity.coolDown();
         }
     }
 

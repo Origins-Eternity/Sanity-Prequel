@@ -47,7 +47,7 @@ public class Sanity implements ISanity {
 
     @Override
     public void coolDown() {
-        coolDown -= 1;
+        coolDown -= 10;
     }
 
     @Override

@@ -72,30 +72,24 @@ public class Baubles extends ItemArmor implements IBauble, IRenderBauble {
     @Override
     public void onWornTick(ItemStack itemstack, EntityLivingBase entity) {
         EntityPlayer player = (EntityPlayer) entity;
-        if (player.ticksExisted % 10 == 0) {
+        if (player.ticksExisted % 20 == 0) {
             ISanity sanity = player.getCapability(Capabilities.SANITY, null);
-            if (sanity.getCoolDown() == 0f && !player.getItemStackFromSlot(EntityEquipmentSlot.HEAD).getItem().equals(this)) {
-                sanity.recoverSanity(Mechanics.garland);
-            }
             if (isWet(player)) {
-                if (player.ticksExisted % 20 == 0) {
-                    itemstack.damageItem(1, player);
-                }
+                itemstack.damageItem(1, player);
+            } else if (sanity.getCoolDown() == 0f && !player.getItemStackFromSlot(EntityEquipmentSlot.HEAD).getItem().equals(this)) {
+                sanity.recoverSanity(Mechanics.garland);
             }
         }
     }
 
     @Override
     public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
-        if (player.ticksExisted % 10 == 0) {
+        if (player.ticksExisted % 20 == 0) {
             ISanity sanity = player.getCapability(Capabilities.SANITY, null);
-            if (sanity.getCoolDown() == 0f) {
-                sanity.recoverSanity(Mechanics.garland);
-            }
             if (isWet(player)) {
-                if (player.ticksExisted % 20 == 0) {
-                    stack.damageItem(1, player);
-                }
+                stack.damageItem(1, player);
+            } else if (sanity.getCoolDown() == 0f) {
+                sanity.recoverSanity(Mechanics.garland);
             }
             super.onArmorTick(world, player, stack);
         }
