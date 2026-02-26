@@ -6,7 +6,7 @@
 		"subtitle": "sanity.subtitle.insanity",
 		"stream": true
 	},
-	"flowers_equip": {
+	"leaves_rustle": {
 		"sounds": [
 			"sanity:leaves_rustle"
 		],

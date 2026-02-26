@@ -72,7 +72,7 @@ public class Baubles extends ItemArmor implements IBauble, IRenderBauble {
     @Override
     public void onWornTick(ItemStack itemstack, EntityLivingBase entity) {
         EntityPlayer player = (EntityPlayer) entity;
-        if (player.ticksExisted % 20 == 0) {
+        if (player.ticksExisted % 20 == 0 && !player.world.isRemote) {
             ISanity sanity = player.getCapability(Capabilities.SANITY, null);
             if (isWet(player)) {
                 itemstack.damageItem(1, player);
@@ -84,7 +84,7 @@ public class Baubles extends ItemArmor implements IBauble, IRenderBauble {
 
     @Override
     public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
-        if (player.ticksExisted % 20 == 0) {
+        if (player.ticksExisted % 20 == 0 && !world.isRemote) {
             ISanity sanity = player.getCapability(Capabilities.SANITY, null);
             if (isWet(player)) {
                 stack.damageItem(1, player);
