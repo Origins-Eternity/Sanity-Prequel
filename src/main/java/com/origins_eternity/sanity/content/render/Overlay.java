@@ -21,8 +21,8 @@ public class Overlay extends Gui {
     private static final ResourceLocation blood = new ResourceLocation(MOD_ID, "textures/gui/blood.png");
 
     @SubscribeEvent()
-    public void onRenderGameOverlay(RenderGameOverlayEvent.Pre event) {
-        if (event.getType() == RenderGameOverlayEvent.ElementType.ALL) {
+    public void onRenderGameOverlay(RenderGameOverlayEvent.Post event) {
+        if (event.getType() == RenderGameOverlayEvent.ElementType.ARMOR) {
             EntityPlayerSP player = mc().player;
             if (!player.isCreative() && !player.isSpectator()) {
                 int posX = event.getResolution().getScaledWidth();
