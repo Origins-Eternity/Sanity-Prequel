@@ -23,23 +23,22 @@ public class Overlay extends Gui {
 
     @SubscribeEvent()
     public void onRenderGameOverlay(RenderGameOverlayEvent.Pre event) {
-        if (event.getType() == RenderGameOverlayEvent.ElementType.HOTBAR) {
+        if (event.getType() == RenderGameOverlayEvent.ElementType.FOOD) {
             EntityPlayerSP player = mc().player;
             if (!player.isCreative() && !player.isSpectator()) {
                 int posX = event.getResolution().getScaledWidth();
                 int posY = event.getResolution().getScaledHeight();
-                GlStateManager.enableBlend();
                 GlStateManager.pushMatrix();
+                GlStateManager.enableBlend();
                 drawBlood(player, posX, posY);
-                GlStateManager.color(1.0F, 1.0F, 1.0F);
                 int offX = ((player.getPrimaryHand() == EnumHandSide.RIGHT && !player.getHeldItemOffhand().isEmpty())
                         || (player.getPrimaryHand() == EnumHandSide.LEFT && player.getHeldItemOffhand().isEmpty())) && Overlay.check ? 97 - Overlay.offX : -130 + Overlay.offX;
                 posX = posX / 2 + offX;
                 posY = posY - 29 - Overlay.offY;
                 drawBrain(player, posX, posY);
-                GlStateManager.popMatrix();
                 mc().getTextureManager().bindTexture(Gui.ICONS);
                 GlStateManager.disableBlend();
+                GlStateManager.popMatrix();
             }
         }
     }
@@ -61,6 +60,7 @@ public class Overlay extends Gui {
             }
             double percent = value / 100;
             int consume = 22 - (int) (percent * 22 + 0.5);
+            GlStateManager.color(1.0F, 1.0F, 1.0F);
             drawTexturedModalRect(posX, posY, 0, 0, 33, 24);
             if (glow > -1 && glow % 10 < 5) {
                 drawTexturedModalRect(posX, posY, 34, 0, 33, 24);
