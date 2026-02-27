@@ -110,7 +110,7 @@ config.sanity.sounds.tooltip=當玩家理智較低時，會被隨機播放的聲
 config.sanity.ghost=鬼魂效果
 config.sanity.ghost.tooltip=當玩家理智值小於設定值時，隨機生成列表中的鬼魂（虛假的怪物）。（設置為-1以禁用）
 config.sanity.ghosts=隨機鬼魂
-config.sanity.ghosts.tooltip=當玩家理智較低時，會在玩家半徑範圍內隨機生成的鬼魂列表。（"鬼魂;最小半徑;最大半徑"）
+config.sanity.ghosts.tooltip=當玩家理智較低時，會在視野內隨機生成的鬼魂列表，包含其生成半徑和持續ticks。（"鬼魂;最小半徑;最大半徑;最短時間;最長時間"）
 config.sanity.whisper=低語效果
 config.sanity.whisper.tooltip=當理智值小於設定值時，播放低語聲。（設置為-1以禁用）
 

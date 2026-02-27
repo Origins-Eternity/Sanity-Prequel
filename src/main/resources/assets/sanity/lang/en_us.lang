@@ -110,7 +110,7 @@ config.sanity.sounds.tooltip=The list of sounds which will play randomly when sa
 config.sanity.ghost=Ghost Effects
 config.sanity.ghost.tooltip=Spawn ghosts (fake mobs) around player when sanity is lower than the value. (set this to -1 to disable)
 config.sanity.ghosts=Random Ghosts
-config.sanity.ghosts.tooltip=The list of ghosts which will spawn within the radius of the player randomly when sanity is low. ('ghost;min_radius;max_radius')
+config.sanity.ghosts.tooltip=The list of ghosts which will randomly appear in the player's view, including their spawn radius and ticks to live. ('ghost;min_radius;max_radius;min_ticks;max_ticks')
 config.sanity.whisper=Whisper Effects
 config.sanity.whisper.tooltip=Play whispering when sanity is lower than the value. (set this to -1 to disable)
 

@@ -159,7 +159,7 @@ public class ClientEvent {
     private static boolean spawnFakeEntity(EntityPlayer player, Random rand) {
         String[] args = Effect.ghosts[rand.nextInt(Effect.ghosts.length)].split(";");
         ResourceLocation location = new ResourceLocation(args[0]);
-        if (EntityList.isRegistered(location) && args.length > 2) {
+        if (EntityList.isRegistered(location) && args.length > 4) {
             World world = player.world;
             Entity entity = EntityList.createEntityByIDFromName(location, world);
             if (entity instanceof EntityLivingBase) {
@@ -171,7 +171,10 @@ public class ClientEvent {
                 double z = (int) (player.posZ + Math.cos(yawRad) * radius) + 0.5;
                 double y = findSurface(world, new BlockPos(x, (int) player.posY + 5, z));
                 if (y == -1) return false;
-                FakeEntity fakeEntity = new FakeEntity(world, entity);
+                int min_ticks = Integer.parseInt(args[3]);
+                int max_ticks = Integer.parseInt(args[4]);
+                int liveTicks = min_ticks + world.rand.nextInt(max_ticks - min_ticks);
+                FakeEntity fakeEntity = new FakeEntity(world, entity, liveTicks);
                 WorldClient clientWorld = (WorldClient) world;
                 fakeEntity.setPosition(x, y, z);
                 clientWorld.addEntityToWorld(fakeEntity.getEntityId(), fakeEntity);

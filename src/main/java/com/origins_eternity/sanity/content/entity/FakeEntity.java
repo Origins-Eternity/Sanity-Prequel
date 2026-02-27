@@ -23,13 +23,15 @@ public class FakeEntity extends EntityLiving {
     private final EntityLivingBase living;
     private static int nextClientId = Integer.MIN_VALUE / 2;
     private float offsetYaw;
+    private int liveTicks;
 
-    public FakeEntity(World world, Entity entity) {
+    public FakeEntity(World world, Entity entity, int liveTicks) {
         super(world);
-        this.living = (EntityLivingBase) entity;
         this.noClip = true;
+        this.liveTicks = liveTicks;
         this.setEntityInvulnerable(true);
         this.setEntityId(nextClientId++);
+        this.living = (EntityLivingBase) entity;
         this.offsetYaw = world.rand.nextFloat() * 360;
     }
 
@@ -56,7 +58,7 @@ public class FakeEntity extends EntityLiving {
         if (world.isRemote) {
             EntityPlayerSP player = mc().player;
             if (player == null) return;
-            if (!enabled || isAwake(player) || value >= Effect.ghost) {
+            if (!enabled || isAwake(player) || value >= Effect.ghost || ticksExisted > liveTicks) {
                 this.setDead();
                 return;
             }
