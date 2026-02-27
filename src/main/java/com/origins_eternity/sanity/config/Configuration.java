@@ -50,29 +50,29 @@ public class Configuration {
         @Config.RangeDouble(min = 0.0, max = 100.0)
         public double attackPlayer = 2.0;
 
-        @Config.Name("Lightning")
-        @Config.LangKey("config.sanity.lightning")
-        @Config.Comment("The sanity to decrease when players are struck by lightning.")
-        @Config.RangeDouble(min = 0.0, max = 100.0)
-        public double lightning = 30.0;
-
         @Config.Name("Hurt")
         @Config.LangKey("config.sanity.hurt")
         @Config.Comment("The sanity to decrease based on the damage with the ratio of 1 to this number.")
         @Config.RangeDouble(min = 0.0, max = 100.0)
         public double hurt = 1.0;
 
-        @Config.Name("Fall")
-        @Config.LangKey("config.sanity.fall")
-        @Config.Comment("The sanity to decrease based on the fall distance with the ratio of 1 to this number.")
-        @Config.RangeDouble(min = 0.0, max = 100.0)
-        public double fall = 1.0;
-
         @Config.Name("Trip")
         @Config.LangKey("config.sanity.trip")
         @Config.Comment("The sanity to decrease when players change dimension.")
         @Config.RangeDouble(min = 0.0, max = 100.0)
         public double trip = 10.0;
+
+        @Config.Name("Lost")
+        @Config.LangKey("config.sanity.lost")
+        @Config.Comment("The sanity to decrease when players lose pets.")
+        @Config.RangeDouble(min = 0.0, max = 100.0)
+        public double lost = 30.0;
+
+        @Config.Name("Lightning")
+        @Config.LangKey("config.sanity.lightning")
+        @Config.Comment("The sanity to decrease when players are struck by lightning.")
+        @Config.RangeDouble(min = 0.0, max = 100.0)
+        public double lightning = 30.0;
 
         @Config.Name("Rain")
         @Config.LangKey("config.sanity.rain")
@@ -122,6 +122,30 @@ public class Configuration {
         @Config.RangeDouble(min = 0.0, max = 1.0)
         public double foodSpoiling = 0.2;
 
+        @Config.Name("Normal Player")
+        @Config.LangKey("config.sanity.normal")
+        @Config.Comment("The sanity to increase when players are around a player with sanity ≥ 50. (per 0.5s, within 5 blocks)")
+        @Config.RangeDouble(min = 0.0, max = 0.5)
+        public double normal = 0.1;
+
+        @Config.Name("Pet")
+        @Config.LangKey("config.sanity.pet")
+        @Config.Comment("The sanity to increase when players stay with pets. (per 0.5s, within 5 blocks)")
+        @Config.RangeDouble(min = 0.0, max = 0.5)
+        public double pet = 0.2;
+
+        @Config.Name("Garland")
+        @Config.LangKey("config.sanity.garland")
+        @Config.Comment("The sanity to increase when players wear a garland. (per seconds)")
+        @Config.RangeDouble(min = 0.0, max = 1.0)
+        public double garland = 0.5;
+
+        @Config.Name("Composure")
+        @Config.LangKey("config.sanity.composure")
+        @Config.Comment("The sanity to increase by the composure effect at each interval.")
+        @Config.RangeDouble(min = 0.0, max = 100.0)
+        public double composure = 1.0;
+
         @Config.Name("Kill Mob")
         @Config.LangKey("config.sanity.kill")
         @Config.Comment("The sanity to increase when players kill a mob.")
@@ -133,12 +157,6 @@ public class Configuration {
         @Config.Comment("The sanity to increase when players complete a quest. (only support FTB Quests)")
         @Config.RangeDouble(min = 0.0, max = 100.0)
         public double quest = 10.0;
-
-        @Config.Name("Sleep")
-        @Config.LangKey("config.sanity.sleep")
-        @Config.Comment("The sanity to increase when players wake up.")
-        @Config.RangeDouble(min = 0.0, max = 100.0)
-        public double sleep = 50.0;
 
         @Config.Name("Bred")
         @Config.LangKey("config.sanity.bred")
@@ -152,29 +170,11 @@ public class Configuration {
         @Config.RangeDouble(min = 0.0, max = 100.0)
         public double advancement = 15.0;
 
-        @Config.Name("Garland")
-        @Config.LangKey("config.sanity.garland")
-        @Config.Comment("The sanity to increase when players wear a garland. (per seconds)")
-        @Config.RangeDouble(min = 0.0, max = 1.0)
-        public double garland = 0.5;
-
-        @Config.Name("Pet")
-        @Config.LangKey("config.sanity.pet")
-        @Config.Comment("The sanity to increase when players stay with pets. (per 0.5s, within 5 blocks)")
-        @Config.RangeDouble(min = 0.0, max = 0.5)
-        public double pet = 0.2;
-
-        @Config.Name("Normal Player")
-        @Config.LangKey("config.sanity.normal")
-        @Config.Comment("The sanity to increase when players are around a player with sanity ≥ 50. (per 0.5s, within 5 blocks)")
-        @Config.RangeDouble(min = 0.0, max = 0.5)
-        public double normal = 0.1;
-
-        @Config.Name("Lost")
-        @Config.LangKey("config.sanity.lost")
-        @Config.Comment("The sanity to decrease when players lose pets.")
+        @Config.Name("Sleep")
+        @Config.LangKey("config.sanity.sleep")
+        @Config.Comment("The sanity to increase when players wake up.")
         @Config.RangeDouble(min = 0.0, max = 100.0)
-        public double lost = 30.0;
+        public double sleep = 50.0;
 
         @Config.Name("Item")
         @Config.LangKey("config.sanity.item")

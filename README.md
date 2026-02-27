@@ -11,7 +11,7 @@
 **Holding an umbrella can prevent player from decreasing sanity and damaging garland by rain. Umbrella has 120 durability, which will damage from lightning, fire, explosion. And break or attack can also damage it.**
 ![This is an image](https://s21.ax1x.com/2025/02/05/pEeKjN8.png)
 ### Potion
-**Add composure potion effect, which can recover 1 sanity every `50 >> amplifier` ticks. Brew any small flowers with an regeneration potion.**
+**Add composure potion effect, which can recover 1 sanity every `60 >> amplifier` ticks. Brew any small flowers with an regeneration potion.**
 ### Effects
 - **Sanity < 60, at the edges of things, red, green, and blue seem to be separated in your eyes.**
 - **Sanity < 55, blood texture flicker on the screen when sanity decrease.**
@@ -37,8 +37,7 @@
 - **Around players with sanity < 50. (within 5 blocks)**  
 - **Food spoiled in inventory. (only work with Food Spoiling mod)**
 - **Choking.**
-- **Change dimensions.**  
-- **Falling.**  
+- **Change dimensions.**
 - **Lost pets.**  
 - **Trapped in blocks like web and water. (support custom blocks)**
 ### Increase Sanity    
@@ -50,7 +49,8 @@
 - **Complete quests. (only support FTB Quests)**  
 - **Stay with pets. (within 5 blocks)**  
 - **Around players with sanity ≥ 50. (within 5 blocks)**  
-- **Kill mobs.**
+- **Kill mobs.**  
+- **Composure effect.**
 ### Commands
 **Using commands need permission level 2. (support tab completion)**
 ![This is an image](https://s21.ax1x.com/2025/01/17/pEFjK81.png)

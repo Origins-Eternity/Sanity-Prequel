@@ -15,6 +15,7 @@ import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
@@ -113,29 +114,25 @@ public class CommonEvent {
     public static void onEntityStruckByLightning(EntityStruckByLightningEvent event) {
         if (event.getEntity() instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) event.getEntity();
-            ISanity sanity = player.getCapability(SANITY, null);
-            sanity.consumeSanity(Mechanics.lightning);
+            if (!player.world.isRemote) {
+                ISanity sanity = player.getCapability(SANITY, null);
+                sanity.consumeSanity(Mechanics.lightning);
+            }
         }
     }
 
     @SubscribeEvent
     public static void onLivingHurt(LivingHurtEvent event) {
-        if (event.getEntity() instanceof EntityPlayer) {
-            EntityPlayer player = (EntityPlayer) event.getEntityLiving();
-            ISanity sanity = player.getCapability(SANITY, null);
-            sanity.consumeSanity(Mechanics.hurt * event.getAmount());
-        } else {
-            if (event.getSource().getTrueSource() instanceof EntityPlayer) {
-                EntityPlayer player = (EntityPlayer) event.getSource().getTrueSource();
-                if (!player.isCreative()) {
-                    ISanity sanity = player.getCapability(SANITY, null);
-                    if (event.getEntity() instanceof EntityAnimal) {
-                        sanity.consumeSanity(Mechanics.attackAnimal);
-                    } else if (event.getEntity() instanceof EntityVillager) {
-                        sanity.consumeSanity(Mechanics.attackVillager);
-                    } else if (event.getEntity() instanceof EntityPlayer) {
-                        sanity.consumeSanity(Mechanics.attackPlayer);
-                    }
+        if (event.getSource().getTrueSource() instanceof EntityPlayer) {
+            EntityPlayer player = (EntityPlayer) event.getSource().getTrueSource();
+            if (!player.isCreative() && !player.world.isRemote) {
+                ISanity sanity = player.getCapability(SANITY, null);
+                if (event.getEntity() instanceof EntityAnimal) {
+                    sanity.consumeSanity(Mechanics.attackAnimal);
+                } else if (event.getEntity() instanceof EntityVillager) {
+                    sanity.consumeSanity(Mechanics.attackVillager);
+                } else if (event.getEntity() instanceof EntityPlayer) {
+                    sanity.consumeSanity(Mechanics.attackPlayer);
                 }
             }
         }
@@ -228,6 +225,8 @@ public class CommonEvent {
         if (event.getEntity() instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) event.getEntity();
             if (!player.world.isRemote) {
+                ISanity sanity = player.getCapability(SANITY, null);
+                sanity.consumeSanity(Mechanics.hurt * event.getAmount());
                 int damage = 0;
                 if (event.getSource() == DamageSource.LIGHTNING_BOLT) {
                     damage = 30;
@@ -237,11 +236,13 @@ public class CommonEvent {
                     damage = 10;
                 }
                 if (damage != 0) {
-                    if (player.getItemStackFromSlot(EntityEquipmentSlot.HEAD).getItem().equals(Garland.GARLAND)) {
-                        player.getItemStackFromSlot(EntityEquipmentSlot.HEAD).damageItem(damage, player);
+                    ItemStack armor = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD);
+                    ItemStack bauble = BaublesApi.getBaublesHandler(player).getStackInSlot(BaubleType.HEAD.getValidSlots()[0]);
+                    if (armor.getItem().equals(Garland.GARLAND)) {
+                        armor.damageItem(damage, player);
                     }
-                    if (BaublesApi.getBaublesHandler(player).getStackInSlot(BaubleType.HEAD.getValidSlots()[0]).getItem().equals(Garland.GARLAND)) {
-                        BaublesApi.getBaublesHandler(player).getStackInSlot(BaubleType.HEAD.getValidSlots()[0]).damageItem(damage, player);
+                    if (bauble.getItem().equals(Garland.GARLAND)) {
+                        bauble.damageItem(damage, player);
                     }
                 }
             }

@@ -20,8 +20,6 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import static com.origins_eternity.sanity.Sanity.MOD_ID;
@@ -39,13 +37,12 @@ public class ClientEvent {
     private static int sound;
     private static int ghost;
     private static InSanity insanity;
+    public static boolean enabled;
     public static int up = -1;
     public static int down = -1;
     public static int glow = -1;
     public static double value = -1;
     public static int flash = -1;
-
-    private static final List<FakeEntity> fakeEntities = new ArrayList<>();
 
     @SubscribeEvent
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
@@ -53,9 +50,8 @@ public class ClientEvent {
             EntityPlayer player = event.player;
             if (!player.isCreative() && !player.isSpectator() && player == mc().player) {
                 ISanity sanity = player.getCapability(SANITY, null);
-                updateFakeEntities(player, sanity);
-                if (!sanity.getEnable() || isAwake(player)) return;
                 update(sanity);
+                if (!sanity.getEnable() || isAwake(player)) return;
                 if (player.ticksExisted % 20 == 0) {
                     Random rand = player.world.rand;
                     if (value < Effect.sound) {
@@ -74,7 +70,7 @@ public class ClientEvent {
                         if (ghost > 0) {
                             ghost--;
                         } else if (spawnFakeEntity(player, rand)) {
-                            ghost = rand.nextInt(10) + 20;
+                            ghost = rand.nextInt(10) + 10;
                         }
                     }
                     if (value < Effect.whisper) {
@@ -102,7 +98,7 @@ public class ClientEvent {
         if (Effect.shader && event.phase == TickEvent.Phase.END && player != null && OpenGlHelper.shadersSupported) {
             ISanity sanity = player.getCapability(SANITY, null);
             EntityRenderer renderer = mc().entityRenderer;
-            if (!sanity.getEnable() || isAwake(player)) {
+            if (!enabled || isAwake(player)) {
                 clearShader(renderer);
             } else if (sanity.getSanity() < num3) {
                 useEffect(renderer, LEVEL3);
@@ -119,20 +115,22 @@ public class ClientEvent {
     private static String current = "default";
 
     private static void clearShader(EntityRenderer renderer) {
-        if (!current.equals("default")) {
+        if (renderer.isShaderActive() && !current.equals("default")) {
             renderer.stopUseShader();
             current = "default";
         }
     }
 
     private static void useEffect(EntityRenderer renderer, String name) {
-        if (!current.equals(name)) {
+        if (!renderer.isShaderActive() || !current.equals(name)) {
             renderer.loadShader(new ResourceLocation(name));
             current = name;
         }
     }
 
     private static void update(ISanity sanity) {
+        enabled = sanity.getEnable();
+        if (!enabled) return;
         double current = sanity.getSanity();
         if (value == -1) {
             value = current;
@@ -165,9 +163,10 @@ public class ClientEvent {
             World world = player.world;
             Entity entity = EntityList.createEntityByIDFromName(location, world);
             if (entity instanceof EntityLivingBase) {
-                double radius = Integer.parseInt(args[1]) + world.rand.nextDouble() * Integer.parseInt(args[2]);
-                float yawOffset = (world.rand.nextFloat() * 2f - 1f) * 30f;
-                double yawRad = Math.toRadians(player.rotationYaw + yawOffset);
+                int min_radius = Integer.parseInt(args[1]);
+                int max_radius = Integer.parseInt(args[2]);
+                double radius = 0.5 + min_radius + world.rand.nextDouble() * (max_radius - min_radius);
+                double yawRad = Math.toRadians(player.rotationYaw + world.rand.nextDouble() * 120 - 60);
                 double x = (int) (player.posX - Math.sin(yawRad) * radius) + 0.5;
                 double z = (int) (player.posZ + Math.cos(yawRad) * radius) + 0.5;
                 double y = findSurface(world, new BlockPos(x, (int) player.posY + 5, z));
@@ -176,22 +175,9 @@ public class ClientEvent {
                 WorldClient clientWorld = (WorldClient) world;
                 fakeEntity.setPosition(x, y, z);
                 clientWorld.addEntityToWorld(fakeEntity.getEntityId(), fakeEntity);
-                fakeEntities.add(fakeEntity);
                 return true;
             }
         }
         return false;
-    }
-
-    private static void updateFakeEntities(EntityPlayer player, ISanity sanity) {
-        if (!fakeEntities.isEmpty()) {
-            if (!sanity.getEnable() || isAwake(player) || value >= Effect.ghost) {
-                for (FakeEntity entity : fakeEntities) {
-                    entity.setDead();
-                }
-                fakeEntities.clear();
-            }
-            fakeEntities.removeIf((fake) -> fake.isDead);
-        }
     }
 }

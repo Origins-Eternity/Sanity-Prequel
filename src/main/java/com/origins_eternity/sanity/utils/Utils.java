@@ -57,11 +57,6 @@ public class Utils {
         if (player.getAir() < 90) {
             value -= Mechanics.choking;
         }
-        if (player.fallDistance > 4f && !player.isElytraFlying()) {
-            if (!player.isPotionActive(MobEffects.JUMP_BOOST)) {
-                value -= player.fallDistance * Mechanics.fall;
-            }
-        }
         if (player.world.getLight(new BlockPos(player), true) < 4) {
             if (!player.isPotionActive(MobEffects.NIGHT_VISION)) {
                 value -= Mechanics.dark;

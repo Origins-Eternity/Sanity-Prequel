@@ -4,7 +4,6 @@ import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
@@ -13,6 +12,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
 
+import static com.origins_eternity.sanity.config.Configuration.Effect;
+import static com.origins_eternity.sanity.event.ClientEvent.enabled;
+import static com.origins_eternity.sanity.event.ClientEvent.value;
+import static com.origins_eternity.sanity.utils.Utils.isAwake;
 import static com.origins_eternity.sanity.utils.proxy.ClientProxy.mc;
 
 @SideOnly(Side.CLIENT)
@@ -53,8 +56,12 @@ public class FakeEntity extends EntityLiving {
         if (world.isRemote) {
             EntityPlayerSP player = mc().player;
             if (player == null) return;
+            if (!enabled || isAwake(player) || value >= Effect.ghost) {
+                this.setDead();
+                return;
+            }
             double dx = player.posX - posX;
-            double dy = player.posY + player.getEyeHeight() - posY - this.getEyeHeight();
+            double dy = player.posY + player.getEyeHeight() - posY - living.getEyeHeight();
             double dz = player.posZ - posZ;
             double distance = Math.sqrt(dx * dx + dz * dz);
             float headPitch = (float) MathHelper.clamp(-Math.toDegrees(Math.atan2(dy, distance)), -50, 50);
@@ -73,7 +80,6 @@ public class FakeEntity extends EntityLiving {
             living.prevRotationPitch = headPitch;
             living.prevRotationYawHead = headYaw;
             living.prevRenderYawOffset = offsetYaw;
-            if (ticksExisted > 5 * 20) this.setDead();
             if (ticksExisted % 25 == 0) offsetYaw = headYaw;
         }
     }
