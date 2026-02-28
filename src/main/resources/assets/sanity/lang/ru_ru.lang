@@ -109,12 +109,12 @@ config.sanity.level3=Уровень 3
 config.sanity.level3.tooltip=Задать шейдер для уровня 3 и включать его, когда рассудок ниже этого значения. ('шейдер;значение')
 config.sanity.sound=Звуковые эффекты
 config.sanity.sound.tooltip=Воспроизводить случайные звуки, когда рассудок ниже этого значения. ( -1 для отключения)
-config.sanity.sounds=Случайные звуки
-config.sanity.sounds.tooltip=Список звуков, которые будут случайно воспроизводиться при низком рассудке.
+config.sanity.sounds=Random Sounds
+config.sanity.sounds.tooltip=The list of sounds which will play randomly when sanity is low, including their volume and pitch values. ('sound;volume;pitch') | ('sound;min_volume;max_volume;min_pitch;max_pitch')
 config.sanity.ghost=Эффекты призраков
 config.sanity.ghost.tooltip=Появляются призраки (фейковые мобы) вокруг игрока, когда рассудок ниже этого значения. ( -1 для отключения)
 config.sanity.ghosts=Random Ghosts
-config.sanity.ghosts.tooltip=The list of ghosts which will randomly appear in the player's view, including their spawn radius and duration. ('ghost;min_radius;max_radius;min_ticks;max_ticks')
+config.sanity.ghosts.tooltip=The list of ghosts which will randomly appear in the player's view when sanity is low, including their spawn radius and duration. ('ghost;min_radius;max_radius;min_ticks;max_ticks')
 config.sanity.whisper=Эффекты шёпота
 config.sanity.whisper.tooltip=Воспроизводить шёпот, когда рассудок ниже этого значения. ( -1 для отключения)
 

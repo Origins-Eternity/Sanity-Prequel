@@ -283,8 +283,8 @@ public class Configuration {
 
         @Config.Name("Random Sounds")
         @Config.LangKey("config.sanity.sounds")
-        @Config.Comment("The list of sounds which will play randomly when sanity is low.")
-        public String[] sounds = new String[]{"entity.creeper.primed", "entity.tnt.primed", "entity.skeleton.ambient", "entity.skeleton.step", "entity.zombie.ambient", "entity.zombie.step", "entity.enderman.ambient", "entity.hostile.big_fall", "block.chest.open", "block.chest.close", "block.wooden_door.open", "block.wooden_trapdoor.open", "entity.wolf.growl"};
+        @Config.Comment("The list of sounds which will play randomly when sanity is low, including their volume and pitch values. ('sound;volume;pitch') | ('sound;min_volume;max_volume;min_pitch;max_pitch')")
+        public String[] sounds = new String[]{"entity.creeper.primed;1.0;0.5", "entity.tnt.primed;1.0;0.5", "entity.skeleton.ambient;0.5;1.5;0.5;1.5", "entity.skeleton.step;1.0;0.5", "entity.zombie.ambient;0.5;1.5;0.5;1.5", "entity.zombie.step;1.0;0.5", "entity.enderman.ambient;0.5;1.5;0.5;1.5", "entity.hostile.big_fall;1.0;0.5", "block.chest.open;1.0;0.5", "block.chest.close;1.0;0.5", "block.wooden_door.open;1.0;0.5", "block.wooden_trapdoor.open;1.0;0.5", "entity.wolf.growl;0.5;1.5;0.5;1.5"};
 
         @Config.Name("Ghost Effects")
         @Config.LangKey("config.sanity.ghost")

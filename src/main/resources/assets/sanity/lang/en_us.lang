@@ -110,11 +110,11 @@ config.sanity.level3.tooltip=Set level3 shader and enable when sanity is lower t
 config.sanity.sound=Sound Effects
 config.sanity.sound.tooltip=Play random sounds when sanity is lower than the value. (set this to -1 to disable)
 config.sanity.sounds=Random Sounds
-config.sanity.sounds.tooltip=The list of sounds which will play randomly when sanity is low.
+config.sanity.sounds.tooltip=The list of sounds which will play randomly when sanity is low, including their volume and pitch values. ('sound;volume;pitch') | ('sound;min_volume;max_volume;min_pitch;max_pitch')
 config.sanity.ghost=Ghost Effects
 config.sanity.ghost.tooltip=Spawn ghosts (fake mobs) around player when sanity is lower than the value. (set this to -1 to disable)
 config.sanity.ghosts=Random Ghosts
-config.sanity.ghosts.tooltip=The list of ghosts which will randomly appear in the player's view, including their spawn radius and ticks to live. ('ghost;min_radius;max_radius;min_ticks;max_ticks')
+config.sanity.ghosts.tooltip=The list of ghosts which will randomly appear in the player's view when sanity is low, including their spawn radius and ticks to live. ('ghost;min_radius;max_radius;min_ticks;max_ticks')
 config.sanity.whisper=Whisper Effects
 config.sanity.whisper.tooltip=Play whispering when sanity is lower than the value. (set this to -1 to disable)
 

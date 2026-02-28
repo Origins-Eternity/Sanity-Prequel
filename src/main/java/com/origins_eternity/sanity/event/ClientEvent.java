@@ -57,12 +57,7 @@ public class ClientEvent {
                     if (value < Effect.sound) {
                         if (sound > 0) {
                             sound--;
-                        } else {
-                            int i = rand.nextInt(Effect.sounds.length);
-                            SoundEvent sounds = SoundEvent.REGISTRY.getObject(new ResourceLocation(Effect.sounds[i]));
-                            if (sounds != null) {
-                                player.playSound(sounds, 1f, 0.5f);
-                            }
+                        } else if (playRandomSound(player, rand)) {
                             sound = rand.nextInt(30) + 40;
                         }
                     }
@@ -70,7 +65,7 @@ public class ClientEvent {
                         if (ghost > 0) {
                             ghost--;
                         } else if (spawnFakeEntity(player, rand)) {
-                            ghost = rand.nextInt(10) + 10;
+                            ghost = rand.nextInt(10) + 20;
                         }
                     }
                     if (value < Effect.whisper) {
@@ -154,6 +149,30 @@ public class ClientEvent {
             }
             value = current;
         }
+    }
+
+    private static boolean playRandomSound(EntityPlayer player, Random rand) {
+        String[] args = Effect.sounds[rand.nextInt(Effect.sounds.length)].split(";");
+        ResourceLocation location = new ResourceLocation(args[0]);
+        if (SoundEvent.REGISTRY.containsKey(location)) {
+            SoundEvent sound = SoundEvent.REGISTRY.getObject(location);
+            if (args.length == 3) {
+                float volume = Float.parseFloat(args[1]);
+                float pitch = Float.parseFloat(args[2]);
+                player.playSound(sound, volume, pitch);
+                return true;
+            } else if (args.length == 5) {
+                float min_volume = Float.parseFloat(args[1]);
+                float max_volume = Float.parseFloat(args[2]);
+                float min_pitch = Float.parseFloat(args[3]);
+                float max_pitch = Float.parseFloat(args[4]);
+                float volume = min_volume + rand.nextFloat() * (max_volume - min_volume);
+                float pitch = min_pitch + rand.nextFloat() * (max_pitch - min_pitch);
+                player.playSound(sound, volume, pitch);
+                return true;
+            }
+        }
+        return false;
     }
 
     private static boolean spawnFakeEntity(EntityPlayer player, Random rand) {
