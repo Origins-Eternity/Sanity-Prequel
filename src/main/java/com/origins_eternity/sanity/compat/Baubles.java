@@ -76,7 +76,7 @@ public class Baubles extends ItemArmor implements IBauble, IRenderBauble {
             ISanity sanity = player.getCapability(Capabilities.SANITY, null);
             if (isWet(player)) {
                 itemstack.damageItem(1, player);
-            } else if (sanity.getCoolDown() == 0f && !player.getItemStackFromSlot(EntityEquipmentSlot.HEAD).getItem().equals(this)) {
+            } else if (!player.getItemStackFromSlot(EntityEquipmentSlot.HEAD).getItem().equals(this)) {
                 sanity.recoverSanity(Mechanics.garland);
             }
         }
@@ -88,7 +88,7 @@ public class Baubles extends ItemArmor implements IBauble, IRenderBauble {
             ISanity sanity = player.getCapability(Capabilities.SANITY, null);
             if (isWet(player)) {
                 stack.damageItem(1, player);
-            } else if (sanity.getCoolDown() == 0f) {
+            } else {
                 sanity.recoverSanity(Mechanics.garland);
             }
             super.onArmorTick(world, player, stack);

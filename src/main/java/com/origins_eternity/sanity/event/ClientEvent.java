@@ -41,7 +41,7 @@ public class ClientEvent {
     public static int up = -1;
     public static int down = -1;
     public static int glow = -1;
-    public static double value = -1;
+    public static float value = -1;
     public static int flash = -1;
 
     @SubscribeEvent
@@ -131,7 +131,7 @@ public class ClientEvent {
     private static void update(ISanity sanity) {
         enabled = sanity.getEnable();
         if (!enabled) return;
-        double current = sanity.getSanity();
+        float current = sanity.getSanity();
         if (value == -1) {
             value = current;
             return;
@@ -146,7 +146,7 @@ public class ClientEvent {
             } else if (current > value && up <= 1) {
                 up = 59;
             }
-            if (Math.abs(current - value) >= 1.0 && glow <= 1) {
+            if (Math.abs(current - value) >= Overlay.highlight && glow <= 1) {
                 glow = 29;
             }
             if (Overlay.flash != -1) {

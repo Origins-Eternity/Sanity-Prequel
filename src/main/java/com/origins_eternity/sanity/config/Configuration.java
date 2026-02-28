@@ -223,6 +223,12 @@ public class Configuration {
         @Config.Comment("Whether to mirror the position of brain overlay to the other side automatically based on the status of the hands.")
         public boolean check = true;
 
+        @Config.Name("Highlight")
+        @Config.LangKey("config.sanity.highlight")
+        @Config.Comment("Highlight the border of brain overlay when change in sanity is greater than or equal to this value.")
+        @Config.RangeDouble(min = 0.0, max = 100.0)
+        public double highlight = 1.0;
+
         @Config.Name("Brain Overlay Flash Time")
         @Config.LangKey("config.sanity.flash")
         @Config.Comment("How many seconds the brain overlay should be visible when sanity changed. (set this to -1 to disable)")

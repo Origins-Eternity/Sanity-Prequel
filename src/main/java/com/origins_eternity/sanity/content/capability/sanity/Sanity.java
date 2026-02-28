@@ -67,7 +67,6 @@ public class Sanity implements ISanity {
         if (value >= 0 && enable) {
             if (sanity > 0f) {
                 sanity = Math.max(sanity - (float) value, 0);
-                setCoolDown(60);
             }
         }
     }
