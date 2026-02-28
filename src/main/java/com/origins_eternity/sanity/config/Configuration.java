@@ -176,10 +176,10 @@ public class Configuration {
         @Config.RangeDouble(min = 0.0, max = 100.0)
         public double sleep = 50.0;
 
-        @Config.Name("Item")
-        @Config.LangKey("config.sanity.item")
-        @Config.Comment("The list of item and the sanity to decrease or increase when eat it. ('item;value')")
-        public String[] item = new String[]{"minecraft:rotten_flesh;-3.0", "minecraft:spider_eye;-3.0", "minecraft:chicken;-2.0", "minecraft:porkchop;-2.0", "minecraft:mutton;-2.0", "minecraft:beef;-2.0", "minecraft:rabbit;-2.0", "minecraft:poisonous_potato;-2.0", "minecraft:fish;-2.0", "minecraft:fish:1;-2.0", "minecraft:fish:2;-2.0", "minecraft:fish:3;-2.0"};
+        @Config.Name("Items")
+        @Config.LangKey("config.sanity.items")
+        @Config.Comment("The list of items and the sanity to decrease or increase when eat it. ('item;value')")
+        public String[] items = new String[]{"minecraft:rotten_flesh;-3.0", "minecraft:spider_eye;-3.0", "minecraft:chicken;-2.0", "minecraft:porkchop;-2.0", "minecraft:mutton;-2.0", "minecraft:beef;-2.0", "minecraft:rabbit;-2.0", "minecraft:poisonous_potato;-2.0", "minecraft:fish;-2.0", "minecraft:fish:1;-2.0", "minecraft:fish:2;-2.0", "minecraft:fish:3;-2.0"};
 
         @Config.Name("Environment")
         @Config.LangKey("config.sanity.environment")
@@ -191,10 +191,15 @@ public class Configuration {
         @Config.Comment("The list of entities which will decrease or increase sanity when players stay with it. ('entity;value', per 0.5s, within 5 blocks)")
         public String[] entities = new String[]{"minecraft:zombie_pigman;0.0"};
         
-        @Config.Name("Equipment")
-        @Config.LangKey("config.sanity.equipment")
-        @Config.Comment("The list of equipment which will decrease or increase sanity when players wear it. ('equipment;value', per 0.5s)")
-        public String[] equipment = new String[]{"minecraft:pumpkin;-0.1"};
+        @Config.Name("Equipments")
+        @Config.LangKey("config.sanity.equipments")
+        @Config.Comment("The list of equipments which will decrease or increase sanity when players wear it. ('equipment;value', per 0.5s)")
+        public String[] equipments = new String[]{"minecraft:pumpkin;-0.1"};
+
+        @Config.Name("Baubles")
+        @Config.LangKey("config.sanity.baubles")
+        @Config.Comment("The list of baubles which will decrease or increase sanity when players wear it. ('bauble;value', per 0.5s)")
+        public String[] baubles = new String[]{"sanity:garland;0.2"};
 
         @Config.Name("Dimensions")
         @Config.LangKey("config.sanity.dimensions")

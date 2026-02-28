@@ -73,11 +73,8 @@ public class Baubles extends ItemArmor implements IBauble, IRenderBauble {
     public void onWornTick(ItemStack itemstack, EntityLivingBase entity) {
         EntityPlayer player = (EntityPlayer) entity;
         if (player.ticksExisted % 20 == 0 && !player.world.isRemote) {
-            ISanity sanity = player.getCapability(Capabilities.SANITY, null);
             if (isWet(player)) {
                 itemstack.damageItem(1, player);
-            } else if (!player.getItemStackFromSlot(EntityEquipmentSlot.HEAD).getItem().equals(this)) {
-                sanity.recoverSanity(Mechanics.garland);
             }
         }
     }
@@ -88,7 +85,7 @@ public class Baubles extends ItemArmor implements IBauble, IRenderBauble {
             ISanity sanity = player.getCapability(Capabilities.SANITY, null);
             if (isWet(player)) {
                 stack.damageItem(1, player);
-            } else {
+            } else if (BaublesApi.getBaublesHandler(player).getStackInSlot(BaubleType.HEAD.getValidSlots()[0]).getItem().equals(this)) {
                 sanity.recoverSanity(Mechanics.garland);
             }
             super.onArmorTick(world, player, stack);

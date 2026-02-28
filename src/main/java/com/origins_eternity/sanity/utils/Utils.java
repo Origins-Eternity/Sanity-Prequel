@@ -1,7 +1,9 @@
 package com.origins_eternity.sanity.utils;
 
+import baubles.api.BaublesApi;
 import com.charles445.simpledifficulty.api.SDCapabilities;
 import com.charles445.simpledifficulty.api.thirst.IThirstCapability;
+import com.origins_eternity.sanity.compat.Baubles;
 import com.origins_eternity.sanity.content.capability.sanity.ISanity;
 import com.origins_eternity.sanity.content.potion.Potions;
 import com.origins_eternity.sanity.message.SyncSanity;
@@ -62,12 +64,12 @@ public class Utils {
                 value -= Mechanics.dark;
             }
         }
-        return value + checkArmor(player) + checkBody(player) + withCreature(player);
+        return value + checkEquipment(player) + checkBody(player) + withCreature(player);
     }
 
-    public static int stackMatched(ItemStack item) {
-        for (int i = 0; i < Mechanics.item.length; i++) {
-            String[] parts = Mechanics.item[i].split(";");
+    public static int stackMatched(ItemStack item, String[] list) {
+        for (int i = 0; i < list.length; i++) {
+            String[] parts = list[i].split(";");
             String[] name = parts[0].split(":");
             if (name.length == 2) {
                 if (item.getItem().equals(Item.REGISTRY.getObject(new ResourceLocation(parts[0])))) {
@@ -120,15 +122,19 @@ public class Utils {
         return -1;
     }
 
-    public static double checkArmor(EntityPlayer player) {
+    public static double checkEquipment(EntityPlayer player) {
         double value = 0;
         for (ItemStack armor : player.getArmorInventoryList()) {
-            for (int i = 0; i < Mechanics.equipment.length; i++) {
-                String[] parts = Mechanics.equipment[i].split(";");
-                if (armor.getItem().equals(Item.REGISTRY.getObject(new ResourceLocation(parts[0])))) {
-                    value += Double.parseDouble(parts[1]);
-                    break;
-                }
+            int num = stackMatched(armor, Mechanics.equipments);
+            if (num != -1) {
+                value += Double.parseDouble(Mechanics.equipments[num]);
+            }
+        }
+        for (String args : Mechanics.baubles) {
+            String[] parts = args.split(";");
+            Item bauble = Baubles.getByNameOrId(parts[0]);
+            if (BaublesApi.isBaubleEquipped(player, bauble) != -1) {
+                value += Double.parseDouble(parts[1]);
             }
         }
         return value;

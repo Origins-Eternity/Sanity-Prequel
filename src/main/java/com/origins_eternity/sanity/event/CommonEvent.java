@@ -70,9 +70,9 @@ public class CommonEvent {
             EntityPlayerMP player = (EntityPlayerMP) event.getEntityLiving();
             if (!player.isCreative()) {
                 ISanity sanity = player.getCapability(SANITY, null);
-                int num = stackMatched(event.getItem());
+                int num = stackMatched(event.getItem(), Mechanics.items);
                 if (num == -1) return;
-                double value = Double.parseDouble(Mechanics.item[num].split(";")[1]);
+                double value = Double.parseDouble(Mechanics.items[num].split(";")[1]);
                 if (value > 0) {
                     if (Loader.isModLoaded("foodspoiling")) {
                         double spoilage = FoodSpoiling.getPercentage(event.getItem(), player);
