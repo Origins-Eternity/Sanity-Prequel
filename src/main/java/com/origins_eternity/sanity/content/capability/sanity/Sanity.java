@@ -46,8 +46,10 @@ public class Sanity implements ISanity {
     }
 
     @Override
-    public void coolDown() {
-        coolDown -= 10;
+    public void removeCoolDown() {
+        if (coolDown > 0) {
+            coolDown = Math.max(coolDown - 10, 0);
+        }
     }
 
     @Override

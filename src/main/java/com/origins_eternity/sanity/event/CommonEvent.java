@@ -152,14 +152,12 @@ public class CommonEvent {
                     }
                 }
                 double value = tickPlayer(player);
-                if (value > 0 && sanity.getCoolDown() == 0) {
+                if (value > 0) {
                     sanity.recoverSanity(value);
                 } else if (value < 0) {
                     sanity.consumeSanity(-value);
                 }
-                if (sanity.getCoolDown() > 0) {
-                    sanity.coolDown();
-                }
+                sanity.removeCoolDown();
                 syncSanity(player);
             }
         }

@@ -9,6 +9,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import static com.origins_eternity.sanity.config.Configuration.Effect;
 import static com.origins_eternity.sanity.event.ClientEvent.value;
+import static com.origins_eternity.sanity.utils.proxy.ClientProxy.mc;
 
 @SideOnly(Side.CLIENT)
 public class InSanity extends MovingSound {
@@ -23,7 +24,11 @@ public class InSanity extends MovingSound {
 
     @Override
     public void update() {
-        if (this.player.isDead || !this.player.isEntityAlive() || value >= Effect.whisper) {
+        if (this.player.isDead || !this.player.isEntityAlive() || this.player != mc().player) {
+            this.donePlaying = true;
+            return;
+        }
+        if (value >= Effect.whisper) {
             if (this.volume > 0f) {
                 volume -= 0.02f;
             } else {

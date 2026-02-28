@@ -74,7 +74,7 @@ public class ClientEvent {
                         }
                     }
                     if (value < Effect.whisper) {
-                        if (insanity == null || insanity.isDonePlaying()) {
+                        if (insanity == null || !mc().getSoundHandler().isSoundPlaying(insanity)) {
                             insanity = new InSanity(INSANITY, player);
                             mc().getSoundHandler().playSound(insanity);
                         }

@@ -13,7 +13,7 @@ public interface ISanity {
 
     void setCoolDown(int coolDown);
 
-    void coolDown();
+    void removeCoolDown();
 
     void setEnable(boolean enable);
 
