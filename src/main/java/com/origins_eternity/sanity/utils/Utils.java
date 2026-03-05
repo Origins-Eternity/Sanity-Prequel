@@ -127,7 +127,7 @@ public class Utils {
         for (ItemStack armor : player.getArmorInventoryList()) {
             int num = stackMatched(armor, Mechanics.equipments);
             if (num != -1) {
-                value += Double.parseDouble(Mechanics.equipments[num]);
+                value += Double.parseDouble(Mechanics.equipments[num].split(";")[1]);
             }
         }
         for (String args : Mechanics.baubles) {
