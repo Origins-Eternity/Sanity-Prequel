@@ -22,8 +22,8 @@ public class Overlay extends Gui {
     public static final ResourceLocation indicator = new ResourceLocation(MOD_ID, "textures/gui/indicator.png");
 
     @SubscribeEvent()
-    public void onRenderGameOverlay(RenderGameOverlayEvent.Pre event) {
-        if (event.getType() == RenderGameOverlayEvent.ElementType.FOOD) {
+    public void onRenderGameOverlay(RenderGameOverlayEvent.Post event) {
+        if (event.getType() == RenderGameOverlayEvent.ElementType.EXPERIENCE) {
             EntityPlayerSP player = mc().player;
             if (!player.isCreative() && !player.isSpectator()) {
                 int posX = event.getResolution().getScaledWidth();
