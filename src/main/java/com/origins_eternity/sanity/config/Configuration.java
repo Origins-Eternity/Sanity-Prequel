@@ -134,12 +134,6 @@ public class Configuration {
         @Config.RangeDouble(min = 0.0, max = 0.5)
         public double pet = 0.2;
 
-        @Config.Name("Garland")
-        @Config.LangKey("config.sanity.garland")
-        @Config.Comment("The sanity to increase when players wear a garland. (per seconds)")
-        @Config.RangeDouble(min = 0.0, max = 1.0)
-        public double garland = 0.5;
-
         @Config.Name("Composure")
         @Config.LangKey("config.sanity.composure")
         @Config.Comment("The sanity to increase by the composure effect at each interval.")
@@ -194,7 +188,7 @@ public class Configuration {
         @Config.Name("Equipments")
         @Config.LangKey("config.sanity.equipments")
         @Config.Comment("The list of equipments which will decrease or increase sanity when players wear it. ('equipment;value', per 0.5s)")
-        public String[] equipments = new String[]{"minecraft:pumpkin;-0.1"};
+        public String[] equipments = new String[]{"sanity:garland;0.2"};
 
         @Config.Name("Baubles")
         @Config.LangKey("config.sanity.baubles")

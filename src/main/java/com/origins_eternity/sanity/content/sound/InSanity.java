@@ -28,7 +28,7 @@ public class InSanity extends MovingSound {
             this.donePlaying = true;
             return;
         }
-        if (value >= Effect.whisper) {
+        if (value >= Effect.whisper || this.player.isCreative() || this.player.isSpectator()) {
             if (this.volume > 0f) {
                 volume -= 0.02f;
             } else {
