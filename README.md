@@ -21,6 +21,7 @@
 - **Sanity < 35, there are a grid of small dots lies in your eyes. The world looks washed out...**
 - **Sanity < 30, whispers can be heard.**
 - **Sanity < 10, game's graphics are even more distorted, with details barely legible.**
+
 ![This is an image](https://s21.ax1x.com/2025/01/18/pEkiLJU.png)
 
 **Using potion of composure or morphine in First Aid mod grants temporary immunity to all negative effects.**
