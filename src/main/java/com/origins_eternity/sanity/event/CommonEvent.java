@@ -210,8 +210,10 @@ public class CommonEvent {
             } else if (event.getEntity() instanceof EntityMob && event.getSource().getTrueSource() instanceof EntityPlayer) {
                 EntityPlayer player = (EntityPlayer) event.getSource().getTrueSource();
                 ISanity sanity = player.getCapability(SANITY, null);
+                int num = entityMatched(event.getEntity(), Mechanics.mobs);
+                double value = num == -1 ? Mechanics.killMob : Double.parseDouble(Mechanics.mobs[num].split(";")[1]);
                 if (sanity.getCoolDown() == 0) {
-                    sanity.recoverSanity(Mechanics.killMob);
+                    sanity.recoverSanity(value);
                     sanity.setCoolDown(20);
                 }
             }
