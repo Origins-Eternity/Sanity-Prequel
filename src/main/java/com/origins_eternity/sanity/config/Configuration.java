@@ -50,6 +50,12 @@ public class Configuration {
         @Config.RangeDouble(min = 0.0, max = 100.0)
         public double attackPlayer = 2.0;
 
+        @Config.Name("Food Spoiling")
+        @Config.LangKey("config.sanity.foodSpoiling")
+        @Config.Comment("The sanity to decrease when food spoiled in player's inventory. (only works with Food Spoiling mod.)")
+        @Config.RangeDouble(min = 0.0, max = 100.0)
+        public double foodSpoiling = 1.0;
+
         @Config.Name("Hurt")
         @Config.LangKey("config.sanity.hurt")
         @Config.Comment("The sanity to decrease based on the damage with the ratio of 1 to this number.")
@@ -115,12 +121,6 @@ public class Configuration {
         @Config.Comment("The sanity to decrease when players are around a player with sanity < 50. (per 0.5s, within 5 blocks)")
         @Config.RangeDouble(min = 0.0, max = 0.5)
         public double abnormal = 0.2;
-
-        @Config.Name("Food Spoiling")
-        @Config.LangKey("config.sanity.foodSpoiling")
-        @Config.Comment("The sanity to decrease when food spoiled in player's inventory. (per 1s)")
-        @Config.RangeDouble(min = 0.0, max = 1.0)
-        public double foodSpoiling = 0.2;
 
         @Config.Name("Normal Player")
         @Config.LangKey("config.sanity.normal")

@@ -1,8 +1,10 @@
 # 理智：前傳 繁體中文
 
 itemGroup.sanity=理智：前傳
+
 item.sanity.garland.name=花環
 item.sanity.umbrella.name=雨傘
+
 effect.composure=鎮定
 tipped_arrow.effect.composure=鎮定之箭
 potion.effect.composure=鎮定藥水
@@ -25,6 +27,7 @@ config.sanity.shake=大腦圖示顫動
 config.sanity.shake.tooltip=當理智值小於設定值時，使大腦圖示在螢幕上顫動。（設定為 -1 以停用）
 config.sanity.blood=血液顯示
 config.sanity.blood.tooltip=當理智值小於設定值時，開啟血液顯示。（設定為 -1 以停用）
+
 config.sanity.mechanics=機制
 config.sanity.mechanics.tooltip=機制設定
 config.sanity.reset=重置理智
@@ -37,6 +40,8 @@ config.sanity.player=攻擊玩家
 config.sanity.player.tooltip=當玩家攻擊另一名玩家時，理智降低的值。
 config.sanity.hurt=受傷
 config.sanity.hurt.tooltip=當玩家受到傷害時，理智降低的值為傷害值乘以此倍數。
+config.sanity.foodSpoiling=食物腐壞
+config.sanity.foodSpoiling.tooltip=當玩家物品欄中有食物腐壞時，理智降低的數值。（僅當 Food Spoiling 模組安裝時生效）
 config.sanity.trip=穿越
 config.sanity.trip.tooltip=當玩家切換維度時，理智降低的值。
 config.sanity.lost=失去
@@ -59,8 +64,6 @@ config.sanity.mob=怪物
 config.sanity.mob.tooltip=當玩家周圍有怪物遊蕩時，理智降低的值。（每 0.5 秒，5 格範圍內）
 config.sanity.abnormal=異常玩家
 config.sanity.abnormal.tooltip=當玩家在理智值<50 的玩家旁邊時，理智降低的數值。（每 0.5 秒，5 格範圍內）
-config.sanity.foodSpoiling=食物腐壞
-config.sanity.foodSpoiling.tooltip=當玩家物品欄中有食物腐壞時，理智降低的數值。（每秒，僅當 Food Spoiling 模組安裝時生效）
 config.sanity.normal=正常玩家
 config.sanity.normal.tooltip=當玩家在理智值≥50 的玩家旁邊時，理智升高的值。（每 0.5 秒，5 格範圍內）
 config.sanity.pet=寵物
@@ -91,6 +94,7 @@ config.sanity.dimensions=維度允許清單
 config.sanity.dimensions.tooltip=當玩家處於列表中的維度時，理智會啟用。
 config.sanity.blacklist=維度封鎖清單
 config.sanity.blacklist.tooltip=反轉維度允許清單。
+
 config.sanity.effects=效果
 config.sanity.effects.tooltip=效果設定
 config.sanity.shader=著色器效果

@@ -4,27 +4,31 @@ package com.origins_eternity.sanity.compat;
 import com.origins_eternity.sanity.content.capability.sanity.ISanity;
 import mod.acgaming.foodspoiling.logic.FSData;
 import mod.acgaming.foodspoiling.logic.FSLogic;
-import mod.acgaming.foodspoiling.logic.FSMaps;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 import static com.origins_eternity.sanity.config.Configuration.Mechanics;
 import static com.origins_eternity.sanity.content.capability.Capabilities.SANITY;
-import static mod.acgaming.foodspoiling.logic.FSLogic.getTicksToRot;
+import static mod.acgaming.foodspoiling.logic.FSLogic.canRot;
 
 public class FoodSpoiling {
-    public static double getPercentage(ItemStack stack, EntityPlayer player) {
-        if (FSLogic.canRot(stack) == EnumActionResult.SUCCESS) {
-            int remain = FSData.getRemainingLifetime(stack);
-            int total = getTicksToRot(player, stack);
-            double percentage = (double) remain / total;
-            return Math.round(percentage * 10) / 10.0;
+    public static int getPercentage(ItemStack stack, EntityPlayer player) {
+        if (canRot(stack) == EnumActionResult.SUCCESS && FSData.hasCreationTime(stack)) {
+            long exist = player.world.getTotalWorldTime() - FSData.getCreationTime(stack);
+            int total = FSLogic.getTicksToRot(player, stack);
+            int per = MathHelper.clamp(100 - (int)(exist * 100L / (long)total), 0, 100);
+            if (FSData.hasRemainingLifetime(stack)) {
+                per = FSData.getRemainingLifetime(stack) * 100 / total;
+            }
+            return per;
         }
-        return 0;
+        return 100;
     }
 
     @SubscribeEvent
@@ -43,12 +47,9 @@ public class FoodSpoiling {
     private static boolean isSpoiling(EntityPlayer player) {
         for (ItemStack stack : player.inventory.mainInventory) {
             if (stack.getItem() instanceof ItemFood) {
-                ItemStack food = new ItemStack(stack.getItem(), 1, stack.getMetadata());
-                for (ItemStack rot : FSMaps.FOOD_CONVERSIONS.values()) {
-                    if (ItemStack.areItemStacksEqual(food, rot)) {
-                        return true;
-                    }
-                }
+                int per = getPercentage(stack, player);
+                player.sendMessage(new TextComponentString(String.valueOf(per)));
+                return per == 0;
             }
         }
         return false;

@@ -75,7 +75,7 @@ public class CommonEvent {
                 double value = Double.parseDouble(Mechanics.items[num].split(";")[1]);
                 if (value > 0) {
                     if (Loader.isModLoaded("foodspoiling")) {
-                        double spoilage = FoodSpoiling.getPercentage(event.getItem(), player);
+                        double spoilage = FoodSpoiling.getPercentage(event.getItem(), player) / 100.0;
                         value *= spoilage;
                     }
                     sanity.recoverSanity(value);
