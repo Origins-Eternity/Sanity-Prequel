@@ -7,6 +7,7 @@ import com.origins_eternity.sanity.content.armor.Garland;
 import com.origins_eternity.sanity.content.capability.Capabilities;
 import com.origins_eternity.sanity.content.capability.sanity.ISanity;
 import com.origins_eternity.sanity.content.capability.sanity.Sanity;
+import mod.acgaming.foodspoiling.logic.FSData;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntityAnimal;
@@ -15,8 +16,10 @@ import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
@@ -39,6 +42,7 @@ import static com.origins_eternity.sanity.compat.Thaumcraft.getWarp;
 import static com.origins_eternity.sanity.config.Configuration.Mechanics;
 import static com.origins_eternity.sanity.content.capability.Capabilities.SANITY;
 import static com.origins_eternity.sanity.utils.Utils.*;
+import static mod.acgaming.foodspoiling.logic.FSLogic.canRot;
 
 @Mod.EventBusSubscriber(modid = MOD_ID)
 public class CommonEvent {
@@ -75,8 +79,13 @@ public class CommonEvent {
                 double value = Double.parseDouble(Mechanics.items[num].split(";")[1]);
                 if (value > 0) {
                     if (Loader.isModLoaded("foodspoiling")) {
-                        double spoilage = FoodSpoiling.getPercentage(event.getItem(), player) / 100.0;
-                        value *= spoilage;
+                        ItemStack stack = event.getItem();
+                        if (stack.getItem() instanceof ItemFood) {
+                            if (canRot(stack) == EnumActionResult.SUCCESS && FSData.hasCreationTime(stack)) {
+                                double spoilage = FoodSpoiling.getPercentage(event.getItem(), player) / 100.0;
+                                value *= spoilage;
+                            }
+                        }
                     }
                     sanity.recoverSanity(value);
                 } else {
