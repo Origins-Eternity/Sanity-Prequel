@@ -9,6 +9,7 @@ import com.origins_eternity.sanity.content.capability.sanity.ISanity;
 import com.origins_eternity.sanity.content.capability.sanity.Sanity;
 import mod.acgaming.foodspoiling.logic.FSData;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityTameable;
@@ -216,12 +217,12 @@ public class CommonEvent {
                     ISanity sanity = player.getCapability(SANITY, null);
                     sanity.consumeSanity(Mechanics.lost);
                 }
-            } else if (event.getEntity() instanceof EntityMob && event.getSource().getTrueSource() instanceof EntityPlayer) {
+            } else if (event.getEntity() instanceof EntityLiving && event.getSource().getTrueSource() instanceof EntityPlayer) {
                 EntityPlayer player = (EntityPlayer) event.getSource().getTrueSource();
                 ISanity sanity = player.getCapability(SANITY, null);
                 int num = entityMatched(event.getEntity(), Mechanics.mobs);
                 double value = num == -1 ? Mechanics.killMob : Double.parseDouble(Mechanics.mobs[num].split(";")[1]);
-                if (sanity.getCoolDown() == 0) {
+                if ((event.getEntity() instanceof EntityMob || num != -1) && sanity.getCoolDown() == 0) {
                     sanity.recoverSanity(value);
                     sanity.setCoolDown(20);
                 }

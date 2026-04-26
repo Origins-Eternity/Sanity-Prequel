@@ -187,7 +187,7 @@ public class Configuration {
 
         @Config.Name("Mobs")
         @Config.LangKey("config.sanity.mobs")
-        @Config.Comment("The list of mobs which will decrease sanity when players kill it. ('entity;value')")
+        @Config.Comment("The list of mobs which will increase sanity when players kill it. ('entity;value')")
         public String[] mobs = new String[]{"minecraft:wither;10.0"};
         
         @Config.Name("Equipments")
