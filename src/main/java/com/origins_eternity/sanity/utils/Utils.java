@@ -80,7 +80,7 @@ public class Utils {
             } else if (name.length == 3) {
                 ResourceLocation location = new ResourceLocation(name[0], name[1]);
                 if (item.getItem().equals(Item.REGISTRY.getObject(location))) {
-                    if (item.getMetadata() == Integer.parseInt(name[2])) {
+                    if (name[2].equals("*") || item.getMetadata() == Integer.parseInt(name[2])) {
                         return i;
                     }
                 }
@@ -102,7 +102,7 @@ public class Utils {
             } else if (name.length == 3) {
                 ResourceLocation location = new ResourceLocation(name[0], name[1]);
                 if (block.getBlock().equals(Block.REGISTRY.getObject(location))) {
-                    if (block.getBlock().getMetaFromState(block) == Integer.parseInt(name[2])) {
+                    if (name[2].equals("*") || block.getBlock().getMetaFromState(block) == Integer.parseInt(name[2])) {
                         return i;
                     }
                 }

@@ -173,7 +173,7 @@ public class Configuration {
         @Config.Name("Items")
         @Config.LangKey("config.sanity.items")
         @Config.Comment("The list of items and the sanity to decrease or increase when eat it. ('item;value')")
-        public String[] items = new String[]{"minecraft:rotten_flesh;-3.0", "minecraft:spider_eye;-3.0", "minecraft:chicken;-2.0", "minecraft:porkchop;-2.0", "minecraft:mutton;-2.0", "minecraft:beef;-2.0", "minecraft:rabbit;-2.0", "minecraft:poisonous_potato;-2.0", "minecraft:fish;-2.0", "minecraft:fish:1;-2.0", "minecraft:fish:2;-2.0", "minecraft:fish:3;-2.0"};
+        public String[] items = new String[]{"minecraft:rotten_flesh;-3.0", "minecraft:spider_eye;-3.0", "minecraft:chicken;-2.0", "minecraft:porkchop;-2.0", "minecraft:mutton;-2.0", "minecraft:beef;-2.0", "minecraft:rabbit;-2.0", "minecraft:poisonous_potato;-2.0", "minecraft:fish:*;-2.0"};
 
         @Config.Name("Environment")
         @Config.LangKey("config.sanity.environment")
