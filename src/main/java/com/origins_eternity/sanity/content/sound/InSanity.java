@@ -16,7 +16,7 @@ public class InSanity extends MovingSound {
     private final EntityPlayer player;
 
     public InSanity(SoundEvent sound, EntityPlayer player) {
-        super(sound, SoundCategory.MUSIC);
+        super(sound, SoundCategory.HOSTILE);
         this.player = player;
         this.repeat = true;
         this.repeatDelay = 0;
