@@ -10,4 +10,5 @@ dependencies {
     compileOnly "curse.maven:firstaid-276837:2871156"
     compileOnly "curse.maven:baubles-227083:2518667"
     compileOnly "curse.maven:foodspoiling-1133499:7147480"
+    compileOnly "curse.maven:pyrotech-306676:6253355"
 }

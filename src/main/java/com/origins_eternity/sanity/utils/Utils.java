@@ -32,6 +32,7 @@ import net.minecraftforge.fml.common.Loader;
 import toughasnails.api.TANCapabilities;
 import toughasnails.api.stat.capability.IThirst;
 
+import static com.codetaylor.mc.pyrotech.modules.tech.basic.ModuleTechBasic.Potions.COMFORT;
 import static com.origins_eternity.sanity.Sanity.packetHandler;
 import static com.origins_eternity.sanity.config.Configuration.Mechanics;
 import static com.origins_eternity.sanity.content.capability.Capabilities.SANITY;
@@ -62,6 +63,11 @@ public class Utils {
         if (player.world.getLight(new BlockPos(player), true) < 4) {
             if (!player.isPotionActive(MobEffects.NIGHT_VISION)) {
                 value -= Mechanics.dark;
+            }
+        }
+        if (Loader.isModLoaded("pyrotech")) {
+            if (player.isPotionActive(COMFORT)) {
+                value += Mechanics.campfire;
             }
         }
         return value + checkEquipment(player) + checkBody(player) + withCreature(player);

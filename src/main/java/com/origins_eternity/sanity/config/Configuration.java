@@ -134,6 +134,12 @@ public class Configuration {
         @Config.RangeDouble(min = 0.0, max = 0.5)
         public double pet = 0.2;
 
+        @Config.Name("Campfire")
+        @Config.LangKey("config.sanity.campfire")
+        @Config.Comment("The sanity to increase when players are around campfire and gain comfort effect from Pyrotech. (per 0.5s)")
+        @Config.RangeDouble(min = 0.0, max = 0.5)
+        public double campfire = 0.2;
+
         @Config.Name("Composure")
         @Config.LangKey("config.sanity.composure")
         @Config.Comment("The sanity to increase by the composure effect at each interval.")
