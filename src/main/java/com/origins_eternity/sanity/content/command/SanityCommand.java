@@ -1,7 +1,7 @@
 package com.origins_eternity.sanity.content.command;
 
-import com.origins_eternity.sanity.content.capability.Capabilities;
-import com.origins_eternity.sanity.content.capability.sanity.ISanity;
+import com.origins_eternity.sanity.capability.Capabilities;
+import com.origins_eternity.sanity.capability.sanity.ISanity;
 import net.minecraft.command.*;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
@@ -48,10 +48,10 @@ public class SanityCommand extends CommandBase {
                     double value = scanner.nextDouble();
                     switch (args[0]) {
                         case "add":
-                            sanity.recoverSanity(value);
+                            sanity.setSanity(sanity.getSanity() + value);
                             break;
                         case "remove":
-                            sanity.consumeSanity(value);
+                            sanity.setSanity(sanity.getSanity() - value);
                             break;
                         case "set":
                             sanity.setSanity(value);

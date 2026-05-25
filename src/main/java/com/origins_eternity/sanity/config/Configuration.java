@@ -10,6 +10,10 @@ import static com.origins_eternity.sanity.Sanity.MOD_ID;
 
 @Config(modid = MOD_ID)
 public class Configuration {
+    @Config.Name("Compat")
+    @Config.Comment("Mod Compat Options")
+    @Config.LangKey("config.sanity.compat")
+    public static ConfigCompat Compat = new ConfigCompat();
 
     @Config.Name("Mechanics")
     @Config.Comment("Mechanics Options")
@@ -25,6 +29,42 @@ public class Configuration {
     @Config.Comment("Effects Options")
     @Config.LangKey("config.sanity.effects")
     public static ConfigEffect Effect = new ConfigEffect();
+
+    public static class ConfigCompat {
+        @Config.Name("Food Spoiling")
+        @Config.LangKey("config.sanity.foodSpoiling")
+        @Config.Comment("The sanity to decrease when food spoiled in player's inventory. (only works with Food Spoiling mod.)")
+        @Config.RangeDouble(min = 0.0, max = 100.0)
+        public double foodSpoiling = 1.0;
+
+        @Config.Name("Thirst")
+        @Config.LangKey("config.sanity.thirst")
+        @Config.Comment("The sanity to decrease when player's thirstLevel < 6. (per 0.5s, support ToughAsNails and SimpleDifficulty)")
+        @Config.RangeDouble(min = 0.0, max = 0.5)
+        public double thirst = 0.1;
+
+        @Config.Name("Campfire")
+        @Config.LangKey("config.sanity.campfire")
+        @Config.Comment("The sanity to increase when players are around campfire and gain comfort effect from Pyrotech. (per 0.5s)")
+        @Config.RangeDouble(min = 0.0, max = 0.5)
+        public double campfire = 0.2;
+
+        @Config.Name("Quest")
+        @Config.LangKey("config.sanity.quest")
+        @Config.Comment("The sanity to increase when players complete a quest. (only support FTB Quests)")
+        @Config.RangeDouble(min = 0.0, max = 100.0)
+        public double quest = 10.0;
+
+        @Config.Name("Baubles")
+        @Config.LangKey("config.sanity.baubles")
+        @Config.Comment("The list of baubles which will decrease or increase sanity when players wear it. ('bauble;value', per 0.5s)")
+        public String[] baubles = new String[]{"sanity:garland;0.2"};
+
+        @Config.Name("Nutrition")
+        @Config.LangKey("config.sanity.nutrition")
+        @Config.Comment("The normal nutrition range and factors affecting the increase or decrease of sanity. ('decel_factor;accel_factor;min_nutrition;max_nutrition')")
+        public String nutrition = "0.8;1.25;20;80";
+    }
 
     public static class ConfigMechanics {
         @Config.Name("Reset Sanity")
@@ -49,12 +89,6 @@ public class Configuration {
         @Config.Comment("The sanity to decrease when players attack another player.")
         @Config.RangeDouble(min = 0.0, max = 100.0)
         public double attackPlayer = 2.0;
-
-        @Config.Name("Food Spoiling")
-        @Config.LangKey("config.sanity.foodSpoiling")
-        @Config.Comment("The sanity to decrease when food spoiled in player's inventory. (only works with Food Spoiling mod.)")
-        @Config.RangeDouble(min = 0.0, max = 100.0)
-        public double foodSpoiling = 1.0;
 
         @Config.Name("Hurt")
         @Config.LangKey("config.sanity.hurt")
@@ -92,12 +126,6 @@ public class Configuration {
         @Config.RangeDouble(min = 0.0, max = 0.5)
         public double hunger = 0.1;
 
-        @Config.Name("Thirst")
-        @Config.LangKey("config.sanity.thirst")
-        @Config.Comment("The sanity to decrease when player's thirstLevel < 6. (per 0.5s, support ToughAsNails and SimpleDifficulty)")
-        @Config.RangeDouble(min = 0.0, max = 0.5)
-        public double thirst = 0.1;
-
         @Config.Name("Choking")
         @Config.LangKey("config.sanity.choking")
         @Config.Comment("The sanity to decrease when player's air < 90. (per 0.5s)")
@@ -134,12 +162,6 @@ public class Configuration {
         @Config.RangeDouble(min = 0.0, max = 0.5)
         public double pet = 0.2;
 
-        @Config.Name("Campfire")
-        @Config.LangKey("config.sanity.campfire")
-        @Config.Comment("The sanity to increase when players are around campfire and gain comfort effect from Pyrotech. (per 0.5s)")
-        @Config.RangeDouble(min = 0.0, max = 0.5)
-        public double campfire = 0.2;
-
         @Config.Name("Composure")
         @Config.LangKey("config.sanity.composure")
         @Config.Comment("The sanity to increase by the composure effect at each interval.")
@@ -151,12 +173,6 @@ public class Configuration {
         @Config.Comment("The sanity to increase when players kill a mob.")
         @Config.RangeDouble(min = 0.0, max = 100.0)
         public double killMob = 2.5;
-
-        @Config.Name("Quest")
-        @Config.LangKey("config.sanity.quest")
-        @Config.Comment("The sanity to increase when players complete a quest. (only support FTB Quests)")
-        @Config.RangeDouble(min = 0.0, max = 100.0)
-        public double quest = 10.0;
 
         @Config.Name("Bred")
         @Config.LangKey("config.sanity.bred")
@@ -200,11 +216,6 @@ public class Configuration {
         @Config.LangKey("config.sanity.equipments")
         @Config.Comment("The list of equipments which will decrease or increase sanity when players wear it. ('equipment;value', per 0.5s)")
         public String[] equipments = new String[]{"sanity:garland;0.2"};
-
-        @Config.Name("Baubles")
-        @Config.LangKey("config.sanity.baubles")
-        @Config.Comment("The list of baubles which will decrease or increase sanity when players wear it. ('bauble;value', per 0.5s)")
-        public String[] baubles = new String[]{"sanity:garland;0.2"};
 
         @Config.Name("Dimensions")
         @Config.LangKey("config.sanity.dimensions")

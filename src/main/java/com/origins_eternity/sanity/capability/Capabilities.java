@@ -1,7 +1,7 @@
-package com.origins_eternity.sanity.content.capability;
+package com.origins_eternity.sanity.capability;
 
-import com.origins_eternity.sanity.content.capability.sanity.ISanity;
-import com.origins_eternity.sanity.content.capability.sanity.Sanity;
+import com.origins_eternity.sanity.capability.sanity.ISanity;
+import com.origins_eternity.sanity.capability.sanity.Sanity;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;

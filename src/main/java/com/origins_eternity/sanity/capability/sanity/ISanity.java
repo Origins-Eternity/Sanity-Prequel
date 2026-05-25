@@ -1,4 +1,4 @@
-package com.origins_eternity.sanity.content.capability.sanity;
+package com.origins_eternity.sanity.capability.sanity;
 
 public interface ISanity {
     void setMax(int sanity);
@@ -8,6 +8,14 @@ public interface ISanity {
     void setSanity(double sanity);
 
     float getSanity();
+
+    void setIncreaseFactor(double increase);
+
+    float getIncreaseFactor();
+
+    void setDecreaseFactor(double decrease);
+
+    float getDecreaseFactor();
 
     int getCoolDown();
 

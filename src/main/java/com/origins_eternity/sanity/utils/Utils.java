@@ -3,8 +3,8 @@ package com.origins_eternity.sanity.utils;
 import baubles.api.BaublesApi;
 import com.charles445.simpledifficulty.api.SDCapabilities;
 import com.charles445.simpledifficulty.api.thirst.IThirstCapability;
+import com.origins_eternity.sanity.capability.sanity.ISanity;
 import com.origins_eternity.sanity.compat.Baubles;
-import com.origins_eternity.sanity.content.capability.sanity.ISanity;
 import com.origins_eternity.sanity.content.potion.Potions;
 import com.origins_eternity.sanity.message.SyncSanity;
 import ichttt.mods.firstaid.common.EventHandler;
@@ -34,8 +34,9 @@ import toughasnails.api.stat.capability.IThirst;
 
 import static com.codetaylor.mc.pyrotech.modules.tech.basic.ModuleTechBasic.Potions.COMFORT;
 import static com.origins_eternity.sanity.Sanity.packetHandler;
+import static com.origins_eternity.sanity.capability.Capabilities.SANITY;
+import static com.origins_eternity.sanity.config.Configuration.Compat;
 import static com.origins_eternity.sanity.config.Configuration.Mechanics;
-import static com.origins_eternity.sanity.content.capability.Capabilities.SANITY;
 import static com.origins_eternity.sanity.content.tool.Umbrella.UMBRELLA;
 
 public class Utils {
@@ -55,7 +56,7 @@ public class Utils {
             value -= Mechanics.hunger;
         }
         if (isThirst(player)) {
-            value -= Mechanics.thirst;
+            value -= Compat.thirst;
         }
         if (player.getAir() < 90) {
             value -= Mechanics.choking;
@@ -67,7 +68,7 @@ public class Utils {
         }
         if (Loader.isModLoaded("pyrotech")) {
             if (player.isPotionActive(COMFORT)) {
-                value += Mechanics.campfire;
+                value += Compat.campfire;
             }
         }
         return value + checkEquipment(player) + checkBody(player) + withCreature(player);
@@ -136,7 +137,7 @@ public class Utils {
                 value += Double.parseDouble(Mechanics.equipments[num].split(";")[1]);
             }
         }
-        for (String args : Mechanics.baubles) {
+        for (String args : Compat.baubles) {
             String[] parts = args.split(";");
             Item bauble = Baubles.getByNameOrId(parts[0]);
             if (BaublesApi.isBaubleEquipped(player, bauble) != -1) {

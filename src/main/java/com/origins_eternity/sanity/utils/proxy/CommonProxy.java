@@ -1,8 +1,10 @@
 package com.origins_eternity.sanity.utils.proxy;
 
+import com.origins_eternity.sanity.capability.Capabilities;
 import com.origins_eternity.sanity.compat.FTBQuests;
 import com.origins_eternity.sanity.compat.FoodSpoiling;
-import com.origins_eternity.sanity.content.capability.Capabilities;
+import com.origins_eternity.sanity.compat.Nutrition;
+import com.origins_eternity.sanity.compat.Thaumcraft;
 import com.origins_eternity.sanity.content.command.SanityCommand;
 import com.origins_eternity.sanity.message.SyncSanity;
 import net.minecraftforge.common.MinecraftForge;
@@ -29,6 +31,12 @@ public class CommonProxy {
         }
         if (Loader.isModLoaded("foodspoiling")) {
             MinecraftForge.EVENT_BUS.register(FoodSpoiling.class);
+        }
+        if (Loader.isModLoaded("thaumcraft")) {
+            MinecraftForge.EVENT_BUS.register(Thaumcraft.class);
+        }
+        if (Loader.isModLoaded("nutrition")) {
+            MinecraftForge.EVENT_BUS.register(Nutrition.class);
         }
         registerPotionRecipes();
     }

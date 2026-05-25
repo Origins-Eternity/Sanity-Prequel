@@ -1,7 +1,7 @@
 package com.origins_eternity.sanity.content.potion;
 
-import com.origins_eternity.sanity.content.capability.Capabilities;
-import com.origins_eternity.sanity.content.capability.sanity.ISanity;
+import com.origins_eternity.sanity.capability.Capabilities;
+import com.origins_eternity.sanity.capability.sanity.ISanity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.entity.EntityLivingBase;

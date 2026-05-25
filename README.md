@@ -33,10 +33,10 @@
 - **Thirst. (support Tough As Nails and SimpleDifficulty)**  
 - **Get hurt.**  
 - **Rain.**  
-- **Dark. (only work when player doesn't have night vision effect)**  
+- **Dark. (works when player doesn't have night vision effect)**  
 - **Around mobs. (within 5 blocks)**  
 - **Around players with sanity < 50. (within 5 blocks)**  
-- **Food spoiled in inventory. (only work with Food Spoiling mod)**
+- **Food spoiled in inventory. (works with Food Spoiling)**
 - **Choking.**
 - **Change dimensions.**
 - **Lost pets.**  
@@ -47,16 +47,17 @@
 - **Eating healthy foods. (support custom items)**  
 - **Wearing garland.**  
 - **Gain advancements.**  
-- **Complete quests. (only support FTB Quests)**  
+- **Complete quests. (support FTB Quests)**  
 - **Stay with pets. (within 5 blocks)**  
 - **Around players with sanity ≥ 50. (within 5 blocks)**  
 - **Kill mobs.**  
 - **Composure effect.**
+- **Campfire. (works with Pyrotech)**
 ### Commands
 **Using commands need permission level 2. (support tab completion)**
 ![This is an image](https://s21.ax1x.com/2025/01/17/pEFjK81.png)
 ### CraftTweaker
-**Add a ZenExpansion for [IPlayer](https://docs.blamejared.com/1.12/en/Vanilla/Players/IPlayer) (`sanity`), which will return player's sanity value as float. Developers can call this method on any [IPlayer](https://docs.blamejared.com/1.12/en/Vanilla/Players/IPlayer) object, including its subtypes.**
+**Add a ZenExpansion for [IPlayer](https://docs.blamejared.com/1.12/en/Vanilla/Players/IPlayer) (`sanity`), which can return player's sanity value as float. And you can also use it to modify a player's sanity value like this:`player.sanity += 2.5`. Developers can call this method on any [IPlayer](https://docs.blamejared.com/1.12/en/Vanilla/Players/IPlayer) object, including its subtypes.**
 ```zenscript
 import crafttweaker.event.BlockHarvestDropsEvent;
 

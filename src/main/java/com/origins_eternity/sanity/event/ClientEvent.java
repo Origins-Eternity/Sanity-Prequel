@@ -1,6 +1,6 @@
 package com.origins_eternity.sanity.event;
 
-import com.origins_eternity.sanity.content.capability.sanity.ISanity;
+import com.origins_eternity.sanity.capability.sanity.ISanity;
 import com.origins_eternity.sanity.content.entity.FakeEntity;
 import com.origins_eternity.sanity.content.sound.InSanity;
 import net.minecraft.client.multiplayer.WorldClient;
@@ -23,9 +23,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.Random;
 
 import static com.origins_eternity.sanity.Sanity.MOD_ID;
+import static com.origins_eternity.sanity.capability.Capabilities.SANITY;
 import static com.origins_eternity.sanity.config.Configuration.Effect;
 import static com.origins_eternity.sanity.config.Configuration.Overlay;
-import static com.origins_eternity.sanity.content.capability.Capabilities.SANITY;
 import static com.origins_eternity.sanity.content.sound.Sounds.INSANITY;
 import static com.origins_eternity.sanity.utils.Utils.findSurface;
 import static com.origins_eternity.sanity.utils.Utils.isAwake;

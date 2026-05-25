@@ -1,18 +1,18 @@
-package com.origins_eternity.sanity.content.capability.sanity;
+package com.origins_eternity.sanity.capability.sanity;
 
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 
 public class Sanity implements ISanity {
     private int max = 100;
-
+    private float sanity = 100f;
+    private float increase = 1f;
+    private float decrease = 1f;
     private int coolDown = 0;
-
-    private float sanity = 100;
-
     private boolean enable = true;
 
     @Override
@@ -27,12 +27,32 @@ public class Sanity implements ISanity {
 
     @Override
     public void setSanity(double sanity) {
-        this.sanity = (float) sanity;
+        this.sanity = (float) MathHelper.clamp(sanity, 0, max);
     }
 
     @Override
     public float getSanity() {
         return sanity;
+    }
+
+    @Override
+    public void setIncreaseFactor(double increase) {
+        this.increase = (float) increase;
+    }
+
+    @Override
+    public float getIncreaseFactor() {
+        return increase;
+    }
+
+    @Override
+    public void setDecreaseFactor(double decrease) {
+        this.decrease = (float) decrease;
+    }
+
+    @Override
+    public float getDecreaseFactor() {
+        return decrease;
     }
 
     @Override
@@ -66,7 +86,7 @@ public class Sanity implements ISanity {
     public void consumeSanity(double value) {
         if (value >= 0 && enable) {
             if (sanity > 0f) {
-                sanity = Math.max(sanity - (float) value, 0);
+                sanity = (float) Math.max(sanity - decrease * value, 0);
             }
         }
     }
@@ -75,7 +95,7 @@ public class Sanity implements ISanity {
     public void recoverSanity(double value) {
         if (value >= 0 && enable) {
             if (sanity < max) {
-                sanity = Math.min(sanity + (float) value, max);
+                sanity = (float) Math.min(sanity + increase * value, max);
             }
         }
     }
@@ -118,9 +138,11 @@ public class Sanity implements ISanity {
         public NBTBase writeNBT(Capability<ISanity> capability, ISanity instance, EnumFacing side) {
             NBTTagCompound compound = new NBTTagCompound();
             compound.setInteger("Max", instance.getMax());
-            compound.setInteger("CoolDown", instance.getCoolDown());
             compound.setFloat("Sanity", instance.getSanity());
             compound.setBoolean("Enable", instance.getEnable());
+            compound.setInteger("CoolDown", instance.getCoolDown());
+            compound.setFloat("Increase", instance.getIncreaseFactor());
+            compound.setFloat("Decrease", instance.getDecreaseFactor());
             return compound;
         }
 
@@ -129,9 +151,11 @@ public class Sanity implements ISanity {
             if (nbt instanceof NBTTagCompound) {
                 NBTTagCompound compound = (NBTTagCompound) nbt;
                 instance.setMax(compound.getInteger("Max"));
-                instance.setCoolDown(compound.getInteger("CoolDown"));
                 instance.setSanity(compound.getFloat("Sanity"));
                 instance.setEnable(compound.getBoolean("Enable"));
+                instance.setCoolDown(compound.getInteger("CoolDown"));
+                instance.setIncreaseFactor(compound.getFloat("Increase"));
+                instance.setDecreaseFactor(compound.getFloat("Decrease"));
             }
         }
     }

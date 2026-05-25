@@ -2,11 +2,11 @@ package com.origins_eternity.sanity.event;
 
 import baubles.api.BaubleType;
 import baubles.api.BaublesApi;
+import com.origins_eternity.sanity.capability.Capabilities;
+import com.origins_eternity.sanity.capability.sanity.ISanity;
+import com.origins_eternity.sanity.capability.sanity.Sanity;
 import com.origins_eternity.sanity.compat.FoodSpoiling;
 import com.origins_eternity.sanity.content.armor.Garland;
-import com.origins_eternity.sanity.content.capability.Capabilities;
-import com.origins_eternity.sanity.content.capability.sanity.ISanity;
-import com.origins_eternity.sanity.content.capability.sanity.Sanity;
 import mod.acgaming.foodspoiling.logic.FSData;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -39,9 +39,8 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 import java.util.Arrays;
 
 import static com.origins_eternity.sanity.Sanity.MOD_ID;
-import static com.origins_eternity.sanity.compat.Thaumcraft.getWarp;
+import static com.origins_eternity.sanity.capability.Capabilities.SANITY;
 import static com.origins_eternity.sanity.config.Configuration.Mechanics;
-import static com.origins_eternity.sanity.content.capability.Capabilities.SANITY;
 import static com.origins_eternity.sanity.utils.Utils.*;
 import static mod.acgaming.foodspoiling.logic.FSLogic.canRot;
 
@@ -155,12 +154,6 @@ public class CommonEvent {
             if (event.phase != TickEvent.Phase.END) return;
             ISanity sanity = player.getCapability(SANITY, null);
             if (player.ticksExisted % 10 == 0 && !player.world.isRemote) {
-                if (Loader.isModLoaded("thaumcraft")) {
-                    sanity.setMax(100 - getWarp(player));
-                    if (sanity.getSanity() > sanity.getMax()) {
-                        sanity.setSanity(sanity.getMax());
-                    }
-                }
                 double value = tickPlayer(player);
                 if (value > 0) {
                     sanity.recoverSanity(value);

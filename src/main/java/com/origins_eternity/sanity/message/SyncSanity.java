@@ -1,7 +1,7 @@
 package com.origins_eternity.sanity.message;
 
-import com.origins_eternity.sanity.content.capability.Capabilities;
-import com.origins_eternity.sanity.content.capability.sanity.ISanity;
+import com.origins_eternity.sanity.capability.Capabilities;
+import com.origins_eternity.sanity.capability.sanity.ISanity;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
