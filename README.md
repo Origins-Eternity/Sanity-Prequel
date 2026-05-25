@@ -71,6 +71,8 @@ events.onBlockHarvestDrops(function(event as BlockHarvestDropsEvent) {
 });
 ```
 **This *example* script makes any small flowers drop a dead bush when broken by a player with sanity of 10 or less.**
+### Nutrition
+**The player's average nutrition level affects the rate at which sanity increases or decreases. (support [Nutrition Unofficial Extended Life](https://www.curseforge.com/minecraft/mc-mods/nutrition-unofficial-extended-life) and its forks version)**
 ### Thaumcraft 6
 **Warp in [Thaumcraft 6](https://ftbwiki.org/Thaumcraft_6) can affect player's max sanity. `max = 100 - warp` (permanent value and normal value, no more than 50)**
 ## About
