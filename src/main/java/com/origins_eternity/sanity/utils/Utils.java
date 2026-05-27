@@ -21,6 +21,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Potion;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -32,7 +33,6 @@ import net.minecraftforge.fml.common.Loader;
 import toughasnails.api.TANCapabilities;
 import toughasnails.api.stat.capability.IThirst;
 
-import static com.codetaylor.mc.pyrotech.modules.tech.basic.ModuleTechBasic.Potions.COMFORT;
 import static com.origins_eternity.sanity.Sanity.packetHandler;
 import static com.origins_eternity.sanity.capability.Capabilities.SANITY;
 import static com.origins_eternity.sanity.config.Configuration.Compat;
@@ -67,7 +67,8 @@ public class Utils {
             }
         }
         if (Loader.isModLoaded("pyrotech")) {
-            if (player.isPotionActive(COMFORT)) {
+            Potion comfort = Potion.REGISTRY.getObject(new ResourceLocation("pyrotech", "comfort"));
+            if (player.isPotionActive(comfort)) {
                 value += Compat.campfire;
             }
         }
