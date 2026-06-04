@@ -2,9 +2,9 @@
 [![This is an image](https://cf.way2muchnoise.eu/versions/1134090.svg)](https://www.curseforge.com/minecraft/mc-mods/sanity-prequel/files)
 [![This is an image](https://cf.way2muchnoise.eu/full_1134090_downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/sanity-prequel)
 ## Introduction
-**Inspired by the [Sanity: Descent Into Madness](https://github.com/croissantnova/SanityDescentIntoMadness) mod, players will gain some bad effects when in low sanity. Textures modified from Sanity: Descent Into Madness by croissantnova ([consent](https://s21.ax1x.com/2025/02/02/pEZa9S0.png)). Sound effects provided by [Zapsplat](https://www.zapsplat.com).**
-## Features
-**Most feature support custom configurations. Turn to mod's config file for more information. _Since version 1.3.3, you need Baubles mod as dependency._**
+**Inspired by the [Sanity: Descent Into Madness](https://github.com/croissantnova/SanityDescentIntoMadness) mod, players will gain some bad effects when in low sanity. Textures modified from Sanity: Descent Into Madness by croissantnova ([consent](https://s21.ax1x.com/2025/02/02/pEZa9S0.png)). Sound effects provided by [Zapsplat](https://www.zapsplat.com). Since _version 1.3.3_, you need Baubles mod as dependency.**
+## Content
+**This mod adds a garland, an umbrella, and a potion of composure to the game. The following are their feature descriptions.**
 ### Garland
 **Each garland has 60 durability in total, use any small flowers to craft it. Water, fire, lightning, and explosion can lead to damage it while wearing on head. (Equipped in armor or baubles slot)**
 ### Umbrella
@@ -12,6 +12,8 @@
 ![This is an image](https://s21.ax1x.com/2025/02/05/pEeKjN8.png)
 ### Potion
 **Add composure potion effect, which can recover 1 sanity every `60 >> amplifier` ticks. Brew any small flowers with an regeneration potion.**
+## Features
+**Most feature support custom configurations. Turn to mod's config file for more information.**
 ### Effects
 - **Sanity < 60, at the edges of things, red, green, and blue seem to be separated in your eyes.**
 - **Sanity < 55, blood texture flicker on the screen when sanity decrease.**
@@ -53,9 +55,11 @@
 - **Kill mobs.**  
 - **Composure effect.**
 - **Campfire. (works with Pyrotech)**
-### Commands
+## Commands
 **Using commands need permission level 2. (support tab completion)**
 ![This is an image](https://s21.ax1x.com/2025/01/17/pEFjK81.png)
+## Combat
+**All compatibility features will be enabled automatically when the mod is installed.**
 ### CraftTweaker
 **Add a ZenExpansion for [IPlayer](https://docs.blamejared.com/1.12/en/Vanilla/Players/IPlayer) (`sanity`), which can return player's sanity value as float. And you can also use it to modify a player's sanity value like this:`player.sanity += 2.5`. Developers can call this method on any [IPlayer](https://docs.blamejared.com/1.12/en/Vanilla/Players/IPlayer) object, including its subtypes.**
 ```zenscript
