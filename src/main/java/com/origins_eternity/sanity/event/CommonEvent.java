@@ -136,7 +136,15 @@ public class CommonEvent {
             EntityPlayer player = (EntityPlayer) event.getSource().getTrueSource();
             if (!player.isCreative() && !player.world.isRemote) {
                 ISanity sanity = player.getCapability(SANITY, null);
-                if (event.getEntity() instanceof EntityAnimal) {
+                int num = entityMatched(event.getEntity(), 2);
+                if (num != -1) {
+                    double value = Double.parseDouble(Mechanics.entities[num].split(";")[2]);
+                    if (value > 0) {
+                        sanity.recoverSanity(value);
+                    } else {
+                        sanity.consumeSanity(-value);
+                    }
+                } else if (event.getEntity() instanceof EntityAnimal) {
                     sanity.consumeSanity(Mechanics.attackAnimal);
                 } else if (event.getEntity() instanceof EntityVillager) {
                     sanity.consumeSanity(Mechanics.attackVillager);
@@ -213,10 +221,14 @@ public class CommonEvent {
             } else if (event.getEntity() instanceof EntityLiving && event.getSource().getTrueSource() instanceof EntityPlayer) {
                 EntityPlayer player = (EntityPlayer) event.getSource().getTrueSource();
                 ISanity sanity = player.getCapability(SANITY, null);
-                int num = entityMatched(event.getEntity(), Mechanics.mobs);
-                double value = num == -1 ? Mechanics.killMob : Double.parseDouble(Mechanics.mobs[num].split(";")[1]);
-                if ((event.getEntity() instanceof EntityMob || num != -1) && sanity.getCoolDown() == 0) {
-                    sanity.recoverSanity(value);
+                int num = entityMatched(event.getEntity(), 3);
+                double value = num == -1 ? Mechanics.killMob : Double.parseDouble(Mechanics.entities[num].split(";")[3]);
+                if (sanity.getCoolDown() == 0) {
+                    if (value > 0) {
+                        sanity.recoverSanity(value);
+                    } else {
+                        sanity.consumeSanity(-value);
+                    }
                     sanity.setCoolDown(20);
                 }
             }

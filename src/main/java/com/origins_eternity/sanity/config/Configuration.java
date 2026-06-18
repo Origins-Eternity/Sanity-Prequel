@@ -204,13 +204,8 @@ public class Configuration {
 
         @Config.Name("Entities")
         @Config.LangKey("config.sanity.entities")
-        @Config.Comment("The list of entities which will decrease or increase sanity when players stay with it. ('entity;value', per 0.5s, within 5 blocks)")
-        public String[] entities = new String[]{"minecraft:zombie_pigman;0.0"};
-
-        @Config.Name("Mobs")
-        @Config.LangKey("config.sanity.mobs")
-        @Config.Comment("The list of mobs which will increase sanity when players kill it. ('entity;value')")
-        public String[] mobs = new String[]{"minecraft:wither;10.0"};
+        @Config.Comment("The list of entities which will decrease or increase sanity when players stay with it, attack it and kill it. ('entity;stay_value;attack_value;kill_value', use '*' to indicate the default value.)")
+        public String[] entities = new String[]{"minecraft:zombie_pigman;0.0;*;*", "minecraft:wither;*;*;10.0"};
         
         @Config.Name("Equipments")
         @Config.LangKey("config.sanity.equipments")

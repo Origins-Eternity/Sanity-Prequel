@@ -119,12 +119,13 @@ public class Utils {
         return -1;
     }
 
-    public static int entityMatched(Entity entity, String[] list) {
-        for (int i = 0; i < list.length; i++) {
+    public static int entityMatched(Entity entity, int index) {
+        String[] list = Mechanics.entities;
+          for (int i = 0; i < list.length; i++) {
             String[] parts = list[i].split(";");
             ResourceLocation name = EntityList.getKey(entity);
             if (name != null && parts[0].equals(name.toString())) {
-                return i;
+                return list[i].split(";")[index].equals("*") ? -1 : i;
             }
         }
         return -1;
@@ -175,7 +176,7 @@ public class Utils {
         AxisAlignedBB box = player.getEntityBoundingBox().grow(5, 3, 5);
         for (EntityLivingBase entity: player.world.getEntitiesWithinAABB(EntityLivingBase.class, box)) {
             if (entity != null) {
-                int num = entityMatched(entity, Mechanics.entities);
+                int num = entityMatched(entity, 1);
                 if (num != -1) {
                     value += Double.parseDouble(Mechanics.entities[num].split(";")[1]);
                     continue;
