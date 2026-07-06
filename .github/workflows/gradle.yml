@@ -2,9 +2,9 @@ name: CI Build Verification
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [ main ]
   pull_request:
-    branches: [ main, master ]
+    branches: [ main ]
   workflow_dispatch:
 
 jobs:
@@ -13,16 +13,16 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up JDK 8
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           java-version: '8'
           distribution: 'adopt'
 
       - name: Cache Gradle dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             ~/.gradle/caches
@@ -37,8 +37,14 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build --no-daemon
 
+      - name: Prepare artifact name
+        id: prep
+        run: |
+          source gradle.properties
+          echo "artifact_name=${modArchivesBaseName}-${modVersion}" >> $GITHUB_OUTPUT
+
       - name: Upload built JAR as artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: $(source gradle.properties && echo "${modArchivesBaseName}-${modVersion}")
+          name: ${{ steps.prep.outputs.artifact_name }}
           path: build/libs/*.jar
