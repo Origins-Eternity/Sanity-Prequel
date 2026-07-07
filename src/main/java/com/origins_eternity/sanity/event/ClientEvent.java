@@ -3,6 +3,8 @@ package com.origins_eternity.sanity.event;
 import com.origins_eternity.sanity.capability.sanity.ISanity;
 import com.origins_eternity.sanity.content.entity.FakeEntity;
 import com.origins_eternity.sanity.content.sound.InSanity;
+import net.minecraft.client.audio.PositionedSoundRecord;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -14,6 +16,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
@@ -37,6 +40,7 @@ public class ClientEvent {
     private static int sound;
     private static int ghost;
     private static InSanity insanity;
+    private static boolean preloaded;
     public static boolean enabled;
     public static int up = -1;
     public static int down = -1;
@@ -69,12 +73,26 @@ public class ClientEvent {
                         }
                     }
                     if (value < Effect.whisper) {
-                        if (insanity == null || !mc().getSoundHandler().isSoundPlaying(insanity)) {
+                        if (!mc().getSoundHandler().isSoundPlaying(insanity)) {
                             insanity = new InSanity(INSANITY, player);
                             mc().getSoundHandler().playSound(insanity);
                         }
                     }
                 }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onClientTick(TickEvent.ClientTickEvent event) {
+        if (event.side == Side.CLIENT && event.phase == TickEvent.Phase.END) {
+            if (!preloaded) {
+                PositionedSoundRecord sound = PositionedSoundRecord.getMasterRecord(INSANITY, 0F);
+                mc().getSoundHandler().playSound(sound);
+                mc().addScheduledTask(() ->
+                        mc().getSoundHandler().stopSound(sound)
+                );
+                preloaded = true;
             }
         }
     }

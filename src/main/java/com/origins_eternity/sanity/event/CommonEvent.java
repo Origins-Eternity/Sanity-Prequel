@@ -10,7 +10,6 @@ import com.origins_eternity.sanity.content.armor.Garland;
 import mod.acgaming.foodspoiling.logic.FSData;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.passive.EntityVillager;
