@@ -25,13 +25,15 @@ import net.minecraft.potion.Potion;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.fml.common.Loader;
 import toughasnails.api.TANCapabilities;
 import toughasnails.api.stat.capability.IThirst;
+
+import java.util.HashSet;
+import java.util.Set;
 
 import static com.origins_eternity.sanity.Sanity.packetHandler;
 import static com.origins_eternity.sanity.capability.Capabilities.SANITY;
@@ -174,29 +176,51 @@ public class Utils {
     private static double withCreature(EntityPlayer player) {
         double value = 0;
         AxisAlignedBB box = player.getEntityBoundingBox().grow(5, 3, 5);
+
+        Set<Integer> entities = new HashSet<>();
+        boolean hasPet = false;
+        boolean hasMob = false;
+        boolean hasNormal = false;
+        boolean hasAbnormal = false;
+
         for (EntityLivingBase entity: player.world.getEntitiesWithinAABB(EntityLivingBase.class, box)) {
             if (entity != null) {
                 int num = entityMatched(entity, 1);
                 if (num != -1) {
-                    value += Double.parseDouble(Mechanics.entities[num].split(";")[1]);
+                    if (!entities.contains(num)) {
+                        value += Double.parseDouble(Mechanics.entities[num].split(";")[1]);
+                        entities.add(num);
+                    }
                     continue;
                 }
                 if (entity instanceof EntityTameable) {
                     EntityTameable pet = (EntityTameable) entity;
-                    value += pet.isTamed() && pet.isOwner(player) ? Mechanics.pet : 0;
+                    if (pet.isTamed() && pet.isOwner(player) && !hasPet) {
+                        value += Mechanics.pet;
+                        hasPet = true;
+                    }
                     continue;
                 }
                 if (entity instanceof EntityMob) {
-                    value -= Mechanics.mob;
+                    if (!hasMob) {
+                        value -= Mechanics.mob;
+                        hasMob = true;
+                    }
                     continue;
                 }
                 if (entity instanceof EntityPlayer && !(entity instanceof FakePlayer) && entity != player) {
                     ISanity sanity = entity.getCapability(SANITY, null);
-                    value += sanity.getSanity() >= 50 ? Mechanics.normal : -Mechanics.abnormal;
+                    if (sanity.getSanity() >= 50 && !hasNormal) {
+                        value += Mechanics.normal;
+                        hasNormal = true;
+                    } else if (!hasAbnormal) {
+                        value += Mechanics.abnormal;
+                        hasAbnormal = true;
+                    }
                 }
             }
         }
-        return MathHelper.clamp(value, -0.5, 0.5);
+        return value;
     }
 
     private static boolean isThirst(EntityPlayer player) {
