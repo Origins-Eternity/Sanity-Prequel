@@ -55,6 +55,7 @@
 - **Kill mobs.**  
 - **Composure effect.**
 - **Campfire. (works with Pyrotech)**
+- **JukeBox.**
 ## Commands
 **Using commands need permission level 2. (support tab completion)**
 ![This is an image](https://s21.ax1x.com/2025/01/17/pEFjK81.png)

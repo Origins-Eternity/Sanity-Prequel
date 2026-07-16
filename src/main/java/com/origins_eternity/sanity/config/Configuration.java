@@ -192,6 +192,11 @@ public class Configuration {
         @Config.RangeDouble(min = 0.0, max = 100.0)
         public double sleep = 50.0;
 
+        @Config.Name("JukeBox")
+        @Config.LangKey("config.sanity.jukebox")
+        @Config.Comment("The sanity to increase or decrease when jukebox plays music around players. ('distance;value', per 0.5s)")
+        public String jukebox = "16;0.2";
+
         @Config.Name("Items")
         @Config.LangKey("config.sanity.items")
         @Config.Comment("The list of items and the sanity to decrease or increase when eat it. ('item;value')")

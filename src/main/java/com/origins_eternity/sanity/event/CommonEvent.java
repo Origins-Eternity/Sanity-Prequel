@@ -8,6 +8,8 @@ import com.origins_eternity.sanity.capability.sanity.Sanity;
 import com.origins_eternity.sanity.compat.FoodSpoiling;
 import com.origins_eternity.sanity.content.armor.Garland;
 import mod.acgaming.foodspoiling.logic.FSData;
+import net.minecraft.block.BlockJukebox;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.passive.EntityAnimal;
@@ -15,27 +17,30 @@ import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.Blocks;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemFood;
+import net.minecraft.item.ItemRecord;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
 import net.minecraftforge.event.entity.living.*;
-import net.minecraftforge.event.entity.player.AdvancementEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.event.entity.player.PlayerSleepInBedEvent;
-import net.minecraftforge.event.entity.player.PlayerWakeUpEvent;
+import net.minecraftforge.event.entity.player.*;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerChangedDimensionEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedOutEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
-import java.util.Arrays;
+import java.util.*;
 
 import static com.origins_eternity.sanity.Sanity.MOD_ID;
 import static com.origins_eternity.sanity.capability.Capabilities.SANITY;
@@ -260,6 +265,61 @@ public class CommonEvent {
                     }
                 }
             }
+        }
+    }
+
+    public static final Map<BlockPos, List<EntityPlayer>> PLAYING_JUKEBOXES = new HashMap<>();
+
+    @SubscribeEvent
+    public static void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
+        if (!event.getWorld().isRemote) {
+            BlockPos pos = event.getPos();
+            if (event.getWorld().getBlockState(pos).getBlock().equals(Blocks.JUKEBOX)
+                    && event.getItemStack().getItem() instanceof ItemRecord) {
+                AxisAlignedBB box = new AxisAlignedBB(
+                        pos.getX() + 0.5 - 24, pos.getY() + 0.5 - 24, pos.getZ() + 0.5 - 24,
+                        pos.getX() + 0.5 + 24, pos.getY() + 0.5 + 24, pos.getZ() + 0.5 + 24
+                );
+                List<EntityPlayer> players = new ArrayList<>(event.getWorld().getEntitiesWithinAABB(EntityPlayer.class, box));
+                PLAYING_JUKEBOXES.putIfAbsent(pos, players);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onWorldTick(TickEvent.WorldTickEvent event) {
+        if (event.phase != TickEvent.Phase.END) return;
+        World world = event.world;
+        if (!world.isRemote && world.getTotalWorldTime() % 10 == 0) {
+            PLAYING_JUKEBOXES.keySet().removeIf(pos -> {
+                if (!world.isBlockLoaded(pos)) return true;
+                IBlockState state = world.getBlockState(pos);
+                return !state.getBlock().equals(Blocks.JUKEBOX) || !state.getValue(BlockJukebox.HAS_RECORD);
+            });
+
+            for (BlockPos jukeboxPos : PLAYING_JUKEBOXES.keySet()) {
+                String[] args = Mechanics.jukebox.split(";");
+                int range = Integer.parseInt(args[0]);
+                double value = Double.parseDouble(args[1]);
+                for (EntityPlayer player: PLAYING_JUKEBOXES.get(jukeboxPos)) {
+                    if (player.getDistanceSq(jukeboxPos) <= range * range) {
+                        ISanity sanity = player.getCapability(SANITY, null);
+                        if (value > 0) {
+                            sanity.recoverSanity(value);
+                        } else if (value < 0) {
+                            sanity.consumeSanity(-value);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onPlayerLoggedOut(PlayerLoggedOutEvent event) {
+        EntityPlayer player = event.player;
+        for (List<EntityPlayer> list : PLAYING_JUKEBOXES.values()) {
+            list.remove(player);
         }
     }
 }
