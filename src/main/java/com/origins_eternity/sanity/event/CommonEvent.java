@@ -268,20 +268,27 @@ public class CommonEvent {
         }
     }
 
-    public static final Map<BlockPos, List<EntityPlayer>> PLAYING_JUKEBOXES = new HashMap<>();
+    public static final Map<BlockPos, JukeboxData> PLAYING_JUKEBOXES = new HashMap<>();
 
     @SubscribeEvent
     public static void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
-        if (!event.getWorld().isRemote) {
+        World world = event.getWorld();
+        if (!world.isRemote) {
             BlockPos pos = event.getPos();
-            if (event.getWorld().getBlockState(pos).getBlock().equals(Blocks.JUKEBOX)
+            if (world.getBlockState(pos).getBlock().equals(Blocks.JUKEBOX)
                     && event.getItemStack().getItem() instanceof ItemRecord) {
-                AxisAlignedBB box = new AxisAlignedBB(
-                        pos.getX() + 0.5 - 24, pos.getY() + 0.5 - 24, pos.getZ() + 0.5 - 24,
-                        pos.getX() + 0.5 + 24, pos.getY() + 0.5 + 24, pos.getZ() + 0.5 + 24
-                );
-                List<EntityPlayer> players = new ArrayList<>(event.getWorld().getEntitiesWithinAABB(EntityPlayer.class, box));
-                PLAYING_JUKEBOXES.putIfAbsent(pos, players);
+                int num = stackMatched(event.getItemStack(), Mechanics.records);
+                if (num != -1) {
+                    String[] args = Mechanics.records[num].split(";");
+                    double value = Double.parseDouble(args[1]);
+                    int duration = Integer.parseInt(args[2]);
+                    AxisAlignedBB box = new AxisAlignedBB(
+                            pos.getX() + 0.5 - Mechanics.jukebox, pos.getY() + 0.5 - Mechanics.jukebox, pos.getZ() + 0.5 - Mechanics.jukebox,
+                            pos.getX() + 0.5 + Mechanics.jukebox, pos.getY() + 0.5 + Mechanics.jukebox, pos.getZ() + 0.5 + Mechanics.jukebox
+                    );
+                    List<EntityPlayer> players = new ArrayList<>(world.getEntitiesWithinAABB(EntityPlayer.class, box));
+                    PLAYING_JUKEBOXES.putIfAbsent(pos, new JukeboxData(players, value, duration, world.getTotalWorldTime()));
+                }
             }
         }
     }
@@ -297,12 +304,16 @@ public class CommonEvent {
                 return !state.getBlock().equals(Blocks.JUKEBOX) || !state.getValue(BlockJukebox.HAS_RECORD);
             });
 
-            for (BlockPos jukeboxPos : PLAYING_JUKEBOXES.keySet()) {
-                String[] args = Mechanics.jukebox.split(";");
-                int range = Integer.parseInt(args[0]);
-                double value = Double.parseDouble(args[1]);
-                for (EntityPlayer player: PLAYING_JUKEBOXES.get(jukeboxPos)) {
-                    if (player.getDistanceSq(jukeboxPos) <= range * range) {
+            PLAYING_JUKEBOXES.keySet().removeIf(pos -> {
+                JukeboxData data = PLAYING_JUKEBOXES.get(pos);
+                return world.getTotalWorldTime() - data.startTime > data.duration * 20L;
+            });
+
+            for (BlockPos pos : PLAYING_JUKEBOXES.keySet()) {
+                JukeboxData data = PLAYING_JUKEBOXES.get(pos);
+                for (EntityPlayer player: data.players) {
+                    if (player.getDistanceSq(pos) <= Mechanics.jukebox * Mechanics.jukebox) {
+                        double value = data.value;
                         ISanity sanity = player.getCapability(SANITY, null);
                         if (value > 0) {
                             sanity.recoverSanity(value);
@@ -318,8 +329,22 @@ public class CommonEvent {
     @SubscribeEvent
     public static void onPlayerLoggedOut(PlayerLoggedOutEvent event) {
         EntityPlayer player = event.player;
-        for (List<EntityPlayer> list : PLAYING_JUKEBOXES.values()) {
-            list.remove(player);
+        for (JukeboxData data : PLAYING_JUKEBOXES.values()) {
+            data.players.remove(player);
+        }
+    }
+
+    public static class JukeboxData {
+        public List<EntityPlayer> players;
+        public double value;
+        public int duration;
+        public long startTime;
+
+        JukeboxData(List<EntityPlayer> players, double value, int duration, long startTime) {
+            this.players = players;
+            this.value = value;
+            this.duration = duration;
+            this.startTime = startTime;
         }
     }
 }

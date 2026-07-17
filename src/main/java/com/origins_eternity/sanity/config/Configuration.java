@@ -192,19 +192,25 @@ public class Configuration {
         @Config.RangeDouble(min = 0.0, max = 100.0)
         public double sleep = 50.0;
 
-        @Config.Name("JukeBox")
+        @Config.Name("JukeBox Range")
         @Config.LangKey("config.sanity.jukebox")
-        @Config.Comment("The sanity to increase or decrease when jukebox plays music around players. ('distance;value', per 0.5s)")
-        public String jukebox = "16;0.2";
+        @Config.Comment("The effective radius within which jukebox can affect player's sanity.")
+        @Config.RangeInt(min = 0, max = 24)
+        public int jukebox = 24;
 
         @Config.Name("Items")
         @Config.LangKey("config.sanity.items")
-        @Config.Comment("The list of items and the sanity to decrease or increase when eat it. ('item;value')")
+        @Config.Comment("The list of items which will decrease or increase sanity when players use it. ('item;value')")
         public String[] items = new String[]{"minecraft:rotten_flesh;-3.0", "minecraft:spider_eye;-3.0", "minecraft:chicken;-2.0", "minecraft:porkchop;-2.0", "minecraft:mutton;-2.0", "minecraft:beef;-2.0", "minecraft:rabbit;-2.0", "minecraft:poisonous_potato;-2.0", "minecraft:fish:*;-2.0"};
+
+        @Config.Name("Records")
+        @Config.LangKey("config.sanity.records")
+        @Config.Comment("The list of records which will decrease or increase sanity per 0.5s when jukebox plays them around players. ('record;value;duration')")
+        public String[] records = new String[]{"minecraft:record_cat;0.2;185"};
 
         @Config.Name("Environment")
         @Config.LangKey("config.sanity.environment")
-        @Config.Comment("The list of blocks or liquids which will decrease or increase sanity when players are in it. ('block;value', per 0.5s)")
+        @Config.Comment("The list of blocks and liquids which will decrease or increase sanity per 0.5s when players stay in it. ('block;value')")
         public String[] blocks = new String[]{"minecraft:web;-0.1"};
 
         @Config.Name("Entities")
@@ -214,7 +220,7 @@ public class Configuration {
         
         @Config.Name("Equipments")
         @Config.LangKey("config.sanity.equipments")
-        @Config.Comment("The list of equipments which will decrease or increase sanity when players wear it. ('equipment;value', per 0.5s)")
+        @Config.Comment("The list of equipments which will decrease or increase sanity per 0.5s when players wear it. ('equipment;value')")
         public String[] equipments = new String[]{"sanity:garland;0.2"};
 
         @Config.Name("Dimensions")
